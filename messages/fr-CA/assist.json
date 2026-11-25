@@ -1,0 +1,31 @@
+{
+  "launcher": {
+    "label": "Ouvrir Escalîa Assist",
+    "tooltip": "Besoin d’aide ?"
+  },
+  "panel": {
+    "title": "Escalîa Assist",
+    "back": "Retour",
+    "close": "Fermer l’assistance"
+  },
+  "home": {
+    "welcome": "Comment pouvons-nous vous orienter ?",
+    "description": "Des ressources de démonstration pour découvrir les parcours d’aide prévus.",
+    "help": "Centre d’aide",
+    "faq": "Questions fréquentes",
+    "contact": "Contacter l’assistance",
+    "conversation": "Assistant intelligent",
+    "soon": "Prochainement"
+  },
+  "resource": {
+    "demo": "Ressource de démonstration",
+    "helpTitle": "Centre d’aide",
+    "helpBody": "Les guides d’aide réels seront publiés après validation des parcours et du contenu.",
+    "faqTitle": "Questions fréquentes",
+    "faqBody": "Les réponses affichées ici sont des exemples de structure, pas une assistance active.",
+    "contactTitle": "Contacter l’assistance",
+    "contactBody": "Aucun canal de contact n’est configuré. Aucun message ne peut être envoyé depuis cette application.",
+    "conversationTitle": "Assistant intelligent",
+    "conversationBody": "Cette capacité est prévue, mais aucun fournisseur, modèle, contrat de confidentialité ou canal de données n’est connecté."
+  }
+}

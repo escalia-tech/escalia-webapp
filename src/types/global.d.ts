@@ -1,5 +1,6 @@
 import type { AppLocale } from "@/i18n/routing";
 
+import type assist from "../../messages/fr-CA/assist.json";
 import type auth from "../../messages/fr-CA/auth.json";
 import type common from "../../messages/fr-CA/common.json";
 import type dashboard from "../../messages/fr-CA/dashboard.json";
@@ -17,6 +18,7 @@ declare module "next-intl" {
     Locale: AppLocale;
     Messages: {
       common: typeof common;
+      assist: typeof assist;
       shell: typeof shell;
       auth: typeof auth;
       legal: typeof legal;

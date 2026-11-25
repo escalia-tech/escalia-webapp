@@ -8,6 +8,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations } from "next-intl/server";
 
 import { APP_CONFIG } from "@/config/app-config";
+import { AssistWidget } from "@/features/assist/components/assist-widget";
 import { LOCALE_META } from "@/i18n/config";
 import { routing } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
@@ -79,6 +80,7 @@ export default async function LocaleLayout({
             }}
           >
             {children}
+            <AssistWidget />
           </AppProviders>
         </NextIntlClientProvider>
       </body>

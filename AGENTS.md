@@ -1,2 +1,4 @@
 # Instructions agents Escalia
 Lire README.md, puis les skills pertinents dans .agents/skills/ et leurs documents référencés. Pour toute implémentation utiliser UI et observabilité ; MCP selon besoin. INITIALIZE_PROJECT.md uniquement sur demande d'initialisation. Le produit ne donne pas autorisation d'implémenter les capacités futures. Ne pas inventer contrats, permissions, workflows. En cas de conflit signaler et demander arbitrage. Tests réellement exécutés seulement. Ne pas modifier assets officiels.
+
+Escalia Assist : lire `.agents/skills/escalia-assist-expert/SKILL.md` avant toute création ou évolution du widget. Il reste un centre d’assistance local et démonstratif tant qu’aucun fournisseur, contrat de confidentialité, BFF, autorisation et isolation tenant ne sont approuvés. Ne transmettre aucun contexte de page, donnée métier, PII, token ou contenu conversationnel ; ne pas créer de tracking, cookie ou faux statut de support.

@@ -1,0 +1,31 @@
+{
+  "launcher": {
+    "label": "Open Escalîa Assist",
+    "tooltip": "Need help?"
+  },
+  "panel": {
+    "title": "Escalîa Assist",
+    "back": "Back",
+    "close": "Close support"
+  },
+  "home": {
+    "welcome": "How can we point you in the right direction?",
+    "description": "Demonstration resources that show the intended support journeys.",
+    "help": "Help centre",
+    "faq": "Frequently asked questions",
+    "contact": "Contact support",
+    "conversation": "Smart assistant",
+    "soon": "Coming soon"
+  },
+  "resource": {
+    "demo": "Demonstration resource",
+    "helpTitle": "Help centre",
+    "helpBody": "Real help guides will be published after the journeys and content have been approved.",
+    "faqTitle": "Frequently asked questions",
+    "faqBody": "The answers shown here demonstrate structure only; they are not active support.",
+    "contactTitle": "Contact support",
+    "contactBody": "No support channel is configured. A message cannot be sent from this application.",
+    "conversationTitle": "Smart assistant",
+    "conversationBody": "This capability is planned, but no provider, model, privacy contract or data channel is connected."
+  }
+}
