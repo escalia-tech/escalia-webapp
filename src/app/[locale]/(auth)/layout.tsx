@@ -5,7 +5,8 @@ import { getTranslations } from "next-intl/server";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
 import { ThemeSwitcher } from "@/components/layout/theme-switcher";
-import { AuthIllustration } from "@/features/auth/components/auth-illustration";
+import { AuthBrandPanel } from "@/features/auth/components/auth-brand-panel";
+import { AuthDraftPreserver } from "@/features/auth/components/auth-draft-preserver";
 import { Link } from "@/i18n/navigation";
 
 /**
@@ -27,8 +28,8 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
 
       <div className="flex min-w-0 flex-col px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-10">
         <header className="flex items-center justify-between gap-3 py-2">
-          <Link href="/login" aria-label="Escalia">
-            <BrandLogo className="h-9 sm:h-10" priority />
+          <Link href="/login" aria-label="Escalia" className="rounded-md focus-visible:ring-2 focus-visible:ring-ring">
+            <BrandLogo className="h-12 sm:h-16 lg:h-[4.125rem]" priority />
           </Link>
           <div className="flex items-center gap-1.5">
             <LocaleSwitcher />
@@ -42,6 +43,7 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
           aria-label={t("mainLabel")}
           className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center py-8"
         >
+          <AuthDraftPreserver />
           {children}
         </main>
 
@@ -72,13 +74,8 @@ export default async function AuthLayout({ children }: { children: ReactNode }) 
         </footer>
       </div>
 
-      <aside className="hidden p-4 pl-0 lg:block" aria-hidden>
-        <div className="bg-secondary text-secondary-foreground relative flex h-full flex-col justify-between overflow-hidden rounded-2xl p-10">
-          <p lang="fr" className="max-w-xs text-2xl font-semibold tracking-tight text-balance">
-            {t("tagline")}
-          </p>
-          <AuthIllustration className="mx-auto w-full max-w-md" />
-        </div>
+      <aside className="hidden p-4 pl-0 lg:block" aria-label={t("tagline")}>
+        <AuthBrandPanel />
       </aside>
     </div>
   );
