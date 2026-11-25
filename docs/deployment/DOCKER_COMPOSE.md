@@ -35,7 +35,7 @@ Contient uniquement l’orchestration Compose, pas la config métier :
 
 ## `deploy/runtime.env`
 
-Variables lues par `getServerEnv()` au démarrage du conteneur : `APP_ENV`, `APP_URL`, `LOG_*`, `OTEL_*`, `DEMO_*`, etc. Aucune duplication de version applicative.
+Variables lues par `getServerEnv()` au démarrage du conteneur : `APP_ENV`, `LOG_*`, `OTEL_*`, `DEMO_*`, etc. L’origine HTTP est inférée par requête (`Host`, `X-Forwarded-*`).
 
 Exemple démo (non production) : éditer `deploy/runtime.env` → `APP_ENV=staging`, `DEMO_MODE_ENABLED=true`.
 

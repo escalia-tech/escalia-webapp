@@ -42,7 +42,7 @@ curl -sS http://localhost:3000/api/health/ready
 npm run docker:stop
 ```
 
-Variables utiles au run : `APP_ENV` (défaut `staging` dans le script), `APP_URL`, `LOG_LEVEL`, `LOG_FORMAT`.
+Variables utiles au run : `APP_ENV` (défaut `staging` dans le script), `LOG_LEVEL`, `LOG_FORMAT`. L’URL publique est déduite des en-têtes `Host` / `X-Forwarded-*`.
 
 ## Multi-architecture (Buildx)
 
@@ -81,11 +81,11 @@ docker image inspect escalia-webapp:0.1.0 --format '{{json .Config.Labels}}'
 | Variable | Build | Runtime | Publique | Sensible |
 |----------|-------|---------|----------|----------|
 | `NEXT_PUBLIC_CLIENT_LOGGING_ENABLED` | ✓ | — | oui | non |
-| `APP_ENV`, `APP_URL` | — | ✓ | non | non |
+| `APP_ENV` | — | ✓ | non | non |
 | `DEMO_MODE_ENABLED`, `DEMO_SESSION_SECRET` | — | ✓ | non | secret (demo) |
 | `LOG_*`, `OTEL_*`, `BFF_UPSTREAM_TIMEOUT_MS` | — | ✓ | non | non |
 
-En production conteneurisée : `APP_ENV=production`, `DEMO_MODE_ENABLED=false`, `LOG_FORMAT=json`, `APP_URL` = URL publique réelle.
+En production conteneurisée : `APP_ENV=production`, `DEMO_MODE_ENABLED=false`, `LOG_FORMAT=json` ; le proxy doit transmettre `X-Forwarded-Host` et `X-Forwarded-Proto`.
 
 Limitation Next.js : toute variable `NEXT_PUBLIC_*` exige un **rebuild** pour changer de valeur entre environnements.
 

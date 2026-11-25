@@ -41,7 +41,6 @@ export default defineConfig({
     timeout: 60_000,
     env: {
       APP_ENV: "test",
-      APP_URL: baseURL,
       DEMO_MODE_ENABLED: "true",
       DEMO_SESSION_SECRET: "e2e-demo-session-secret-0123456789abcdef",
       LOG_LEVEL: "warn",

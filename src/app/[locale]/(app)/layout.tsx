@@ -1,12 +1,11 @@
 import type { ReactNode } from "react";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-
 import { hasLocale } from "next-intl";
 
 import { AppShell } from "@/components/layout/app-shell";
 import { getNotifications } from "@/features/notifications/server/notifications.service";
+import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { COOKIE_NAMES } from "@/lib/cookies";
 import { getSession } from "@/server/auth/session";
@@ -28,8 +27,8 @@ export default async function AppLayout({
 
   const session = await getSession();
   if (!session) {
-    // next/navigation's redirect is typed `never`, which narrows `session` below.
-    redirect(`/${resolvedLocale}/login`);
+    redirect({ href: "/login", locale: resolvedLocale });
+    return null;
   }
 
   const [cookieStore, notifications] = await Promise.all([cookies(), getNotifications()]);

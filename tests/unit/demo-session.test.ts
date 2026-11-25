@@ -31,6 +31,18 @@ describe("demo session token", () => {
     expect(verifyDemoSessionToken(token, now + (DEMO_SESSION_TTL_SECONDS + 5) * 1000)).toBeNull();
   });
 
+  it("uses a stable Vercel project secret when DEMO_SESSION_SECRET is unset", async () => {
+    vi.stubEnv("DEMO_SESSION_SECRET", "");
+    vi.stubEnv("VERCEL_PROJECT_ID", "prj_test_escalia");
+    const first = await load();
+    const token = first.issueDemoSessionToken();
+    vi.resetModules();
+    vi.stubEnv("DEMO_SESSION_SECRET", "");
+    vi.stubEnv("VERCEL_PROJECT_ID", "prj_test_escalia");
+    const second = await load();
+    expect(second.verifyDemoSessionToken(token)?.id).toHaveLength(8);
+  });
+
   it("rejects a token signed with another secret", async () => {
     const first = await load();
     const token = first.issueDemoSessionToken();

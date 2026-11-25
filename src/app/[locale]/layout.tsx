@@ -12,18 +12,19 @@ import { AssistWidget } from "@/features/assist/components/assist-widget";
 import { LOCALE_META } from "@/i18n/config";
 import { routing } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
+import { resolvePublicOrigin } from "@/lib/request-origin";
 import { CORRELATION_ID_HEADER } from "@/lib/observability/tracing/correlation";
 import { AppProviders } from "@/providers/app-providers";
 import { getServerEnv } from "@/server/config/env";
-
 import "../globals.css";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: "common" });
+  const requestHeaders = await headers();
   return {
-    metadataBase: new URL(getServerEnv().appUrl ?? APP_CONFIG.fallbackUrl),
+    metadataBase: new URL(resolvePublicOrigin(requestHeaders)),
     title: { default: t("meta.title"), template: `%s · ${APP_CONFIG.name}` },
     description: t("meta.description"),
     applicationName: APP_CONFIG.name,

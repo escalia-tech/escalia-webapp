@@ -85,7 +85,6 @@ Extrait YAML équivalent :
 data:
   NODE_ENV: production
   APP_ENV: production
-  APP_URL: https://app.example.com
   LOG_LEVEL: info
   LOG_FORMAT: json
   OTEL_ENABLED: "false"
@@ -105,7 +104,7 @@ Ne jamais monter de fichier `.env` de développement.
 
 - Service `ClusterIP` port 3000 → conteneur 3000.
 - Ingress ou Gateway API selon votre plateforme ; Escalia n’impose pas de reverse proxy particulier.
-- TLS terminé en amont ; `APP_URL` doit refléter l’URL HTTPS publique.
+- TLS terminé en amont ; l’Ingress doit envoyer `X-Forwarded-Host` et `X-Forwarded-Proto` (origine déduite par l’app).
 
 ## Observabilité
 

@@ -8,8 +8,8 @@ import { z } from "zod";
 export const APP_ENVIRONMENTS = ["local", "development", "test", "staging", "production"] as const;
 export type AppEnvironment = (typeof APP_ENVIRONMENTS)[number];
 
-/** Environments in which demo fixtures, the demo session and the component gallery may run. */
-export const DEMO_ALLOWED_ENVIRONMENTS: readonly AppEnvironment[] = ["local", "development", "test"];
+/** Legacy allowlist kept for documentation; runtime demo uses `resolveDemoModeEnabled`. */
+export const DEMO_ALLOWED_ENVIRONMENTS: readonly AppEnvironment[] = ["local", "development", "test", "staging"];
 
 export const LOG_LEVELS = ["trace", "debug", "info", "warn", "error", "fatal"] as const;
 export type LogLevel = (typeof LOG_LEVELS)[number];
@@ -27,7 +27,6 @@ const booleanFlag = z.preprocess(
 const serverEnvSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   APP_ENV: z.preprocess(emptyToUndefined, z.enum(APP_ENVIRONMENTS).optional()),
-  APP_URL: z.preprocess(emptyToUndefined, z.url().default("http://localhost:3000")),
   DEMO_MODE_ENABLED: booleanFlag,
   DEMO_SESSION_SECRET: z.preprocess(emptyToUndefined, z.string().min(32).optional()),
   LOG_LEVEL: z.preprocess(emptyToUndefined, z.enum(LOG_LEVELS).optional()),
@@ -43,8 +42,7 @@ export interface ServerEnv {
   nodeEnv: "development" | "production" | "test";
   appEnv: AppEnvironment;
   isProduction: boolean;
-  appUrl: string;
-  /** True only when the flag is set AND the environment is allowed to run demo features. */
+  /** Demo fixtures and entry: on by default except real production; opt out with DEMO_MODE_ENABLED=false. */
   demoModeEnabled: boolean;
   demoSessionSecret: string | undefined;
   logLevel: LogLevel;
@@ -67,8 +65,23 @@ export class EnvironmentConfigError extends Error {
 
 /**
  * Parse and validate environment variables. Error messages list variable NAMES only, never values.
- * Production fails closed: demo mode is ignored there even when DEMO_MODE_ENABLED=true.
+ * Self-hosted APP_ENV=production stays fail-closed; every Vercel deployment keeps demo on unless DEMO_MODE_ENABLED=false.
  */
+function isVercelRuntime(source: Record<string, string | undefined>): boolean {
+  return source.VERCEL === "1" || Boolean(source.VERCEL_ENV?.trim());
+}
+
+function resolveDemoModeEnabled(appEnv: AppEnvironment, source: Record<string, string | undefined>): boolean {
+  const raw = source.DEMO_MODE_ENABLED?.trim().toLowerCase();
+  if (raw === "false") return false;
+
+  if (isVercelRuntime(source)) return true;
+
+  if (appEnv === "production") return false;
+
+  return true;
+}
+
 export function parseServerEnv(source: Record<string, string | undefined>): ServerEnv {
   const parsed = serverEnvSchema.safeParse(source);
   if (!parsed.success) {
@@ -94,8 +107,7 @@ export function parseServerEnv(source: Record<string, string | undefined>): Serv
     nodeEnv: data.NODE_ENV,
     appEnv,
     isProduction,
-    appUrl: data.APP_URL,
-    demoModeEnabled: data.DEMO_MODE_ENABLED && DEMO_ALLOWED_ENVIRONMENTS.includes(appEnv),
+    demoModeEnabled: resolveDemoModeEnabled(appEnv, source),
     demoSessionSecret: data.DEMO_SESSION_SECRET,
     logLevel: data.LOG_LEVEL ?? (isLocal ? "debug" : "info"),
     logFormat: data.LOG_FORMAT ?? (isLocal ? "pretty" : "json"),
