@@ -1,0 +1,37 @@
+{
+  "status": {
+    "badge": "Coming soon",
+    "title": "This section is not available yet",
+    "body": "The journeys, business rules, API contracts and permissions of this section must be specified first. No fake data or action is shown.",
+    "noActions": "No action is available at this time.",
+    "reference": "Meanwhile, the Properties section shows the expected behaviour of lists and detail pages."
+  },
+  "units": {
+    "title": "Units",
+    "description": "Browse and follow the units attached to properties."
+  },
+  "tenants": {
+    "title": "Tenants",
+    "description": "Tenant records and contextual communication."
+  },
+  "leases": {
+    "title": "Leases",
+    "description": "Follow leases, due dates and related documents."
+  },
+  "payments": {
+    "title": "Payments",
+    "description": "Follow rents and transactions. Nothing is confirmed before the server confirms it."
+  },
+  "maintenance": {
+    "title": "Requests & maintenance",
+    "description": "Tenant requests and property maintenance follow-up."
+  },
+  "documents": {
+    "title": "Documents",
+    "description": "Upload, view and organise authorised documents."
+  },
+  "reports": {
+    "title": "Reports",
+    "description": "Financial trends, comparisons and breakdowns."
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Properties",
+  "description": "Demo list showing search, filtering, sorting and pagination.",
+  "types": {
+    "multi-residential": "Multi-residential",
+    "single-family": "Single-family",
+    "condominium": "Condominium",
+    "commercial": "Commercial",
+    "mixed-use": "Mixed-use"
+  },
+  "list": {
+    "region": "Property list",
+    "caption": "Demo properties, sorted and filtered according to your criteria",
+    "search": {
+      "label": "Search properties",
+      "placeholder": "Name or city…"
+    },
+    "filters": {
+      "type": "Property type",
+      "allTypes": "All types"
+    },
+    "columns": {
+      "name": "Property",
+      "type": "Type",
+      "city": "City",
+      "units": "Units",
+      "occupancy": "Occupancy",
+      "rentDue": "Rent due",
+      "rentReceived": "Rent received"
+    },
+    "sort": {
+      "ascending": "Sort by {column}, ascending",
+      "descending": "Sort by {column}, descending",
+      "current": "Sorted by {column}, {direction} order",
+      "asc": "ascending",
+      "desc": "descending"
+    },
+    "unavailable": "Not available",
+    "unitsCount": "{count, plural, one {# unit} other {# units}}",
+    "resultsAnnouncement": "{count, plural, =0 {No results} one {# result} other {# results}}",
+    "refreshing": "Refreshing results…",
+    "empty": {
+      "title": "No properties",
+      "description": "No property is available at this time."
+    },
+    "noResults": {
+      "title": "No results",
+      "description": "No property matches your search or filters."
+    },
+    "error": {
+      "title": "Unable to load properties",
+      "description": "The list could not be loaded. Your filters are kept; you can try again."
+    },
+    "scenario": {
+      "title": "Demo simulation",
+      "body": "A failure or slowness scenario is active in the address (“scenario” parameter). Remove it to return to normal behaviour.",
+      "clear": "Remove simulation"
+    }
+  },
+  "detail": {
+    "back": "Back to the property list",
+    "address": "Address",
+    "type": "Type",
+    "units": "Units",
+    "occupancy": "Occupancy rate",
+    "occupancyInfo": "Provided by the data source, not recomputed. “Not available” is different from 0%.",
+    "rentDue": "Rent due (reference month)",
+    "rentReceived": "Rent received (reference month)",
+    "summaryTitle": "Property record",
+    "historyTitle": "Rent history",
+    "notFound": {
+      "title": "Property not found",
+      "description": "This property does not exist or is no longer available."
+    },
+    "note": {
+      "title": "Internal note (demo form)",
+      "description": "Example of a validated form. No data is saved or sent.",
+      "label": "Note",
+      "placeholder": "Enter a demo note…",
+      "help": "Between 3 and 280 characters. Nothing is kept.",
+      "counter": "{count} / 280",
+      "submit": "Validate note",
+      "reset": "Reset",
+      "dirty": "Unsaved changes",
+      "validated": "Valid note. Demo: no data was saved.",
+      "errors": {
+        "tooShort": "The note must contain at least 3 characters.",
+        "tooLong": "The note cannot exceed 280 characters."
+      }
+    },
+    "period": "Reference month"
+  }
+}

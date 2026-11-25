@@ -1,0 +1,115 @@
+{
+  "title": "Configuration",
+  "description": "Gérez votre profil, vos préférences et vos paramètres de confidentialité.",
+  "nav": {
+    "label": "Sections de la configuration",
+    "profile": "Profil",
+    "preferences": "Préférences",
+    "security": "Sécurité",
+    "privacy": "Confidentialité",
+    "notifications": "Notifications"
+  },
+  "demoAdapter": {
+    "title": "Adaptateur de démonstration",
+    "body": "Aucun profil n’est encore disponible côté serveur. Les choix enregistrés ici sont conservés dans un témoin HttpOnly de démonstration, uniquement pour ce navigateur."
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Informations associées à votre session.",
+    "readOnlyTitle": "Lecture seule",
+    "readOnlyBody": "Le profil provient du fournisseur d’identité, qui n’est pas encore configuré. Les informations ci-dessous sont fictives et ne peuvent pas être modifiées.",
+    "name": "Nom affiché",
+    "email": "Courriel",
+    "session": "Type de session",
+    "sessionValue": "Session de démonstration (aucune identité réelle)"
+  },
+  "preferences": {
+    "title": "Préférences",
+    "description": "Langue, thème et fuseau horaire de votre espace.",
+    "language": {
+      "label": "Langue préférée",
+      "help": "La langue est indépendante du pays, de la devise et du fuseau horaire. Le sélecteur FR/EN de l’en-tête change la langue temporairement pour la session ; l’enregistrement ci-dessous la rend permanente.",
+      "fr-CA": "Français (Canada)",
+      "en-CA": "English (Canada)"
+    },
+    "theme": {
+      "label": "Thème",
+      "help": "Le thème s’applique immédiatement et reste mémorisé sur cet appareil."
+    },
+    "timezone": {
+      "label": "Fuseau horaire",
+      "help": "Utilisé pour l’affichage des dates et heures. N’influence aucune règle fiscale.",
+      "options": {
+        "America/St_Johns": "Terre-Neuve (Saint-Jean)",
+        "America/Halifax": "Atlantique (Halifax)",
+        "America/Toronto": "Est (Toronto, Montréal, Ottawa)",
+        "America/Winnipeg": "Centre (Winnipeg)",
+        "America/Regina": "Centre sans heure d’été (Regina)",
+        "America/Edmonton": "Montagnes (Edmonton)",
+        "America/Vancouver": "Pacifique (Vancouver)"
+      }
+    },
+    "save": "Enregistrer les préférences",
+    "saving": "Enregistrement…",
+    "saved": "Préférences enregistrées.",
+    "savedDescription": "Adaptateur de démonstration : conservées uniquement pour ce navigateur.",
+    "error": "Les préférences n’ont pas pu être enregistrées.",
+    "errorReference": "Référence : {id}",
+    "priority": "Priorité de la langue : choix temporaire de l’en-tête, puis préférence enregistrée, puis français (Canada)."
+  },
+  "security": {
+    "title": "Sécurité",
+    "description": "Authentification et sessions.",
+    "providerTitle": "Fournisseur d’identité non configuré",
+    "providerBody": "Le mot de passe, la vérification en deux étapes et la gestion des sessions seront disponibles lorsque le fournisseur d’identité aura été retenu et ses contrats confirmés. Aucune action de sécurité factice n’est proposée.",
+    "sessionTitle": "Session actuelle",
+    "sessionBody": "Session de démonstration signée, de type HttpOnly, valide 8 heures. Elle ne contient aucune information personnelle réelle et n’existe pas en production."
+  },
+  "privacy": {
+    "title": "Confidentialité",
+    "description": "Témoins et stockage utilisés par l’application.",
+    "summaryTitle": "Aucun traçage",
+    "summaryBody": "Escalia n’utilise aucun témoin publicitaire, aucune analytique tierce et aucun enregistrement de session. Seuls des témoins et un stockage strictement nécessaires au fonctionnement sont utilisés ; aucun consentement n’est donc demandé à ce stade.",
+    "legalNote": "Qualification à faire valider (Loi 25 et autres obligations) avant toute mise en production.",
+    "consentTitle": "Consentement",
+    "consentBody": "Sans traitement facultatif, il n’y a rien à accepter ni à retirer. Si un traitement facultatif est ajouté un jour, il sera bloqué tant qu’il n’est pas accepté, et le retrait sera possible ici.",
+    "inventoryTitle": "Inventaire des témoins et du stockage",
+    "columns": {
+      "name": "Nom",
+      "storage": "Stockage",
+      "purpose": "Finalité",
+      "duration": "Durée",
+      "attributes": "Attributs"
+    },
+    "storage": {
+      "cookie": "Témoin",
+      "localStorage": "localStorage",
+      "sessionStorage": "sessionStorage"
+    },
+    "duration": {
+      "session": "Session du navigateur",
+      "1y": "1 an",
+      "8h": "8 heures",
+      "persistent": "Jusqu’à effacement"
+    },
+    "attributes": {
+      "httpOnly": "HttpOnly",
+      "scriptReadable": "Lisible par script",
+      "necessary": "Nécessaire"
+    },
+    "purposes": {
+      "locale": "Mémorise la dernière langue choisie par le visiteur.",
+      "localeSession": "Change la langue temporairement depuis l’en-tête, effacé à la déconnexion.",
+      "sidebar": "Mémorise l’état ouvert ou réduit du menu latéral.",
+      "preferences": "Adaptateur de démonstration des préférences (langue, fuseau horaire).",
+      "demoSession": "Session de démonstration signée. Existe uniquement hors production.",
+      "theme": "Mémorise le thème clair, sombre ou système."
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "description": "Catégories et canaux de notification.",
+    "unavailableTitle": "Non disponible pour le moment",
+    "unavailableBody": "Aucun service de notification n’est configuré. Les catégories, la lecture et les préférences seront spécifiées avant leur développement."
+  }
+}

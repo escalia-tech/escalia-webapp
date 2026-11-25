@@ -1,0 +1,90 @@
+{
+  "title": "Component gallery",
+  "description": "Internal reference for components, states and UI patterns. Available in demo mode only, never in production.",
+  "devOnly": "Development page: it is refused (404) when demo mode is disabled.",
+  "sections": {
+    "typography": "Typography (Barlow)",
+    "buttons": "Buttons",
+    "badges": "Status badges",
+    "callouts": "Inline messages",
+    "tooltips": "Help tooltips",
+    "forms": "Form fields",
+    "states": "Loading, empty, error and success states",
+    "table": "Table",
+    "charts": "Chart"
+  },
+  "typography": {
+    "accents": "French accents: é è ê à ç ô î û É À Ç — « quotes » · œ",
+    "numerals": "Tabular numerals: 0123456789 · $1,234.56 · 98.5%",
+    "weights": "Medium 500 · Semi-bold 600 · Bold 700"
+  },
+  "buttons": {
+    "primary": "Primary",
+    "secondary": "Secondary",
+    "outline": "Outline",
+    "ghost": "Ghost",
+    "destructive": "Destructive",
+    "link": "Link",
+    "disabled": "Disabled",
+    "loading": "Loading…"
+  },
+  "badges": {
+    "default": "Default",
+    "secondary": "Secondary",
+    "outline": "Outline",
+    "demo": "Fictional data",
+    "planned": "Coming soon"
+  },
+  "callouts": {
+    "info": {
+      "title": "Information",
+      "body": "Help or context message, no urgency."
+    },
+    "warning": {
+      "title": "Warning",
+      "body": "A risk or limit to know about before continuing."
+    },
+    "danger": {
+      "title": "Error",
+      "body": "The operation failed. Fix the problem or try again."
+    },
+    "success": {
+      "title": "Success",
+      "body": "The operation completed as expected."
+    }
+  },
+  "tooltips": {
+    "label": "More information about occupancy rate",
+    "text": "Contextual help: opens on hover, keyboard focus and touch; Esc closes it.",
+    "caption": "Occupancy rate"
+  },
+  "forms": {
+    "name": "Name",
+    "nameHelp": "Help text below the field.",
+    "nameError": "This field is required.",
+    "invalid": "Invalid field",
+    "select": "Property type",
+    "selectPlaceholder": "Choose a type",
+    "checkbox": "I accept the demo terms",
+    "switch": "Enable the demo option",
+    "disabled": "Disabled field"
+  },
+  "states": {
+    "loading": "Loading",
+    "empty": "No data yet",
+    "emptyBody": "When data exists, it will appear here.",
+    "error": "Recoverable error",
+    "errorBody": "The service did not respond. You can try again.",
+    "retryCount": "Retry attempts: {count}",
+    "toastSuccess": "Show a success notification",
+    "toastError": "Show an error notification",
+    "toastSuccessText": "Demo success notification.",
+    "toastErrorText": "Demo error notification."
+  },
+  "table": {
+    "name": "Property",
+    "units": "Units",
+    "rent": "Rent due",
+    "unavailable": "Not available"
+  }
+}

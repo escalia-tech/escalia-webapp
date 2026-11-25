@@ -1,0 +1,68 @@
+{
+  "provisional": {
+    "title": "Provisional document",
+    "body": "This text is a technical template for the application foundation. It has not been legally reviewed and is neither a commitment nor legal advice. It must be replaced by the official texts before any production release."
+  },
+  "back": "Back",
+  "toc": "Contents",
+  "privacy": {
+    "title": "Privacy policy",
+    "updated": "Provisional foundation version",
+    "sections": {
+      "scope": {
+        "heading": "Scope",
+        "body": "This policy describes, on a provisional basis, how the Escalia application handles information. At this stage the application is a technical foundation: no identity provider is connected and no real data is processed."
+      },
+      "collection": {
+        "heading": "Information handled",
+        "body": "The sign-up form provides for first name, last name, email, an optional phone number and a password. These fields are not transmitted until an identity provider is configured. Technical logs record no password, email, phone number or name."
+      },
+      "cookies": {
+        "heading": "Cookies and storage",
+        "body": "The application only uses strictly necessary cookies and storage: language, menu state, theme and, outside production, a demo session. No advertising cookie, third-party analytics or session recording is used. The detailed inventory is available in Settings > Privacy."
+      },
+      "rights": {
+        "heading": "Your rights",
+        "body": "Depending on the applicable law (including Quebec’s Law 25), you will be able to access your information, have it corrected or request its deletion. The procedures and the contact of the person in charge of personal information protection remain to be defined."
+      },
+      "contact": {
+        "heading": "Controller and contact",
+        "body": "Person in charge of personal information protection: to be appointed. Contact details: to be completed."
+      },
+      "changes": {
+        "heading": "Changes",
+        "body": "This policy will be replaced by an official version. The update date and version history will then be published."
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of use",
+    "updated": "Provisional foundation version",
+    "sections": {
+      "scope": {
+        "heading": "Purpose",
+        "body": "These terms will eventually govern the use of the Escalia platform. They are presented here as a provisional template."
+      },
+      "account": {
+        "heading": "Account",
+        "body": "Creating an account does not automatically grant any role, organization or subscription. Access rights will be granted according to rules that remain to be specified."
+      },
+      "use": {
+        "heading": "Acceptable use",
+        "body": "Acceptable-use rules, user responsibilities and service limits will be set out in the official version."
+      },
+      "demo": {
+        "heading": "Demo mode",
+        "body": "Demo mode uses fictional data only, does not exist in production and creates no commitment."
+      },
+      "liability": {
+        "heading": "Liability",
+        "body": "Liability, intellectual property and governing-law clauses will be drafted and validated by legal counsel."
+      },
+      "changes": {
+        "heading": "Changes",
+        "body": "These terms will be replaced by an official version before any production release."
+      }
+    }
+  }
+}

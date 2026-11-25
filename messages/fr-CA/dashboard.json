@@ -1,0 +1,54 @@
+{
+  "title": "Tableau de bord",
+  "description": "Vue d’ensemble de démonstration de votre portefeuille d’immeubles.",
+  "period": "Période de référence : {period}",
+  "kpi": {
+    "properties": {
+      "label": "Immeubles",
+      "info": "Nombre d’immeubles fournis par la source de données de démonstration."
+    },
+    "units": {
+      "label": "Logements",
+      "info": "Total des logements rattachés aux immeubles affichés. Valeur fournie par la source, non recalculée."
+    },
+    "rentDue": {
+      "label": "Loyers dus (mois)",
+      "info": "Montant des loyers exigibles pour le mois de référence. Distinct des loyers reçus : les deux ne sont jamais confondus."
+    },
+    "rentReceived": {
+      "label": "Loyers reçus (mois)",
+      "info": "Montant effectivement reçu pour le mois de référence. Une donnée manquante n’est pas comptée comme zéro.",
+      "missing": "{count, plural, one {# immeuble sans donnée de loyer reçu} other {# immeubles sans donnée de loyer reçu}}"
+    }
+  },
+  "charts": {
+    "rent": {
+      "title": "Loyers dus et reçus",
+      "description": "Évolution mensuelle sur 12 mois, en dollars canadiens.",
+      "info": "Les loyers dus (ligne pointillée) et reçus (aire pleine) sont deux mesures distinctes. Un mois sans donnée reste vide.",
+      "due": "Loyers dus",
+      "received": "Loyers reçus",
+      "summary": "Graphique en aires : loyers dus et reçus par mois sur {count} mois, de {from} à {to}."
+    },
+    "units": {
+      "title": "Logements par immeuble",
+      "description": "Nombre de logements pour chaque immeuble.",
+      "series": "Logements",
+      "summary": "Graphique à barres horizontales : nombre de logements pour {count} immeubles."
+    },
+    "types": {
+      "title": "Immeubles par type",
+      "description": "Répartition des immeubles selon leur type.",
+      "series": "Immeubles",
+      "total": "Immeubles",
+      "summary": "Graphique en anneau : répartition de {count} immeubles par type."
+    },
+    "table": {
+      "toggle": "Afficher les données sous forme de tableau",
+      "month": "Mois",
+      "property": "Immeuble",
+      "type": "Type",
+      "unavailable": "Non disponible"
+    }
+  }
+}

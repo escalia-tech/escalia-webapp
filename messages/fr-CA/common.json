@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "Escalia — Gestion immobilière",
+    "description": "Escalia : la WebApp de gestion immobilière pour les gestionnaires et les locataires."
+  },
+  "brand": {
+    "tagline": "Les artisans de la gestion immobilière"
+  },
+  "a11y": {
+    "close": "Fermer",
+    "loading": "Chargement en cours",
+    "skipToContent": "Aller au contenu principal",
+    "required": "obligatoire",
+    "optional": "facultatif",
+    "externalLink": "s’ouvre dans un nouvel onglet",
+    "previousPage": "Aller à la page précédente",
+    "nextPage": "Aller à la page suivante",
+    "pagination": "Pagination"
+  },
+  "actions": {
+    "retry": "Réessayer",
+    "back": "Retour",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "search": "Rechercher",
+    "clear": "Effacer",
+    "reset": "Réinitialiser",
+    "continue": "Continuer",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "viewDetails": "Voir le détail",
+    "backToDashboard": "Retour au tableau de bord",
+    "backToHome": "Retour à l’accueil"
+  },
+  "demo": {
+    "badge": "Données fictives",
+    "description": "Données de démonstration fictives, disponibles uniquement hors production.",
+    "environmentLabel": "Mode démonstration"
+  },
+  "status": {
+    "available": "Disponible",
+    "planned": "À venir",
+    "demo": "Démonstration"
+  },
+  "locale": {
+    "label": "Langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "theme": {
+    "label": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "pagination": {
+    "summary": "{from}–{to} sur {total}",
+    "page": "Page {page} sur {pageCount}",
+    "rowsPerPage": "Lignes par page"
+  }
+}

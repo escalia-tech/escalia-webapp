@@ -1,0 +1,78 @@
+{
+  "nav": {
+    "label": "Main navigation",
+    "toggle": "Show or collapse the side menu",
+    "mobileTitle": "Navigation menu",
+    "mobileDescription": "Main application navigation.",
+    "groupMain": "Management",
+    "groupConfig": "Configuration",
+    "soon": "Coming soon",
+    "items": {
+      "dashboard": "Dashboard",
+      "properties": "Properties",
+      "units": "Units",
+      "tenants": "Tenants",
+      "leases": "Leases",
+      "payments": "Payments",
+      "maintenance": "Requests & maintenance",
+      "documents": "Documents",
+      "reports": "Reports",
+      "settings": "Settings"
+    }
+  },
+  "header": {
+    "label": "Application header",
+    "home": "Escalia — go to dashboard",
+    "portfolioSlot": "Reserved slot: portfolio or organization (not available)",
+    "search": {
+      "trigger": "Search…",
+      "title": "Global search",
+      "description": "Search for a page or a demo property.",
+      "placeholder": "Search for a page or a property…",
+      "empty": "No results.",
+      "groupPages": "Pages",
+      "groupProperties": "Properties (fictional data)",
+      "unavailable": "Property search is temporarily unavailable."
+    },
+    "help": {
+      "label": "Help",
+      "title": "Help and support",
+      "docs": "Help center",
+      "docsStatus": "Coming soon",
+      "shortcuts": "Shortcut: Ctrl/⌘ + B for the menu, Ctrl/⌘ + K for search"
+    },
+    "notifications": {
+      "label": "Notifications",
+      "title": "Notifications",
+      "unread": "{count, plural, =0 {No notifications} one {# notification} other {# notifications}}",
+      "empty": "No notifications.",
+      "demoNotice": "Fictional demo notifications. No real notification is available.",
+      "unavailable": "Notifications are unavailable.",
+      "kinds": {
+        "payment": "A rent payment is awaiting reconciliation for {property}.",
+        "maintenance": "A maintenance request was opened for {property}.",
+        "document": "A document is ready to view for {property}."
+      }
+    },
+    "locale": {
+      "label": "Change language",
+      "temporary": "Temporary change for this session. Save your language in Settings to keep it.",
+      "switched": "Language changed: English"
+    },
+    "account": {
+      "label": "Account menu",
+      "demoUser": "Demo user",
+      "demoSession": "Demo session",
+      "settings": "Settings",
+      "leaveDemo": "Leave demo mode",
+      "leaving": "Closing session…"
+    }
+  },
+  "breadcrumb": {
+    "label": "Breadcrumb",
+    "home": "Home"
+  },
+  "demoBanner": {
+    "text": "Demo mode: fictional data, no real operation."
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Immeubles",
+  "description": "Liste de démonstration illustrant la recherche, le filtrage, le tri et la pagination.",
+  "types": {
+    "multi-residential": "Multirésidentiel",
+    "single-family": "Unifamilial",
+    "condominium": "Copropriété",
+    "commercial": "Commercial",
+    "mixed-use": "Usage mixte"
+  },
+  "list": {
+    "region": "Liste des immeubles",
+    "caption": "Immeubles de démonstration, triés et filtrés selon vos critères",
+    "search": {
+      "label": "Rechercher un immeuble",
+      "placeholder": "Nom ou ville…"
+    },
+    "filters": {
+      "type": "Type d’immeuble",
+      "allTypes": "Tous les types"
+    },
+    "columns": {
+      "name": "Immeuble",
+      "type": "Type",
+      "city": "Ville",
+      "units": "Logements",
+      "occupancy": "Occupation",
+      "rentDue": "Loyers dus",
+      "rentReceived": "Loyers reçus"
+    },
+    "sort": {
+      "ascending": "Trier par {column}, ordre croissant",
+      "descending": "Trier par {column}, ordre décroissant",
+      "current": "Trié par {column}, ordre {direction}",
+      "asc": "croissant",
+      "desc": "décroissant"
+    },
+    "unavailable": "Non disponible",
+    "unitsCount": "{count, plural, one {# logement} other {# logements}}",
+    "resultsAnnouncement": "{count, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}}",
+    "refreshing": "Actualisation des résultats…",
+    "empty": {
+      "title": "Aucun immeuble",
+      "description": "Aucun immeuble n’est disponible pour le moment."
+    },
+    "noResults": {
+      "title": "Aucun résultat",
+      "description": "Aucun immeuble ne correspond à votre recherche ou à vos filtres."
+    },
+    "error": {
+      "title": "Impossible de charger les immeubles",
+      "description": "La liste n’a pas pu être chargée. Vos filtres sont conservés ; vous pouvez réessayer."
+    },
+    "scenario": {
+      "title": "Simulation de démonstration",
+      "body": "Un scénario de défaillance ou de lenteur est actif dans l’adresse (paramètre « scenario »). Retirez-le pour revenir au comportement normal.",
+      "clear": "Retirer la simulation"
+    }
+  },
+  "detail": {
+    "back": "Retour à la liste des immeubles",
+    "address": "Adresse",
+    "type": "Type",
+    "units": "Logements",
+    "occupancy": "Taux d’occupation",
+    "occupancyInfo": "Fourni par la source de données, non recalculé. « Non disponible » est différent de 0 %.",
+    "rentDue": "Loyers dus (mois de référence)",
+    "rentReceived": "Loyers reçus (mois de référence)",
+    "summaryTitle": "Fiche de l’immeuble",
+    "historyTitle": "Historique des loyers",
+    "notFound": {
+      "title": "Immeuble introuvable",
+      "description": "Cet immeuble n’existe pas ou n’est plus disponible."
+    },
+    "note": {
+      "title": "Note interne (formulaire de démonstration)",
+      "description": "Exemple de formulaire validé. Aucune donnée n’est enregistrée ni envoyée.",
+      "label": "Note",
+      "placeholder": "Saisissez une note de démonstration…",
+      "help": "Entre 3 et 280 caractères. Rien n’est conservé.",
+      "counter": "{count} / 280",
+      "submit": "Valider la note",
+      "reset": "Réinitialiser",
+      "dirty": "Modifications non enregistrées",
+      "validated": "Note valide. Démonstration : aucune donnée n’a été enregistrée.",
+      "errors": {
+        "tooShort": "La note doit contenir au moins 3 caractères.",
+        "tooLong": "La note ne peut pas dépasser 280 caractères."
+      }
+    },
+    "period": "Mois de référence"
+  }
+}

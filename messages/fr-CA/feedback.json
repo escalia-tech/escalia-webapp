@@ -1,0 +1,67 @@
+{
+  "error": {
+    "title": "Une erreur est survenue",
+    "description": "L’opération n’a pas pu être effectuée. Vous pouvez réessayer.",
+    "reference": "Référence de support : {id}",
+    "codes": {
+      "validation_failed": "Certaines informations sont invalides.",
+      "request_invalid_origin": "La requête a été refusée pour des raisons de sécurité.",
+      "request_method_not_allowed": "Cette opération n’est pas autorisée.",
+      "auth_unauthenticated": "Votre session a expiré. Reconnectez-vous pour continuer.",
+      "auth_forbidden": "Vous n’avez pas accès à cette ressource.",
+      "auth_provider_unavailable": "Le service d’authentification est indisponible.",
+      "resource_not_found": "La ressource demandée est introuvable.",
+      "upstream_timeout": "Le service met trop de temps à répondre. Réessayez dans un instant.",
+      "upstream_unavailable": "Le service est momentanément indisponible. Réessayez dans un instant.",
+      "demo_disabled": "Cette fonction de démonstration n’est pas disponible dans cet environnement.",
+      "service_maintenance": "Le service est en maintenance.",
+      "internal_unexpected": "Une erreur inattendue est survenue.",
+      "network_unreachable": "Le réseau est inaccessible. Vérifiez votre connexion.",
+      "network_timeout": "La requête a expiré. Réessayez dans un instant."
+    }
+  },
+  "empty": {
+    "noData": "Aucune donnée pour le moment",
+    "noResults": "Aucun résultat",
+    "noResultsHint": "Aucun élément ne correspond à vos critères. Modifiez ou effacez les filtres.",
+    "clearFilters": "Effacer les filtres"
+  },
+  "loading": {
+    "label": "Chargement en cours",
+    "refreshing": "Actualisation…"
+  },
+  "status": {
+    "notFound": {
+      "code": "404",
+      "title": "Page introuvable",
+      "description": "La page demandée n’existe pas ou a été déplacée."
+    },
+    "forbidden": {
+      "code": "403",
+      "title": "Accès refusé",
+      "description": "Vous n’avez pas les droits nécessaires pour consulter cette page."
+    },
+    "serverError": {
+      "code": "500",
+      "title": "Erreur du serveur",
+      "description": "Un problème est survenu de notre côté. L’équipe a été informée par les journaux techniques ; vous pouvez réessayer."
+    },
+    "maintenance": {
+      "code": "503",
+      "title": "Maintenance en cours",
+      "description": "Escalia est temporairement indisponible pour maintenance. Merci de réessayer dans quelques minutes."
+    },
+    "sessionExpired": {
+      "title": "Votre session a expiré",
+      "description": "Pour votre sécurité, vous avez été déconnecté. Reconnectez-vous pour continuer."
+    },
+    "toLogin": "Aller à la connexion",
+    "reference": "Référence de support : {id}"
+  },
+  "unsaved": {
+    "title": "Quitter sans enregistrer ?",
+    "description": "Vous avez des modifications non enregistrées. Elles seront perdues si vous quittez cette page.",
+    "stay": "Rester sur la page",
+    "leave": "Quitter sans enregistrer"
+  }
+}

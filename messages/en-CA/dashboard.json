@@ -1,0 +1,54 @@
+{
+  "title": "Dashboard",
+  "description": "Demo overview of your property portfolio.",
+  "period": "Reference period: {period}",
+  "kpi": {
+    "properties": {
+      "label": "Properties",
+      "info": "Number of properties provided by the demo data source."
+    },
+    "units": {
+      "label": "Units",
+      "info": "Total units attached to the properties shown. Value provided by the source, not recomputed."
+    },
+    "rentDue": {
+      "label": "Rent due (month)",
+      "info": "Rent payable for the reference month. Distinct from rent received: the two are never conflated."
+    },
+    "rentReceived": {
+      "label": "Rent received (month)",
+      "info": "Amount actually received for the reference month. Missing data is not counted as zero.",
+      "missing": "{count, plural, one {# property without received-rent data} other {# properties without received-rent data}}"
+    }
+  },
+  "charts": {
+    "rent": {
+      "title": "Rent due and received",
+      "description": "Monthly trend over 12 months, in Canadian dollars.",
+      "info": "Rent due (dashed line) and rent received (filled area) are two distinct measures. A month with no data stays empty.",
+      "due": "Rent due",
+      "received": "Rent received",
+      "summary": "Area chart: rent due and received per month over {count} months, from {from} to {to}."
+    },
+    "units": {
+      "title": "Units per property",
+      "description": "Number of units for each property.",
+      "series": "Units",
+      "summary": "Horizontal bar chart: number of units for {count} properties."
+    },
+    "types": {
+      "title": "Properties by type",
+      "description": "Breakdown of properties by type.",
+      "series": "Properties",
+      "total": "Properties",
+      "summary": "Donut chart: breakdown of {count} properties by type."
+    },
+    "table": {
+      "toggle": "Show data as a table",
+      "month": "Month",
+      "property": "Property",
+      "type": "Type",
+      "unavailable": "Not available"
+    }
+  }
+}

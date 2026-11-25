@@ -1,0 +1,90 @@
+{
+  "title": "Galerie de composants",
+  "description": "Référence interne des composants, états et motifs d’interface. Disponible uniquement en mode démonstration, jamais en production.",
+  "devOnly": "Page de développement : elle est refusée (404) lorsque le mode démonstration est désactivé.",
+  "sections": {
+    "typography": "Typographie (Barlow)",
+    "buttons": "Boutons",
+    "badges": "Badges d’état",
+    "callouts": "Messages en ligne",
+    "tooltips": "Info-bulles d’aide",
+    "forms": "Champs de formulaire",
+    "states": "États de chargement, vide, erreur et succès",
+    "table": "Tableau",
+    "charts": "Graphique"
+  },
+  "typography": {
+    "accents": "Accents français : é è ê à ç ô î û É À Ç — « guillemets » · œ",
+    "numerals": "Chiffres tabulaires : 0123456789 · 1 234,56 $ · 98,5 %",
+    "weights": "Medium 500 · Semi-gras 600 · Gras 700"
+  },
+  "buttons": {
+    "primary": "Principal",
+    "secondary": "Secondaire",
+    "outline": "Contour",
+    "ghost": "Discret",
+    "destructive": "Destructif",
+    "link": "Lien",
+    "disabled": "Désactivé",
+    "loading": "Chargement…"
+  },
+  "badges": {
+    "default": "Par défaut",
+    "secondary": "Secondaire",
+    "outline": "Contour",
+    "demo": "Données fictives",
+    "planned": "À venir"
+  },
+  "callouts": {
+    "info": {
+      "title": "Information",
+      "body": "Message d’aide ou de contexte, sans urgence."
+    },
+    "warning": {
+      "title": "Avertissement",
+      "body": "Un risque ou une limite à connaître avant de continuer."
+    },
+    "danger": {
+      "title": "Erreur",
+      "body": "L’opération a échoué. Corrigez le problème ou réessayez."
+    },
+    "success": {
+      "title": "Succès",
+      "body": "L’opération s’est déroulée comme prévu."
+    }
+  },
+  "tooltips": {
+    "label": "Plus d’informations sur le taux d’occupation",
+    "text": "Aide contextuelle : s’ouvre au survol, au focus clavier et au toucher ; Échap la ferme.",
+    "caption": "Taux d’occupation"
+  },
+  "forms": {
+    "name": "Nom",
+    "nameHelp": "Texte d’aide sous le champ.",
+    "nameError": "Ce champ est obligatoire.",
+    "invalid": "Champ invalide",
+    "select": "Type d’immeuble",
+    "selectPlaceholder": "Choisir un type",
+    "checkbox": "J’accepte les conditions de démonstration",
+    "switch": "Activer l’option de démonstration",
+    "disabled": "Champ désactivé"
+  },
+  "states": {
+    "loading": "Chargement",
+    "empty": "Aucune donnée pour le moment",
+    "emptyBody": "Quand des données existeront, elles apparaîtront ici.",
+    "error": "Erreur récupérable",
+    "errorBody": "Le service n’a pas répondu. Vous pouvez réessayer.",
+    "retryCount": "Tentatives de réessai : {count}",
+    "toastSuccess": "Afficher une notification de succès",
+    "toastError": "Afficher une notification d’erreur",
+    "toastSuccessText": "Notification de succès de démonstration.",
+    "toastErrorText": "Notification d’erreur de démonstration."
+  },
+  "table": {
+    "name": "Immeuble",
+    "units": "Logements",
+    "rent": "Loyers dus",
+    "unavailable": "Non disponible"
+  }
+}

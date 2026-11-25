@@ -1,0 +1,115 @@
+{
+  "title": "Settings",
+  "description": "Manage your profile, preferences and privacy settings.",
+  "nav": {
+    "label": "Settings sections",
+    "profile": "Profile",
+    "preferences": "Preferences",
+    "security": "Security",
+    "privacy": "Privacy",
+    "notifications": "Notifications"
+  },
+  "demoAdapter": {
+    "title": "Demo adapter",
+    "body": "No server-side profile is available yet. Choices saved here are kept in a demo HttpOnly cookie, for this browser only."
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "Information associated with your session.",
+    "readOnlyTitle": "Read only",
+    "readOnlyBody": "The profile comes from the identity provider, which is not configured yet. The information below is fictional and cannot be edited.",
+    "name": "Display name",
+    "email": "Email",
+    "session": "Session type",
+    "sessionValue": "Demo session (no real identity)"
+  },
+  "preferences": {
+    "title": "Preferences",
+    "description": "Language, theme and time zone of your workspace.",
+    "language": {
+      "label": "Preferred language",
+      "help": "Language is independent from country, currency and time zone. The FR/EN switch in the header changes it temporarily for the session; saving below makes it permanent.",
+      "fr-CA": "Français (Canada)",
+      "en-CA": "English (Canada)"
+    },
+    "theme": {
+      "label": "Theme",
+      "help": "The theme applies immediately and is remembered on this device."
+    },
+    "timezone": {
+      "label": "Time zone",
+      "help": "Used to display dates and times. It does not affect any tax rule.",
+      "options": {
+        "America/St_Johns": "Newfoundland (St. John’s)",
+        "America/Halifax": "Atlantic (Halifax)",
+        "America/Toronto": "Eastern (Toronto, Montréal, Ottawa)",
+        "America/Winnipeg": "Central (Winnipeg)",
+        "America/Regina": "Central, no daylight saving (Regina)",
+        "America/Edmonton": "Mountain (Edmonton)",
+        "America/Vancouver": "Pacific (Vancouver)"
+      }
+    },
+    "save": "Save preferences",
+    "saving": "Saving…",
+    "saved": "Preferences saved.",
+    "savedDescription": "Demo adapter: kept for this browser only.",
+    "error": "Preferences could not be saved.",
+    "errorReference": "Reference: {id}",
+    "priority": "Language priority: temporary header choice, then saved preference, then French (Canada)."
+  },
+  "security": {
+    "title": "Security",
+    "description": "Authentication and sessions.",
+    "providerTitle": "Identity provider not configured",
+    "providerBody": "Password, two-step verification and session management will be available once the identity provider is selected and its contracts are confirmed. No fake security action is offered.",
+    "sessionTitle": "Current session",
+    "sessionBody": "Signed HttpOnly demo session, valid for 8 hours. It holds no real personal information and does not exist in production."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "description": "Cookies and storage used by the application.",
+    "summaryTitle": "No tracking",
+    "summaryBody": "Escalia uses no advertising cookie, no third-party analytics and no session recording. Only strictly necessary cookies and storage are used, so no consent is requested at this stage.",
+    "legalNote": "This qualification must be validated (Quebec Law 25 and other obligations) before any production release.",
+    "consentTitle": "Consent",
+    "consentBody": "With no optional processing, there is nothing to accept or withdraw. If optional processing is ever added, it will stay blocked until accepted, and withdrawal will be possible here.",
+    "inventoryTitle": "Cookie and storage inventory",
+    "columns": {
+      "name": "Name",
+      "storage": "Storage",
+      "purpose": "Purpose",
+      "duration": "Duration",
+      "attributes": "Attributes"
+    },
+    "storage": {
+      "cookie": "Cookie",
+      "localStorage": "localStorage",
+      "sessionStorage": "sessionStorage"
+    },
+    "duration": {
+      "session": "Browser session",
+      "1y": "1 year",
+      "8h": "8 hours",
+      "persistent": "Until cleared"
+    },
+    "attributes": {
+      "httpOnly": "HttpOnly",
+      "scriptReadable": "Readable by script",
+      "necessary": "Necessary"
+    },
+    "purposes": {
+      "locale": "Remembers the last language chosen by the visitor.",
+      "localeSession": "Changes the language temporarily from the header, cleared on sign-out.",
+      "sidebar": "Remembers whether the side menu is open or collapsed.",
+      "preferences": "Demo adapter for preferences (language, time zone).",
+      "demoSession": "Signed demo session. Exists outside production only.",
+      "theme": "Remembers the light, dark or system theme."
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "description": "Notification categories and channels.",
+    "unavailableTitle": "Not available at this time",
+    "unavailableBody": "No notification service is configured. Categories, read state and preferences will be specified before they are built."
+  }
+}

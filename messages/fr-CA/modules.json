@@ -1,0 +1,37 @@
+{
+  "status": {
+    "badge": "À venir",
+    "title": "Cette section n’est pas encore disponible",
+    "body": "Les parcours, les règles métier, les contrats d’API et les permissions de cette section doivent d’abord être spécifiés. Aucune donnée ni action factice n’est affichée.",
+    "noActions": "Aucune action n’est disponible pour le moment.",
+    "reference": "En attendant, la section Immeubles illustre le comportement attendu des listes et des fiches détaillées."
+  },
+  "units": {
+    "title": "Logements",
+    "description": "Consultation et suivi des logements rattachés aux immeubles."
+  },
+  "tenants": {
+    "title": "Locataires",
+    "description": "Fiches locataires et communication contextuelle."
+  },
+  "leases": {
+    "title": "Baux",
+    "description": "Suivi des baux, des échéances et des documents associés."
+  },
+  "payments": {
+    "title": "Paiements",
+    "description": "Suivi des loyers et des transactions. Aucune confirmation n’est présentée avant celle du serveur."
+  },
+  "maintenance": {
+    "title": "Requêtes et entretien",
+    "description": "Requêtes des locataires et suivi de l’entretien des immeubles."
+  },
+  "documents": {
+    "title": "Documents",
+    "description": "Téléversement, consultation et classement des documents autorisés."
+  },
+  "reports": {
+    "title": "Rapports",
+    "description": "Tendances, comparaisons et répartitions financières."
+  }
+}

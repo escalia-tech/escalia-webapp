@@ -1,0 +1,67 @@
+{
+  "error": {
+    "title": "Something went wrong",
+    "description": "The operation could not be completed. You can try again.",
+    "reference": "Support reference: {id}",
+    "codes": {
+      "validation_failed": "Some of the information is invalid.",
+      "request_invalid_origin": "The request was refused for security reasons.",
+      "request_method_not_allowed": "This operation is not allowed.",
+      "auth_unauthenticated": "Your session has expired. Sign in again to continue.",
+      "auth_forbidden": "You do not have access to this resource.",
+      "auth_provider_unavailable": "The authentication service is unavailable.",
+      "resource_not_found": "The requested resource could not be found.",
+      "upstream_timeout": "The service is taking too long to respond. Try again in a moment.",
+      "upstream_unavailable": "The service is temporarily unavailable. Try again in a moment.",
+      "demo_disabled": "This demo feature is not available in this environment.",
+      "service_maintenance": "The service is under maintenance.",
+      "internal_unexpected": "An unexpected error occurred.",
+      "network_unreachable": "The network is unreachable. Check your connection.",
+      "network_timeout": "The request timed out. Try again in a moment."
+    }
+  },
+  "empty": {
+    "noData": "No data yet",
+    "noResults": "No results",
+    "noResultsHint": "No item matches your criteria. Change or clear the filters.",
+    "clearFilters": "Clear filters"
+  },
+  "loading": {
+    "label": "Loading",
+    "refreshing": "Refreshing…"
+  },
+  "status": {
+    "notFound": {
+      "code": "404",
+      "title": "Page not found",
+      "description": "The page you requested does not exist or has been moved."
+    },
+    "forbidden": {
+      "code": "403",
+      "title": "Access denied",
+      "description": "You do not have the rights required to view this page."
+    },
+    "serverError": {
+      "code": "500",
+      "title": "Server error",
+      "description": "Something went wrong on our side. It has been recorded in the technical logs; you can try again."
+    },
+    "maintenance": {
+      "code": "503",
+      "title": "Maintenance in progress",
+      "description": "Escalia is temporarily unavailable for maintenance. Please try again in a few minutes."
+    },
+    "sessionExpired": {
+      "title": "Your session has expired",
+      "description": "For your security you have been signed out. Sign in again to continue."
+    },
+    "toLogin": "Go to sign in",
+    "reference": "Support reference: {id}"
+  },
+  "unsaved": {
+    "title": "Leave without saving?",
+    "description": "You have unsaved changes. They will be lost if you leave this page.",
+    "stay": "Stay on page",
+    "leave": "Leave without saving"
+  }
+}

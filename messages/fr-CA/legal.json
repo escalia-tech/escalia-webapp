@@ -1,0 +1,68 @@
+{
+  "provisional": {
+    "title": "Document provisoire",
+    "body": "Ce texte est un gabarit technique de la fondation de l’application. Il n’a pas été validé juridiquement et ne constitue ni un engagement ni un avis juridique. Il doit être remplacé par les textes officiels avant toute mise en production."
+  },
+  "back": "Retour",
+  "toc": "Sommaire",
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "updated": "Version provisoire de la fondation",
+    "sections": {
+      "scope": {
+        "heading": "Portée",
+        "body": "Cette politique décrit, à titre provisoire, la façon dont l’application Escalia traite les renseignements. À ce stade, l’application est une fondation technique : aucun fournisseur d’identité n’est connecté et aucune donnée réelle n’est traitée."
+      },
+      "collection": {
+        "heading": "Renseignements traités",
+        "body": "Le formulaire d’inscription prévoit le prénom, le nom, le courriel, un téléphone facultatif et un mot de passe. Ces champs ne sont pas transmis tant qu’un fournisseur d’identité n’est pas configuré. Les journaux techniques n’enregistrent ni mot de passe, ni courriel, ni téléphone, ni nom."
+      },
+      "cookies": {
+        "heading": "Témoins et stockage",
+        "body": "L’application n’utilise que des témoins et un stockage strictement nécessaires : langue, état du menu, thème et, hors production, une session de démonstration. Aucun témoin publicitaire, aucune analytique tierce et aucun enregistrement de session ne sont utilisés. L’inventaire détaillé est disponible dans Configuration > Confidentialité."
+      },
+      "rights": {
+        "heading": "Vos droits",
+        "body": "Selon la loi applicable (dont la Loi 25 au Québec), vous pourrez accéder à vos renseignements, les faire rectifier ou demander leur suppression. Les modalités et le contact du responsable de la protection des renseignements personnels restent à définir."
+      },
+      "contact": {
+        "heading": "Responsable et contact",
+        "body": "Responsable de la protection des renseignements personnels : à désigner. Coordonnées : à compléter."
+      },
+      "changes": {
+        "heading": "Modifications",
+        "body": "Cette politique sera remplacée par une version officielle. La date de mise à jour et l’historique des versions seront alors publiés."
+      }
+    }
+  },
+  "terms": {
+    "title": "Conditions d’utilisation",
+    "updated": "Version provisoire de la fondation",
+    "sections": {
+      "scope": {
+        "heading": "Objet",
+        "body": "Ces conditions encadreront, à terme, l’utilisation de la plateforme Escalia. Elles sont ici présentées sous forme de gabarit provisoire."
+      },
+      "account": {
+        "heading": "Compte",
+        "body": "La création de compte ne confère automatiquement aucun rôle, aucune organisation ni aucun abonnement. Les droits d’accès seront attribués selon des règles qui restent à spécifier."
+      },
+      "use": {
+        "heading": "Utilisation acceptable",
+        "body": "Les règles d’utilisation acceptable, les responsabilités de l’utilisateur et les limites de service seront précisées dans la version officielle."
+      },
+      "demo": {
+        "heading": "Mode démonstration",
+        "body": "Le mode démonstration utilise exclusivement des données fictives, n’existe pas en production et ne crée aucun engagement."
+      },
+      "liability": {
+        "heading": "Responsabilité",
+        "body": "Les clauses de responsabilité, de propriété intellectuelle et de droit applicable seront rédigées et validées par un conseiller juridique."
+      },
+      "changes": {
+        "heading": "Modifications",
+        "body": "Ces conditions seront remplacées par une version officielle avant toute mise en production."
+      }
+    }
+  }
+}

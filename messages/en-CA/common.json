@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "Escalia — Property management",
+    "description": "Escalia: the property management WebApp for managers and tenants."
+  },
+  "brand": {
+    "tagline": "Les artisans de la gestion immobilière"
+  },
+  "a11y": {
+    "close": "Close",
+    "loading": "Loading",
+    "skipToContent": "Skip to main content",
+    "required": "required",
+    "optional": "optional",
+    "externalLink": "opens in a new tab",
+    "previousPage": "Go to previous page",
+    "nextPage": "Go to next page",
+    "pagination": "Pagination"
+  },
+  "actions": {
+    "retry": "Try again",
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search": "Search",
+    "clear": "Clear",
+    "reset": "Reset",
+    "continue": "Continue",
+    "previous": "Previous",
+    "next": "Next",
+    "viewDetails": "View details",
+    "backToDashboard": "Back to dashboard",
+    "backToHome": "Back to home"
+  },
+  "demo": {
+    "badge": "Fictional data",
+    "description": "Fictional demonstration data, available outside production only.",
+    "environmentLabel": "Demo mode"
+  },
+  "status": {
+    "available": "Available",
+    "planned": "Coming soon",
+    "demo": "Demo"
+  },
+  "locale": {
+    "label": "Language",
+    "fr": "Français",
+    "en": "English"
+  },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "pagination": {
+    "summary": "{from}–{to} of {total}",
+    "page": "Page {page} of {pageCount}",
+    "rowsPerPage": "Rows per page"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "nav": {
+    "label": "Navigation principale",
+    "toggle": "Afficher ou réduire le menu latéral",
+    "mobileTitle": "Menu de navigation",
+    "mobileDescription": "Navigation principale de l’application.",
+    "groupMain": "Gestion",
+    "groupConfig": "Configuration",
+    "soon": "À venir",
+    "items": {
+      "dashboard": "Tableau de bord",
+      "properties": "Immeubles",
+      "units": "Logements",
+      "tenants": "Locataires",
+      "leases": "Baux",
+      "payments": "Paiements",
+      "maintenance": "Requêtes et entretien",
+      "documents": "Documents",
+      "reports": "Rapports",
+      "settings": "Configuration"
+    }
+  },
+  "header": {
+    "label": "En-tête de l’application",
+    "home": "Escalia — aller au tableau de bord",
+    "portfolioSlot": "Emplacement réservé : portefeuille ou organisation (non disponible)",
+    "search": {
+      "trigger": "Rechercher…",
+      "title": "Recherche globale",
+      "description": "Rechercher une page ou un immeuble de démonstration.",
+      "placeholder": "Rechercher une page ou un immeuble…",
+      "empty": "Aucun résultat.",
+      "groupPages": "Pages",
+      "groupProperties": "Immeubles (données fictives)",
+      "unavailable": "La recherche d’immeubles est momentanément indisponible."
+    },
+    "help": {
+      "label": "Aide",
+      "title": "Aide et assistance",
+      "docs": "Centre d’aide",
+      "docsStatus": "Bientôt disponible",
+      "shortcuts": "Raccourci : Ctrl/⌘ + B pour le menu, Ctrl/⌘ + K pour la recherche"
+    },
+    "notifications": {
+      "label": "Notifications",
+      "title": "Notifications",
+      "unread": "{count, plural, =0 {Aucune notification} one {# notification} other {# notifications}}",
+      "empty": "Aucune notification.",
+      "demoNotice": "Notifications fictives de démonstration. Aucune notification réelle n’est disponible.",
+      "unavailable": "Les notifications sont indisponibles.",
+      "kinds": {
+        "payment": "Un paiement de loyer est en attente de rapprochement pour {property}.",
+        "maintenance": "Une requête d’entretien a été ouverte pour {property}.",
+        "document": "Un document est prêt à être consulté pour {property}."
+      }
+    },
+    "locale": {
+      "label": "Changer de langue",
+      "temporary": "Changement temporaire pour cette session. Enregistrez votre langue dans Configuration pour la conserver.",
+      "switched": "Langue changée : français"
+    },
+    "account": {
+      "label": "Menu du compte",
+      "demoUser": "Utilisateur de démonstration",
+      "demoSession": "Session de démonstration",
+      "settings": "Configuration",
+      "leaveDemo": "Quitter le mode démo",
+      "leaving": "Fermeture de la session…"
+    }
+  },
+  "breadcrumb": {
+    "label": "Fil d’Ariane",
+    "home": "Accueil"
+  },
+  "demoBanner": {
+    "text": "Mode démonstration : données fictives, aucune opération réelle."
+  }
+}
