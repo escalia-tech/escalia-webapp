@@ -18,6 +18,13 @@ const globalStore = globalThis as typeof globalThis & { __escaliaDemoSecret?: st
 function getSecret(): string {
   const configured = getServerEnv().demoSessionSecret;
   if (configured) return configured;
+
+  const vercelProjectId = process.env.VERCEL_PROJECT_ID?.trim();
+  if (vercelProjectId) {
+    // Vercel serverless: one secret per project so POST and RSC verify on different lambdas still match.
+    return createHmac("sha256", "escalia-vercel-demo-v1").update(vercelProjectId).digest("hex");
+  }
+
   // Ephemeral per-process secret: sessions are invalidated on restart. Shared through globalThis
   // because Next.js can bundle route handlers and server components separately.
   globalStore.__escaliaDemoSecret ??= randomBytes(32).toString("hex");
