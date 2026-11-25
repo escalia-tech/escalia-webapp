@@ -6,27 +6,42 @@ describe("parseServerEnv", () => {
   it("applies safe local defaults", () => {
     const env = parseServerEnv({ NODE_ENV: "development" });
     expect(env.appEnv).toBe("local");
-    expect(env.demoModeEnabled).toBe(false);
+    expect(env.demoModeEnabled).toBe(true);
     expect(env.clientLoggingEnabled).toBe(false);
     expect(env.otelEnabled).toBe(false);
     expect(env.logFormat).toBe("pretty");
   });
 
-  it("honours demo mode only in local, development and test", () => {
-    for (const appEnv of ["local", "development", "test"]) {
-      expect(
-        parseServerEnv({ NODE_ENV: "development", APP_ENV: appEnv, DEMO_MODE_ENABLED: "true" }).demoModeEnabled,
-      ).toBe(true);
+  it("enables demo by default outside real production", () => {
+    for (const appEnv of ["development", "test", "staging"] as const) {
+      const nodeEnv = appEnv === "development" ? "development" : "production";
+      expect(parseServerEnv({ NODE_ENV: nodeEnv, APP_ENV: appEnv }).demoModeEnabled).toBe(true);
     }
-    for (const appEnv of ["staging", "production"]) {
+    expect(parseServerEnv({ NODE_ENV: "development" }).demoModeEnabled).toBe(true);
+  });
+
+  it("keeps demo on Vercel for every deployment tier", () => {
+    for (const vercelEnv of ["preview", "production", "development"] as const) {
       expect(
-        parseServerEnv({ NODE_ENV: "production", APP_ENV: appEnv, DEMO_MODE_ENABLED: "true" }).demoModeEnabled,
-      ).toBe(false);
+        parseServerEnv({ NODE_ENV: "production", APP_ENV: "production", VERCEL: "1", VERCEL_ENV: vercelEnv })
+          .demoModeEnabled,
+      ).toBe(true);
     }
   });
 
-  it("fails closed: a production build defaults to production and refuses demo even when enabled", () => {
-    const env = parseServerEnv({ NODE_ENV: "production", DEMO_MODE_ENABLED: "true" });
+  it("fails closed on self-hosted APP_ENV=production only", () => {
+    expect(parseServerEnv({ NODE_ENV: "production", APP_ENV: "production" }).demoModeEnabled).toBe(false);
+    expect(
+      parseServerEnv({ NODE_ENV: "production", APP_ENV: "production", DEMO_MODE_ENABLED: "true" }).demoModeEnabled,
+    ).toBe(false);
+  });
+
+  it("allows opting out with DEMO_MODE_ENABLED=false", () => {
+    expect(parseServerEnv({ NODE_ENV: "development", DEMO_MODE_ENABLED: "false" }).demoModeEnabled).toBe(false);
+  });
+
+  it("production build defaults app env to production", () => {
+    const env = parseServerEnv({ NODE_ENV: "production" });
     expect(env.appEnv).toBe("production");
     expect(env.isProduction).toBe(true);
     expect(env.demoModeEnabled).toBe(false);
