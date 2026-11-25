@@ -2,9 +2,17 @@
 
 import { useSearchParams } from "next/navigation";
 
+import { ChevronDown, Globe2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { LOCALE_META } from "@/i18n/config";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { type AppLocale, isAppLocale, locales } from "@/i18n/routing";
@@ -36,27 +44,30 @@ export function LocaleSwitcher({ className }: { className?: string }) {
   }
 
   return (
-    <ToggleGroup
-      type="single"
-      value={locale}
-      onValueChange={onChange}
-      variant="outline"
-      size="sm"
-      aria-label={t("label")}
-      title={t("temporary")}
-      className={className}
-    >
-      {locales.map((code) => (
-        <ToggleGroupItem
-          key={code}
-          value={code}
-          lang={LOCALE_META[code].htmlLang}
-          aria-label={LOCALE_META[code].nativeName}
-          className="min-w-9 px-2 text-xs font-semibold"
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          aria-label={`${LOCALE_META[locale].short} — ${t("label")}`}
+          title={t("temporary")}
+          className={`h-9 gap-1.5 px-2 text-xs font-semibold ${className ?? ""}`}
         >
-          {LOCALE_META[code].short}
-        </ToggleGroupItem>
-      ))}
-    </ToggleGroup>
+          <Globe2 className="size-4" aria-hidden />
+          <span>{LOCALE_META[locale].short}</span>
+          <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-48">
+        <DropdownMenuRadioGroup value={locale} onValueChange={onChange} aria-label={t("label")}>
+          {locales.map((code) => (
+            <DropdownMenuRadioItem key={code} value={code} lang={LOCALE_META[code].htmlLang} className="py-2">
+              {LOCALE_META[code].nativeName}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

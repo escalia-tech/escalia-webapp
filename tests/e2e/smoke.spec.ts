@@ -4,14 +4,20 @@ import { APP_ROUTES, enterDemo, PUBLIC_ROUTES, settle } from "./helpers";
 
 test.describe("access control", () => {
   test("redirects an anonymous visitor from the app to the sign-in screen", async ({ page }) => {
-    await page.goto("/fr-CA/dashboard");
-    await expect(page).toHaveURL(/\/fr-CA\/login$/);
+    await page.goto("/dashboard");
+    await expect(page).toHaveURL(/\/login$/);
     await expect(page.getByRole("heading", { level: 1, name: "Connexion" })).toBeVisible();
   });
 
-  test("redirects an unprefixed URL to a locale and keeps the path", async ({ page }) => {
+  test("keeps clean URLs without a locale prefix", async ({ page }) => {
     await page.goto("/login");
-    await expect(page).toHaveURL(/\/(fr|en)-CA\/login$/);
+    await expect(page).toHaveURL(/\/login$/);
+    expect(new URL(page.url()).pathname).not.toMatch(/^\/(fr|en)-CA/);
+  });
+
+  test("redirects legacy prefixed URLs to clean paths", async ({ page }) => {
+    await page.goto("/en-CA/register?from=legacy");
+    await expect(page).toHaveURL(/\/register\?from=legacy$/);
   });
 
   test("BFF refuses anonymous reads with 401 and no data", async ({ request }) => {
@@ -33,7 +39,7 @@ test.describe("access control", () => {
 
 test.describe("public authentication screens", () => {
   test("login shows the demonstrative form, never a fake success, and no social provider", async ({ page }) => {
-    await page.goto("/fr-CA/login");
+    await page.goto("/login");
     await settle(page);
     await page.getByRole("button", { name: "Se connecter" }).click();
     await expect(page.getByText("Ce champ est obligatoire.").first()).toBeVisible();
@@ -47,7 +53,7 @@ test.describe("public authentication screens", () => {
   });
 
   test("password visibility toggle works and the value is never put in the URL or storage", async ({ page }) => {
-    await page.goto("/fr-CA/login");
+    await page.goto("/login");
     const password = page.getByLabel("Mot de passe", { exact: true });
     await password.fill("s3cret-value");
     await expect(password).toHaveAttribute("type", "password");
@@ -58,10 +64,43 @@ test.describe("public authentication screens", () => {
     expect(stored).not.toContain("s3cret-value");
   });
 
+  test("editorial signature remains stable across language and theme combinations", async ({ page }) => {
+    await page.goto("/login");
+    await expect(page.getByLabel("L’esprit Escalia")).toBeVisible();
+
+    await page.getByRole("button", { name: "Thème" }).click();
+    await page.getByRole("menuitemradio", { name: "Clair" }).click();
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
+    await expect(page.getByLabel("L’esprit Escalia")).toBeVisible();
+
+    const initialSignature = await page.evaluate(() => sessionStorage.getItem("escalia_auth_signature"));
+    await page.getByRole("button", { name: "Signature suivante" }).click();
+    await expect
+      .poll(() => page.evaluate(() => sessionStorage.getItem("escalia_auth_signature")))
+      .not.toBe(initialSignature);
+    const selectedSignature = await page.evaluate(() => sessionStorage.getItem("escalia_auth_signature"));
+
+    await page.getByRole("button", { name: "Thème" }).click();
+    await page.getByRole("menuitemradio", { name: "Sombre" }).click();
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    await expect(page.getByLabel("L’esprit Escalia")).toBeVisible();
+
+    await page.getByRole("button", { name: /Changer de langue/ }).click();
+    await page.getByRole("menuitemradio", { name: "English" }).click();
+    await expect(page.getByLabel("The Escalia spirit")).toBeVisible();
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    expect(await page.evaluate(() => sessionStorage.getItem("escalia_auth_signature"))).toBe(selectedSignature);
+
+    await page.getByRole("button", { name: "Theme" }).click();
+    await page.getByRole("menuitemradio", { name: "Light" }).click();
+    await expect(page.locator("html")).not.toHaveClass(/dark/);
+    await expect(page.getByLabel("The Escalia spirit")).toBeVisible();
+  });
+
   test("register collects the planned fields with an optional international phone normalised to E.164", async ({
     page,
   }) => {
-    await page.goto("/fr-CA/register");
+    await page.goto("/register");
     await settle(page); // wait for hydration so the first fill is not overwritten
     await page.getByLabel("Prénom").fill("Camille");
     await page.getByLabel("Nom", { exact: true }).fill("Démo");
@@ -80,32 +119,32 @@ test.describe("public authentication screens", () => {
     await page.goto("/en-CA/privacy");
     await expect(page.getByRole("heading", { level: 1, name: "Privacy policy" })).toBeVisible();
     await expect(page.getByText("Provisional document")).toBeVisible();
-    await page.goto("/fr-CA/terms");
+    await page.goto("/terms");
     await expect(page.getByRole("heading", { level: 1, name: "Conditions d’utilisation" })).toBeVisible();
   });
 
   test("status screens render localised content", async ({ page }) => {
     await page.goto("/en-CA/forbidden");
     await expect(page.getByRole("heading", { name: "Access denied" })).toBeVisible();
-    await page.goto("/fr-CA/service-unavailable");
+    await page.goto("/service-unavailable");
     await expect(page.getByRole("heading", { name: "Maintenance en cours" })).toBeVisible();
-    await page.goto("/fr-CA/session-expired");
+    await page.goto("/session-expired");
     await expect(page.getByRole("heading", { name: "Votre session a expiré" })).toBeVisible();
   });
 });
 
 test.describe("demo session and application shell", () => {
   test("demo entry from the login screen opens the dashboard", async ({ page }) => {
-    await page.goto("/fr-CA/login");
+    await page.goto("/login");
     await page.getByRole("button", { name: "Entrer en mode démonstration" }).click();
-    await expect(page).toHaveURL(/\/fr-CA\/dashboard$/);
+    await expect(page).toHaveURL(/\/dashboard$/);
     await expect(page.getByRole("heading", { level: 1, name: "Tableau de bord" })).toBeVisible();
     await expect(page.getByText("Données fictives").first()).toBeVisible();
   });
 
   test("dashboard shows KPIs, charts with a table alternative and keyboard-reachable tooltips", async ({ page }) => {
     await enterDemo(page);
-    await page.goto("/fr-CA/dashboard");
+    await page.goto("/dashboard");
     await settle(page);
     await expect(page.getByText("Loyers dus (mois)")).toBeVisible();
     await expect(page.getByRole("img", { name: /Graphique en aires/ })).toBeVisible();
@@ -122,7 +161,7 @@ test.describe("demo session and application shell", () => {
 
   test("sidebar collapses and the state survives a reload (cookie)", async ({ page }) => {
     await enterDemo(page);
-    await page.goto("/fr-CA/dashboard");
+    await page.goto("/dashboard");
     await page.getByRole("button", { name: /Afficher ou réduire le menu latéral/ }).click();
     await page.reload();
     const cookies = await page.context().cookies();
@@ -131,15 +170,25 @@ test.describe("demo session and application shell", () => {
 
   test("language switch keeps the route and query string", async ({ page }) => {
     await enterDemo(page);
-    await page.goto("/fr-CA/properties?q=lac&type=condominium");
-    await page.getByRole("radio", { name: "English" }).click();
-    await expect(page).toHaveURL(/\/en-CA\/properties\?q=lac&type=condominium/);
+    await page.goto("/properties?q=lac&type=condominium");
+    await page.getByRole("button", { name: /Changer de langue/ }).click();
+    await page.getByRole("menuitemradio", { name: "English" }).click();
+    await expect(page).toHaveURL(/\/properties\?q=lac&type=condominium/);
     await expect(page.getByRole("heading", { level: 1, name: "Properties" })).toBeVisible();
+  });
+
+  test("Escalia Assist opens demonstration resources without a support request", async ({ page }) => {
+    await page.goto("/login");
+    await page.getByRole("button", { name: "Ouvrir Escalîa Assist" }).click();
+    await expect(page.getByRole("heading", { level: 2, name: "Comment pouvons-nous vous orienter ?" })).toBeVisible();
+    await page.getByRole("button", { name: "Contacter l’assistance" }).click();
+    await expect(page.getByText("Aucun canal de contact n’est configuré.")).toBeVisible();
+    await expect(page.locator("[data-slot='sheet-content']").getByRole("textbox")).toHaveCount(0);
   });
 
   test("theme choice persists across reloads", async ({ page }) => {
     await enterDemo(page);
-    await page.goto("/fr-CA/dashboard");
+    await page.goto("/dashboard");
     await page.getByRole("button", { name: "Thème" }).click();
     await page.getByRole("menuitemradio", { name: "Sombre" }).click();
     await expect(page.locator("html")).toHaveClass(/dark/);
@@ -149,14 +198,14 @@ test.describe("demo session and application shell", () => {
 
   test("planned modules state their status and offer no fake action", async ({ page }) => {
     await enterDemo(page);
-    await page.goto("/fr-CA/tenants");
+    await page.goto("/tenants");
     await expect(page.getByRole("heading", { level: 1, name: "Locataires" })).toBeVisible();
     await expect(page.getByText("Cette section n’est pas encore disponible")).toBeVisible();
   });
 
   test("unknown routes render the localised 404", async ({ page }) => {
     await enterDemo(page);
-    await page.goto("/fr-CA/nope");
+    await page.goto("/nope");
     await expect(page.getByRole("heading", { name: "Page introuvable" })).toBeVisible();
     await page.goto("/en-CA/properties/does-not-exist");
     await expect(page.getByRole("heading", { name: "Page not found" })).toBeVisible();
@@ -167,7 +216,7 @@ test.describe("properties reference module", () => {
   test.beforeEach(async ({ page }) => enterDemo(page));
 
   test("search, filter, sort and paginate are reflected in the URL", async ({ page }) => {
-    await page.goto("/fr-CA/properties");
+    await page.goto("/properties");
     await settle(page);
     await expect(page.getByRole("link", { name: "Centre Démo Frêne" })).toBeVisible();
 
@@ -188,14 +237,14 @@ test.describe("properties reference module", () => {
   });
 
   test("no result state offers to clear filters", async ({ page }) => {
-    await page.goto("/fr-CA/properties?q=zzzzzz");
+    await page.goto("/properties?q=zzzzzz");
     await expect(page.getByText("Aucun résultat").first()).toBeVisible();
     await page.getByRole("button", { name: "Effacer les filtres" }).last().click();
     await expect(page.getByRole("link", { name: "Centre Démo Frêne" })).toBeVisible();
   });
 
   test("failure scenario shows a recoverable error with a support reference", async ({ page }) => {
-    await page.goto("/fr-CA/properties?scenario=error");
+    await page.goto("/properties?scenario=error");
     await expect(page.getByRole("alert").filter({ hasText: "Impossible de charger les immeubles" })).toBeVisible({
       timeout: 20_000,
     });
@@ -204,7 +253,7 @@ test.describe("properties reference module", () => {
   });
 
   test("detail page links back to the filtered list through a validated returnTo", async ({ page }) => {
-    await page.goto("/fr-CA/properties?q=cedre");
+    await page.goto("/properties?q=cedre");
     await page.getByRole("link", { name: "Résidence Démo Cèdre" }).click();
     await expect(page).toHaveURL(/\/properties\/demo-cedre/);
     await expect(page.getByRole("heading", { level: 1, name: "Résidence Démo Cèdre" })).toBeVisible();
@@ -213,15 +262,15 @@ test.describe("properties reference module", () => {
   });
 
   test("a hostile returnTo falls back to the list", async ({ page }) => {
-    await page.goto("/fr-CA/properties/demo-cedre?returnTo=https%3A%2F%2Fevil.example");
+    await page.goto("/properties/demo-cedre?returnTo=https%3A%2F%2Fevil.example");
     const back = page.getByRole("link", { name: "Retour à la liste des immeubles" });
-    await expect(back).toHaveAttribute("href", /\/fr-CA\/properties$/);
+    await expect(back).toHaveAttribute("href", /\/properties$/);
   });
 
   test("demo note form validates and sends nothing", async ({ page }) => {
     const requests: string[] = [];
     page.on("request", (request) => requests.push(request.url()));
-    await page.goto("/fr-CA/properties/demo-cedre");
+    await page.goto("/properties/demo-cedre");
     await settle(page);
     const before = requests.length;
     await page.getByRole("button", { name: "Valider la note" }).click();
@@ -237,17 +286,17 @@ test.describe("settings", () => {
   test.beforeEach(async ({ page }) => enterDemo(page));
 
   test("saving the language preference switches locale and is announced as a demo adapter", async ({ page }) => {
-    await page.goto("/fr-CA/settings/preferences");
+    await page.goto("/settings/preferences");
     await expect(page.getByText("Adaptateur de démonstration")).toBeVisible();
     await page.getByLabel("Langue préférée").click();
     await page.getByRole("option", { name: "English (Canada)" }).click();
     await page.getByRole("button", { name: "Enregistrer les préférences" }).click();
-    await expect(page).toHaveURL(/\/en-CA\/settings\/preferences/);
+    await expect(page).toHaveURL(/\/settings\/preferences/);
     await expect(page.getByRole("heading", { level: 1, name: "Settings" })).toBeVisible();
   });
 
   test("privacy page lists every cookie and storage entry with its purpose", async ({ page }) => {
-    await page.goto("/fr-CA/settings/privacy");
+    await page.goto("/settings/privacy");
     for (const name of [
       "escalia_locale",
       "escalia_sidebar",
@@ -260,9 +309,9 @@ test.describe("settings", () => {
   });
 
   test("security and notifications state that nothing is configured", async ({ page }) => {
-    await page.goto("/fr-CA/settings/security");
+    await page.goto("/settings/security");
     await expect(page.getByText("Fournisseur d’identité non configuré")).toBeVisible();
-    await page.goto("/fr-CA/settings/notifications");
+    await page.goto("/settings/notifications");
     await expect(page.getByText("Non disponible pour le moment")).toBeVisible();
   });
 });
@@ -275,19 +324,19 @@ test.describe("production safety", () => {
     });
     page.on("pageerror", (error) => problems.push(`${page.url()} :: pageerror ${error.message.slice(0, 200)}`));
     for (const route of PUBLIC_ROUTES) {
-      await page.goto(`/fr-CA/${route}`);
+      await page.goto(`/${route}`);
       await settle(page);
     }
     await enterDemo(page);
     for (const route of APP_ROUTES) {
-      await page.goto(`/fr-CA/${route}`);
+      await page.goto(`/${route}`);
       await settle(page);
     }
     expect(problems).toEqual([]);
   });
 
   test("responses carry a nonce-based CSP and security headers", async ({ request }) => {
-    const response = await request.get("/fr-CA/login");
+    const response = await request.get("/login");
     const csp = response.headers()["content-security-policy"];
     expect(csp).toMatch(/script-src 'self' 'nonce-[^']+' 'strict-dynamic'/);
     expect(csp).toContain("frame-ancestors 'none'");
@@ -297,7 +346,7 @@ test.describe("production safety", () => {
   });
 
   test("the HTML never contains secrets or demo secret material", async ({ request }) => {
-    const html = await (await request.get("/fr-CA/login")).text();
+    const html = await (await request.get("/login")).text();
     expect(html).not.toContain("e2e-demo-session-secret");
     expect(html).not.toContain("DEMO_SESSION_SECRET");
   });

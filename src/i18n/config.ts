@@ -24,5 +24,6 @@ export const MESSAGE_DOMAINS = [
   "feedback",
   "modules",
   "gallery",
+  "assist",
 ] as const;
 export type MessageDomain = (typeof MESSAGE_DOMAINS)[number];

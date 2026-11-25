@@ -46,7 +46,7 @@ for (const viewport of WIDTHS) {
         test("public screens fit the viewport", async ({ page }) => {
           await setTheme(page, theme);
           for (const route of PUBLIC_ROUTES) {
-            await page.goto(`/${locale}/${route}`);
+            await page.goto(`/${route}`);
             await settle(page);
             await expectNoHorizontalOverflow(page, `${route}`);
             await expect(page.locator("main").first()).toBeVisible();
@@ -63,7 +63,7 @@ for (const viewport of WIDTHS) {
           await setTheme(page, theme);
           await enterDemo(page, locale);
           for (const route of APP_ROUTES) {
-            await page.goto(`/${locale}/${route}`);
+            await page.goto(`/${route}`);
             await settle(page);
             await expectNoHorizontalOverflow(page, `${route}`);
             await expect(page.locator("main").first()).toBeVisible();

@@ -30,7 +30,7 @@ for (const locale of LOCALES) {
         test(`public: ${route}`, async ({ page }) => {
           const findings: Findings = {};
           await setTheme(page, theme);
-          await page.goto(`/${locale}/${route}`);
+          await page.goto(`/${route}`);
           await settle(page);
           await audit(page, route, findings);
           expect(findings, "axe violations").toEqual({});
@@ -42,7 +42,7 @@ for (const locale of LOCALES) {
           const findings: Findings = {};
           await setTheme(page, theme);
           await enterDemo(page, locale);
-          await page.goto(`/${locale}/${route}`);
+          await page.goto(`/${route}`);
           await settle(page);
           await audit(page, route, findings);
           expect(findings, "axe violations").toEqual({});

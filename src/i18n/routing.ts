@@ -7,13 +7,15 @@ export type AppLocale = (typeof locales)[number];
 export const defaultLocale: AppLocale = "fr-CA";
 
 /**
- * URLs are always prefixed (/fr-CA/..., /en-CA/...). The BFF lives under /api/bff and is not localised.
- * Detection order for visitors: locale cookie > Accept-Language > fr-CA.
+ * Visible URLs omit the locale (/login, /dashboard). Internally, pages stay under app/[locale].
+ * Detection order for visitors: session override > preference cookie > next-intl locale cookie >
+ * Accept-Language > fr-CA. Legacy /fr-CA/... and /en-CA/... paths are redirected once in src/proxy.ts.
  */
 export const routing = defineRouting({
   locales,
   defaultLocale,
-  localePrefix: "always",
+  localePrefix: "never",
+  alternateLinks: false,
   localeCookie: {
     name: COOKIE_NAMES.locale,
     maxAge: ONE_YEAR_SECONDS,

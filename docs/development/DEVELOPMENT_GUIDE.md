@@ -11,7 +11,7 @@ Lire d'abord : `AGENTS.md`, `README.md`, les trois skills (`.agents/skills/*/SKI
 ## 1. Cartographie du code
 
 ```
-src/app/[locale]/(app|auth|legal|status)/…   Routes localisées (toujours /fr-CA ou /en-CA)
+src/app/[locale]/(app|auth|legal|status)/…   Routes internes localisées ; URL visibles sans préfixe (/login, /dashboard)
 src/app/api/bff/…                            BFF : seule porte vers les données (hors locale)
 src/proxy.ts                                 CSP à nonce, corrélation, i18n, langue préférée
 src/app/[locale]/(app)/layout.tsx            Garde de session des pages (redirige vers /login ; échoue fermé)

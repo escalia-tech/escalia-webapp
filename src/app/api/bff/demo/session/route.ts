@@ -41,7 +41,7 @@ export const POST = publicBffHandler(
     });
 
     getLogger("demo-session", "bff").info("demo.session.started", { locale, demo: true });
-    return { data: { redirectTo: `/${locale}/dashboard` } };
+    return { data: { redirectTo: "/dashboard" } };
   },
 );
 
@@ -59,6 +59,6 @@ export const DELETE = bffHandler(
     store.delete(COOKIE_NAMES.localeSession);
 
     getLogger("demo-session", "bff").info("demo.session.ended", { demo: true });
-    return { data: { redirectTo: `/${locale}/login` } };
+    return { data: { redirectTo: "/login" } };
   },
 );
