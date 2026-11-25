@@ -1,0 +1,120 @@
+/*
+ * Escalia V7 design tokens (docs/branding/DESIGN_SYSTEM.md).
+ * Single source of truth: screens and components consume these variables through Tailwind utilities
+ * (bg-card, text-info-foreground, ...) and never hardcode a colour. Dark mode is "Black & Amber",
+ * authored separately (not an inversion of light). Complementary dark values are implementation
+ * choices to be re-verified (see docs/development/FOUNDATION_REPORT.md).
+ */
+
+:root {
+  /* --- layout metrics (Medium+ density) --- */
+  --radius: 0.5rem; /* 8px */
+  --header-height: 4rem; /* 64px */
+  --sidebar-width: 14.5rem; /* 232px */
+  --sidebar-width-icon: 3.5rem; /* 56px */
+  --control-height: 2.375rem; /* fields 38px */
+  --button-height: 2.25rem; /* buttons / navigation 36px */
+  --row-height: 2.75rem; /* table rows 44px */
+
+  /* --- brand reference colours (official palette, never modified) --- */
+  --brand-epinette: #1d5c4f;
+  --brand-epinette-pale: #e3efeb;
+  --brand-ambre: #e0a526;
+  --brand-encre: #10201c;
+  --brand-brume: #f3f5f4;
+
+  /* --- semantic tokens: light (Pastel Enterprise) --- */
+  --background: #f3f5f4;
+  --foreground: #10201c;
+  --header: #ffffff;
+  --card: #ffffff;
+  --card-foreground: #10201c;
+  --popover: #ffffff;
+  --popover-foreground: #10201c;
+  --primary: #1d5c4f;
+  --primary-foreground: #ffffff;
+  --secondary: #e3efeb;
+  --secondary-foreground: #1d5c4f;
+  --muted: #ecf1ee;
+  --muted-foreground: #52645b;
+  --accent: #e3efeb;
+  --accent-foreground: #1d5c4f;
+  --destructive: #a3370a;
+  --border: #dce4df; /* decorative separators only */
+  --input: #78877f; /* form control borders: >= 3:1 */
+  --ring: #1d5c4f;
+
+  --sidebar: #edf3f0;
+  --sidebar-foreground: #10201c;
+  --sidebar-primary: #1d5c4f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #d4e6de;
+  --sidebar-accent-foreground: #1d5c4f;
+  --sidebar-border: #dce4df;
+  --sidebar-ring: #1d5c4f;
+
+  --info-icon: #96701a; /* darkened from #B58A25 to reach 3:1 on pastel surfaces */
+  --info-surface: #fffaee;
+  --info-border: #f0e5c9;
+  --info-foreground: #665634;
+  --warning-surface: #fbf1d9;
+  --warning-foreground: #7a4f00;
+  --danger-surface: #fce9df;
+  --danger-foreground: #a3370a;
+  --success-surface: #e3efeb;
+  --success-foreground: #1d5c4f;
+
+  --chart-1: #4f7f73; /* main series: desaturated Épinette */
+  --chart-2: #c7dcd3; /* comparison series (pair with pattern / dashed style / label) */
+  --chart-3: #e0a526; /* amber, sparing */
+  --chart-4: #a3370a; /* brick: anomalies */
+  --chart-5: #8dbeaa;
+}
+
+.dark {
+  --background: #101010;
+  --foreground: #f1f1ef;
+  --header: #151515;
+  --card: #1c1c1c;
+  --card-foreground: #f1f1ef;
+  --popover: #1c1c1c;
+  --popover-foreground: #f1f1ef;
+  --primary: #e0a526;
+  --primary-foreground: #17130b;
+  --secondary: #262626;
+  --secondary-foreground: #f1f1ef;
+  --muted: #232323;
+  --muted-foreground: #a3a3a3;
+  --accent: #30291b;
+  --accent-foreground: #f0cb78;
+  --destructive: #e79b7a;
+  --border: #303030;
+  --input: #707070;
+  --ring: #e0a526;
+
+  --sidebar: #151515;
+  --sidebar-foreground: #f1f1ef;
+  --sidebar-primary: #e0a526;
+  --sidebar-primary-foreground: #17130b;
+  --sidebar-accent: #30291b;
+  --sidebar-accent-foreground: #f0cb78;
+  --sidebar-border: #303030;
+  --sidebar-ring: #e0a526;
+
+  --info-icon: #d6ad55;
+  --info-surface: #282419;
+  --info-border: #665634;
+  --info-foreground: #f1dfb5;
+  --warning-surface: #30291b;
+  --warning-foreground: #f0cb78;
+  --danger-surface: #35231e;
+  --danger-foreground: #e79b7a;
+  --success-surface: #20332c;
+  --success-foreground: #8dbeaa;
+
+  --chart-1: #e0a526;
+  --chart-2: #665634;
+  --chart-3: #8dbeaa;
+  --chart-4: #e79b7a;
+  --chart-5: #a3a3a3;
+}
