@@ -18,7 +18,7 @@ Si `npm install` échoue avec une erreur d'arborist (npm 11), utiliser `npx npm@
 ```bash
 npm install
 cp .env.example .env.local        # APP_ENV=local, DEMO_MODE_ENABLED=true (aucun secret requis en local)
-npm run dev                       # http://localhost:3000 → redirige vers /fr-CA/login
+npm run dev                       # http://localhost:3000 → /login (langue via cookie / navigateur)
 ```
 Sur l'écran de connexion, « Entrer en mode démonstration » ouvre une **session de démonstration** (cookie HttpOnly signé,
 8 h). Le mode démo n'est honoré que si `APP_ENV` est `local`, `development` ou `test` : **en production il est refusé
@@ -35,12 +35,14 @@ même si `DEMO_MODE_ENABLED=true`**. Les formulaires de connexion/inscription ne
 | `npm run check:bundle` | Aucun secret ni code serveur dans le JavaScript client |
 | `npm run check:assets` | Intégrité des assets de marque officiels |
 | `npm run validate` | check + typecheck + test + build |
+| `npm run docker:build` / `docker:run` | Image OCI standalone (voir `docs/deployment/DOCKER.md`) |
 
 ## Documentation applicative
 - `docs/development/DEVELOPMENT_GUIDE.md` — ajouter une feature, un écran, un endpoint BFF, des logs, des traductions ; commandes ; pièges.
 - `docs/development/COOKIES_AND_STORAGE.md` — inventaire des témoins et du stockage navigateur.
 - `docs/development/FOUNDATION_REPORT.md` — rapport de fondation : résultats réels, captures, points ouverts.
 - `docs/architecture/` — architecture et observabilité ; `docs/branding/DESIGN_SYSTEM.md` — design system.
+- `docs/deployment/` — Docker, Compose, Kubernetes (OCI, health checks, variables build/runtime).
 
 ## Sécurité en bref
 BFF seul accès aux données, secrets uniquement côté serveur (aucun `NEXT_PUBLIC_*` secret), CSP à nonce, contrôle

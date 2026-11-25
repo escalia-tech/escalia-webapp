@@ -1,0 +1,24 @@
+# Orchestration minimale : image/tag (npm run docker:compose:env) + fichier runtime (équivalent ConfigMap local).
+name: escalia-webapp
+
+services:
+  web:
+    image: ${ESCALIA_IMAGE:?Run npm run docker:compose:env after docker:build}
+    ports:
+      - "${ESCALIA_HOST_PORT:-3000}:3000"
+    env_file:
+      - ${ESCALIA_RUNTIME_ENV_FILE:-deploy/runtime.env}
+    restart: unless-stopped
+    stop_grace_period: 30s
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health/ready').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s

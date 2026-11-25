@@ -22,7 +22,13 @@
     "test:a11y": "playwright test --project=a11y",
     "check:assets": "shasum -a 256 -c docs/branding/ASSET_MANIFEST.sha256",
     "check:bundle": "node scripts/check-bundle.mjs",
-    "validate": "npm run check && npm run typecheck && npm run test && npm run build"
+    "validate": "npm run check && npm run typecheck && npm run test && npm run build",
+    "docker:version": "node scripts/docker/version.mjs",
+    "docker:build": "node scripts/docker/build.mjs",
+    "docker:run": "node scripts/docker/run.mjs",
+    "docker:stop": "node scripts/docker/stop.mjs",
+    "docker:build:multiarch": "node scripts/docker/build-multiarch.mjs",
+    "docker:compose:env": "node scripts/docker/compose-env.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.2",

@@ -20,6 +20,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  // Self-hosted Docker/Kubernetes; Vercel deployments ignore this output mode.
+  output: "standalone",
   // Next.js must not rewrite AGENTS.md / CLAUDE.md (project-owned agent instructions).
   agentRules: false,
   poweredByHeader: false,

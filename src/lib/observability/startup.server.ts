@@ -1,5 +1,6 @@
 import "server-only";
 
+import { getAppMetadata } from "@/lib/app-metadata";
 import { getServerEnv } from "@/server/config/env";
 
 import { reportError } from "./errors/error-reporter";
@@ -8,10 +9,14 @@ import { getLogger } from "./logger/logger.server";
 /** Logged once per server instance by `instrumentation.ts`. */
 export function logServerStartup(): void {
   const env = getServerEnv();
+  const app = getAppMetadata();
   getLogger("instrumentation").info("app.server.started", {
     environment: env.appEnv,
     nodeEnv: env.nodeEnv,
     runtime: "nodejs",
+    appName: app.name,
+    appVersion: app.version,
+    ...(app.revision ? { appRevision: app.revision } : {}),
     logLevel: env.logLevel,
     logFormat: env.logFormat,
     otelEnabled: env.otelEnabled,
