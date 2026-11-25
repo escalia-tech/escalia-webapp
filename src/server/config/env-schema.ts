@@ -27,7 +27,6 @@ const booleanFlag = z.preprocess(
 const serverEnvSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   APP_ENV: z.preprocess(emptyToUndefined, z.enum(APP_ENVIRONMENTS).optional()),
-  APP_URL: z.preprocess(emptyToUndefined, z.url().default("http://localhost:3000")),
   DEMO_MODE_ENABLED: booleanFlag,
   DEMO_SESSION_SECRET: z.preprocess(emptyToUndefined, z.string().min(32).optional()),
   LOG_LEVEL: z.preprocess(emptyToUndefined, z.enum(LOG_LEVELS).optional()),
@@ -43,7 +42,6 @@ export interface ServerEnv {
   nodeEnv: "development" | "production" | "test";
   appEnv: AppEnvironment;
   isProduction: boolean;
-  appUrl: string;
   /** Demo fixtures and entry: on by default except real production; opt out with DEMO_MODE_ENABLED=false. */
   demoModeEnabled: boolean;
   demoSessionSecret: string | undefined;
@@ -109,7 +107,6 @@ export function parseServerEnv(source: Record<string, string | undefined>): Serv
     nodeEnv: data.NODE_ENV,
     appEnv,
     isProduction,
-    appUrl: data.APP_URL,
     demoModeEnabled: resolveDemoModeEnabled(appEnv, source),
     demoSessionSecret: data.DEMO_SESSION_SECRET,
     logLevel: data.LOG_LEVEL ?? (isLocal ? "debug" : "info"),

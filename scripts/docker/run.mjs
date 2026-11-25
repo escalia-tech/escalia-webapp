@@ -13,7 +13,6 @@ function run() {
 
   const envArgs = ["-e", "NODE_ENV=production", "-e", `APP_ENV=${process.env.APP_ENV ?? "staging"}`];
 
-  if (process.env.APP_URL) envArgs.push("-e", `APP_URL=${process.env.APP_URL}`);
   if (process.env.LOG_LEVEL) envArgs.push("-e", `LOG_LEVEL=${process.env.LOG_LEVEL}`);
   if (process.env.LOG_FORMAT) envArgs.push("-e", `LOG_FORMAT=${process.env.LOG_FORMAT}`);
 

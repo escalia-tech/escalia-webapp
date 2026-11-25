@@ -78,8 +78,12 @@ describe("properties service", () => {
       await expect(getDashboardSummary()).rejects.toMatchObject({ code: "upstream.unavailable" });
     });
 
-    it("refuses without the demo flag", async () => {
-      const { listProperties } = await loadService({ NODE_ENV: "development", APP_ENV: "local" });
+    it("refuses when demo is opted out", async () => {
+      const { listProperties } = await loadService({
+        NODE_ENV: "development",
+        APP_ENV: "local",
+        DEMO_MODE_ENABLED: "false",
+      });
       await expect(listProperties(defaultQuery)).rejects.toMatchObject({ code: "upstream.unavailable" });
     });
   });
