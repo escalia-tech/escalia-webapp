@@ -1,0 +1,2 @@
+# Instructions agents Escalia
+Lire README.md, puis les skills pertinents dans .agents/skills/ et leurs documents référencés. Pour toute implémentation utiliser UI et observabilité ; MCP selon besoin. INITIALIZE_PROJECT.md uniquement sur demande d'initialisation. Le produit ne donne pas autorisation d'implémenter les capacités futures. Ne pas inventer contrats, permissions, workflows. En cas de conflit signaler et demander arbitrage. Tests réellement exécutés seulement. Ne pas modifier assets officiels.
