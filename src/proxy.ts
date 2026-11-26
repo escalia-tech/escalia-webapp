@@ -12,6 +12,7 @@ import {
   resolveTraceContext,
   TRACEPARENT_HEADER,
 } from "@/lib/observability/tracing/correlation";
+import { PATH_HEADER } from "@/lib/return-to";
 import { THIRD_PARTY_STYLE_HASHES } from "@/lib/security/style-hashes";
 
 const handleI18n = createIntlMiddleware(routing);
@@ -72,6 +73,7 @@ export function proxy(request: NextRequest) {
   requestHeaders.set(CORRELATION_ID_HEADER, correlationId);
   requestHeaders.set(TRACEPARENT_HEADER, formatTraceparent(trace));
   requestHeaders.set("x-nonce", nonce);
+  requestHeaders.set(PATH_HEADER, `${pathname}${search}`);
   requestHeaders.set("content-security-policy", csp);
 
   const response = handleI18n(new NextRequest(request, { headers: requestHeaders }));

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 import { hasLocale } from "next-intl";
 
@@ -9,6 +9,7 @@ import { getNotifications } from "@/features/notifications/server/notifications.
 import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { COOKIE_NAMES } from "@/lib/cookies";
+import { PATH_HEADER, safeReturnTo } from "@/lib/return-to";
 import { getSession } from "@/server/auth/session";
 
 /**
@@ -28,7 +29,9 @@ export default async function AppLayout({
 
   const session = await getSession();
   if (!session) {
-    redirect({ href: "/login", locale: resolvedLocale });
+    // Sign in, then come back to the page that was asked for (an invitation link, for one).
+    const asked = safeReturnTo((await headers()).get(PATH_HEADER), "/dashboard");
+    redirect({ href: `/login?returnTo=${encodeURIComponent(asked)}`, locale: resolvedLocale });
     return null;
   }
 
