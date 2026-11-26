@@ -15,6 +15,7 @@ import type portfolio from "../../messages/fr-CA/portfolio.json";
 import type rules from "../../messages/fr-CA/rules.json";
 import type settings from "../../messages/fr-CA/settings.json";
 import type shell from "../../messages/fr-CA/shell.json";
+import type signing from "../../messages/fr-CA/signing.json";
 
 /** fr-CA is the reference catalogue: its JSON files define the typed message keys (en-CA must match). */
 declare module "next-intl" {
@@ -32,6 +33,7 @@ declare module "next-intl" {
       portfolio: typeof portfolio;
       documents: typeof documents;
       leases: typeof leases;
+      signing: typeof signing;
       settings: typeof settings;
       feedback: typeof feedback;
       modules: typeof modules;
