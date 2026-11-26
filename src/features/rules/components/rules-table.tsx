@@ -52,22 +52,24 @@ export function RulesTable({ page, search, locale }: { page: RulesPage; search: 
   return (
     <Card>
       <CardContent className="space-y-4">
-        <form method="get" role="search" className="flex flex-wrap items-end gap-2">
-          <div className="grid gap-1.5">
-            <label htmlFor="rules-search" className="text-sm font-medium">
-              {t("searchLabel")}
-            </label>
-            <Input
-              id="rules-search"
-              name="q"
-              type="search"
-              defaultValue={search}
-              placeholder={t("searchPlaceholder")}
-              maxLength={80}
-            />
-          </div>
-          <Button type="submit">{t("search")}</Button>
-        </form>
+        <search>
+          <form method="get" className="flex flex-wrap items-end gap-2">
+            <div className="grid gap-1.5">
+              <label htmlFor="rules-search" className="text-sm font-medium">
+                {t("searchLabel")}
+              </label>
+              <Input
+                id="rules-search"
+                name="q"
+                type="search"
+                defaultValue={search}
+                placeholder={t("searchPlaceholder")}
+                maxLength={80}
+              />
+            </div>
+            <Button type="submit">{t("search")}</Button>
+          </form>
+        </search>
         <p className="text-muted-foreground text-sm" aria-live="polite">
           {t("jurisdiction")}: {page.jurisdiction} · {t("asOf", { date: date(page.date, locale) })} ·{" "}
           {t("count", { count: page.rules.length })}

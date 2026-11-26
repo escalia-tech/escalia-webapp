@@ -15,6 +15,10 @@ describe("parseRulesQuery", () => {
     });
   });
 
+  it("treats empty values as absent", () => {
+    expect(parseRulesQuery({ q: "", date: [] })).toEqual({ jurisdiction: "CA-QC" });
+  });
+
   it("falls back to the defaults on anything invalid", () => {
     expect(parseRulesQuery({ jurisdiction: "../etc", date: "tomorrow" })).toEqual({ jurisdiction: "CA-QC" });
   });

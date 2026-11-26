@@ -37,11 +37,14 @@ export type RulesQuery = z.infer<typeof rulesQuerySchema>;
 
 /** Reads the query string of the page; anything invalid falls back to the defaults, never to an error page. */
 export function parseRulesQuery(raw: Record<string, string | string[] | undefined>): RulesQuery {
-  const first = (value: string | string[] | undefined) => (Array.isArray(value) ? value[0] : value);
+  const first = (value: string | string[] | undefined) => {
+    const one = Array.isArray(value) ? value[0] : value;
+    return one === "" ? undefined : one;
+  };
   const parsed = rulesQuerySchema.safeParse({
-    q: first(raw.q) || undefined,
-    jurisdiction: first(raw.jurisdiction) || undefined,
-    date: first(raw.date) || undefined,
+    q: first(raw.q),
+    jurisdiction: first(raw.jurisdiction),
+    date: first(raw.date),
   });
   return parsed.success ? parsed.data : { jurisdiction: "CA-QC" };
 }

@@ -14,10 +14,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { BuildingNoteDemoForm } from "@/features/buildings/components/building-note-demo-form";
 import { getBuilding } from "@/features/buildings/server/buildings.service";
+import { BuildingRoute } from "@/features/portfolio/components/buildings-route";
 import { Link } from "@/i18n/navigation";
 import { formatMoney, formatMonth, formatNumber, formatPercent } from "@/lib/format";
 import { isApplicationError } from "@/lib/observability/errors/application-error";
 import { safeReturnTo } from "@/lib/return-to";
+import { getServerEnv } from "@/server/config/env";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -45,6 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function BuildingDetailPage({ params, searchParams }: PageProps) {
   const [{ id }, rawSearch, locale] = await Promise.all([params, searchParams, getLocale()]);
+  if (getServerEnv().bffBaseUrl) return <BuildingRoute id={id} />;
   const [t, tList, tTypes, tDash, tNav, { building, meta }] = await Promise.all([
     getTranslations("buildings.detail"),
     getTranslations("buildings"),
