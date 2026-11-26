@@ -22,7 +22,9 @@
     "role": "Choose the role of each person.",
     "name": "Enter the name of each person.",
     "share": "The share of the rent must be a percentage, for example 50 or 33.33.",
-    "amount": "The maximum amount must be in dollars, for example 1500 or 1500.50."
+    "amount": "The maximum amount must be in dollars, for example 1500 or 1500.50.",
+    "terms": "Accept the terms and the privacy policy to continue.",
+    "token": "This invitation link is not valid."
   },
   "refusals": {
     "shares": "The shares of the rent must add up to 100%.",
@@ -36,7 +38,12 @@
     "unknownTenant": "A guarantor covers a tenant who is not on the lease.",
     "notFound": "This lease does not exist, or it does not belong to your organization.",
     "unitNotFound": "This unit does not exist, or it does not belong to your organization.",
-    "occupantNotFound": "This occupant is not on the lease."
+    "occupantNotFound": "This occupant is not on the lease.",
+    "invitationNotFound": "This invitation does not exist.",
+    "invitationExpired": "This invitation has expired. Ask for a new link.",
+    "invitationUsed": "This invitation was already used. Sign in.",
+    "invitationAddress": "This invitation was sent to another email address. Sign in with that one.",
+    "emailRequired": "An email address is needed to invite this person."
   },
   "roles": {
     "TENANT": "Tenant",
@@ -92,5 +99,40 @@
     "description": "An occupant can be added or removed at any time, even after signing.",
     "none": "No occupant.",
     "add": "Add"
+  },
+  "invitations": {
+    "title": "Invitations",
+    "description": "Invite the people on this lease to join Escalia. The link is valid for 30 days; sending again replaces the previous one.",
+    "send": "Send the invitations",
+    "resend": "Send again",
+    "sent": "{count, plural, =0 {Nobody to invite: add an email to each person first.} one {# invitation sent.} other {# invitations sent.}}",
+    "status": {
+      "notInvited": "Not invited",
+      "invited": "Invited on {date}, valid until {until}",
+      "joined": "Joined on {date}",
+      "noEmail": "No email"
+    }
+  },
+  "accept": {
+    "title": "Join your lease",
+    "description": "Sign in with the email address that received the invitation, choose your language and accept the terms.",
+    "language": "Language",
+    "terms": "I accept the terms of use",
+    "privacy": "I have read the privacy policy",
+    "submit": "Join the lease",
+    "requestNew": "Ask for a new link",
+    "requestSent": "Your landlord was notified and will send a new link.",
+    "noToken": "This invitation link is not valid."
+  },
+  "tenant": {
+    "title": "My leases",
+    "description": "The leases you joined.",
+    "empty": "You have not joined a lease yet.",
+    "open": "Open",
+    "pending": "The terms appear here once the lease is signed.",
+    "role": "Your role",
+    "share": "Your share of the rent",
+    "summary": "Who answers for the rent",
+    "unit": "Unit"
   }
 }

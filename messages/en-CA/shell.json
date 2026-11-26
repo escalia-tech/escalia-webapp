@@ -18,7 +18,8 @@
       "documents": "Documents",
       "rules": "Rules in force",
       "reports": "Reports",
-      "settings": "Settings"
+      "settings": "Settings",
+      "tenant": "My leases"
     }
   },
   "header": {

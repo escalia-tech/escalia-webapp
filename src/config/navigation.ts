@@ -4,6 +4,7 @@ import {
   DoorOpen,
   FileSignature,
   FileText,
+  KeyRound,
   LayoutDashboard,
   type LucideIcon,
   Scale,
@@ -26,6 +27,7 @@ export type NavKey =
   | "units"
   | "tenants"
   | "leases"
+  | "tenant"
   | "payments"
   | "maintenance"
   | "documents"
@@ -45,6 +47,7 @@ export const MAIN_NAV: readonly NavItem[] = [
   { key: "units", href: "/units", icon: DoorOpen, status: "planned" },
   { key: "tenants", href: "/tenants", icon: Users, status: "planned" },
   { key: "leases", href: "/leases", icon: FileSignature, status: "available" },
+  { key: "tenant", href: "/tenant", icon: KeyRound, status: "available" },
   { key: "payments", href: "/payments", icon: Wallet, status: "planned" },
   { key: "maintenance", href: "/maintenance", icon: Wrench, status: "planned" },
   { key: "documents", href: "/documents", icon: FileText, status: "planned" },

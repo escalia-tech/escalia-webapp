@@ -18,7 +18,8 @@
       "documents": "Documents",
       "rules": "Règles en vigueur",
       "reports": "Rapports",
-      "settings": "Configuration"
+      "settings": "Configuration",
+      "tenant": "Mes baux"
     }
   },
   "header": {

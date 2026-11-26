@@ -9,6 +9,7 @@ import { failureState } from "@/server/bff-pages/failure";
 
 import { fetchLease, fetchLeases } from "../server/leases.service";
 import { CreateLeaseButton } from "./create-lease-button";
+import { InvitationsPanel } from "./invitations-panel";
 import { PartiesEditor } from "./parties-editor";
 
 async function crumbs(title: string) {
@@ -89,6 +90,7 @@ export async function LeaseRoute({ id }: { id: string }) {
           ]}
         />
         <PartiesEditor lease={lease} />
+        <InvitationsPanel lease={lease} />
       </>
     );
   } catch (error) {

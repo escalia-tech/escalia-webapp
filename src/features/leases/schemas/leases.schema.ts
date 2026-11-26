@@ -46,6 +46,29 @@ export const leasePageSchema = z.object({ lease: leaseSchema });
 export const leasesPageSchema = z.object({ items: z.array(leaseSchema) });
 export const leaseSchemaOnly = leaseSchema;
 
+/** What a person who joined a lease sees of it (`TenantLeasePage` in `pages.yaml`). */
+const tenantLeaseSchema = z.object({
+  leaseId: z.string(),
+  unitId: z.string(),
+  role: z.enum(ROLES),
+  status: z.enum(["DRAFT", "SIGNED", "RECORDED", "ENDED"]),
+  access: z.enum(["ACTIVE", "PENDING"]),
+  solidaritySummary: z.object({ fr: z.string(), en: z.string() }).nullish(),
+  shareBasisPoints: z.number().int().nullish(),
+});
+export type TenantLease = z.infer<typeof tenantLeaseSchema>;
+export const tenantLeasePageSchema = z.object({ lease: tenantLeaseSchema });
+export const tenantLeasesPageSchema = z.object({ items: z.array(tenantLeaseSchema) });
+export const invitationsSentSchema = z.object({ sent: z.number().int() });
+export const invitationAcceptedSchema = z.object({ leaseId: z.string(), role: z.enum(ROLES) });
+
+/** The versions of the documents a person accepts when joining; they change only with the documents. */
+export const TERMS_VERSION = "2026-11";
+export const PRIVACY_VERSION = "2026-11";
+export const INVITATION_TOKEN = /^[A-Za-z0-9_-]{20,100}$/;
+/** An invitation stays valid for 30 days after it was sent (FR-TEN-01 BR-1). */
+export const INVITATION_DAYS = 30;
+
 /** Core refusals the screen explains in its own words; anything else shows the core's message. */
 export const REFUSAL_KEYS = {
   "lease.parties.shares": "shares",
@@ -60,6 +83,11 @@ export const REFUSAL_KEYS = {
   "lease.not_found": "notFound",
   "lease.unit_not_found": "unitNotFound",
   "lease.occupant_not_found": "occupantNotFound",
+  "lease.invitation.not_found": "invitationNotFound",
+  "lease.invitation.expired": "invitationExpired",
+  "lease.invitation.used": "invitationUsed",
+  "lease.invitation.email_mismatch": "invitationAddress",
+  "lease.invitation.email_required": "emailRequired",
 } as const;
 export type RefusalKey = (typeof REFUSAL_KEYS)[keyof typeof REFUSAL_KEYS];
 

@@ -6,7 +6,19 @@ import { getLocale } from "next-intl/server";
 
 import { redirect } from "@/i18n/navigation";
 
-import { addOccupant, createLease, type LeaseOutcome, removeOccupant, saveParties } from "./leases.service";
+import {
+  type AcceptOutcome,
+  acceptInvitation,
+  addOccupant,
+  createLease,
+  type InviteOutcome,
+  inviteParties,
+  type LeaseOutcome,
+  type RequestOutcome,
+  removeOccupant,
+  requestNewInvitation,
+  saveParties,
+} from "./leases.service";
 
 export type LeaseFormState = LeaseOutcome | undefined;
 
@@ -46,4 +58,31 @@ export async function addOccupantAction(
 
 export async function removeOccupantAction(leaseId: string, personId: string): Promise<LeaseOutcome> {
   return finish(await removeOccupant(leaseId, personId, await getLocale()));
+}
+
+export async function inviteAction(leaseId: string): Promise<InviteOutcome> {
+  const outcome = await inviteParties(leaseId, await getLocale());
+  if (outcome.status === "sent") revalidatePath("/leases/[leaseId]", "page");
+  return outcome;
+}
+
+export type AcceptFormState = AcceptOutcome | undefined;
+
+/** The invitation page posts here; a person who joined lands on their lease. */
+export async function acceptInvitationAction(
+  token: string,
+  _previous: AcceptFormState,
+  form: FormData,
+): Promise<AcceptFormState> {
+  const locale = await getLocale();
+  const outcome = await acceptInvitation(token, form, locale);
+  if (outcome.status === "joined") {
+    revalidatePath("/tenant", "page");
+    redirect({ href: `/tenant/${outcome.leaseId}` as `/${string}`, locale: locale as "fr-CA" | "en-CA" });
+  }
+  return outcome;
+}
+
+export async function requestNewInvitationAction(token: string): Promise<RequestOutcome> {
+  return requestNewInvitation(token, await getLocale());
 }
