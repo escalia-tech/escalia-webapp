@@ -6,12 +6,13 @@ import { defaultLocale, isAppLocale } from "@/i18n/routing";
 import { COOKIE_NAMES } from "@/lib/cookies";
 import { ApplicationError } from "@/lib/observability/errors/application-error";
 import { getLogger } from "@/lib/observability/logger/logger.server";
+import { safeReturnTo } from "@/lib/return-to";
 import { bffHandler, parseJsonBody, publicBffHandler } from "@/server/bff/with-bff";
 import { getServerEnv, isDemoModeEnabled } from "@/server/config/env";
 import { readPreferencesCookie } from "@/server/preferences/preferences-cookie";
 import { DEMO_SESSION_TTL_SECONDS, issueDemoSessionToken } from "@/server/session/demo-session";
 
-const enterSchema = z.object({ locale: z.string().max(10).optional() });
+const enterSchema = z.object({ locale: z.string().max(10).optional(), returnTo: z.string().max(500).optional() });
 
 /**
  * Demo session entry. Explicit, separate from the (non-functional) sign-in forms: it collects no
@@ -24,7 +25,7 @@ export const POST = publicBffHandler(
     if (!isDemoModeEnabled()) {
       throw new ApplicationError("demo.disabled", "Demo mode is not available in this environment");
     }
-    const { locale: requested } = await parseJsonBody(enterSchema, request);
+    const { locale: requested, returnTo } = await parseJsonBody(enterSchema, request);
     const store = await cookies();
 
     // Entry language: temporary session override > saved preference > language of the page > default.
@@ -41,7 +42,7 @@ export const POST = publicBffHandler(
     });
 
     getLogger("demo-session", "bff").info("demo.session.started", { locale, demo: true });
-    return { data: { redirectTo: "/dashboard" } };
+    return { data: { redirectTo: safeReturnTo(returnTo, "/dashboard") } };
   },
 );
 

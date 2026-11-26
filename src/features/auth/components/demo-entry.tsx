@@ -12,7 +12,7 @@ import { bffFetch } from "@/lib/bff-client";
 import { useErrorMessage } from "@/lib/use-error-message";
 
 /** Explicit demo entry (non-production only, rendered only when the server says it is available). */
-export function DemoEntry() {
+export function DemoEntry({ returnTo }: { returnTo: string }) {
   const t = useTranslations("auth.demo");
   const tDemo = useTranslations("common.status");
   const locale = useLocale();
@@ -26,7 +26,7 @@ export function DemoEntry() {
     try {
       const { redirectTo } = await bffFetch<{ redirectTo: string }>("/api/bff/demo/session", {
         method: "POST",
-        body: { locale },
+        body: { locale, returnTo },
       });
       // Full navigation so the new HttpOnly cookie is used for the first authenticated render.
       window.location.assign(redirectTo);

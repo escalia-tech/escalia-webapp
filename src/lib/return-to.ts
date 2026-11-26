@@ -4,6 +4,9 @@
  * control characters, and stays short. Anything else falls back to the provided default
  * (open-redirect protection).
  */
+/** Set by the proxy on every page request: the path (with query) the visitor asked for, so a sign-in can return to it. */
+export const PATH_HEADER = "x-escalia-path";
+
 const MAX_LENGTH = 500;
 
 export function safeReturnTo<T extends `/${string}`>(
