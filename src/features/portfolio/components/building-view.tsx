@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 
 import type { BuildingPage } from "../schemas/portfolio.schema";
 
@@ -52,7 +53,12 @@ export function BuildingView({ building }: { building: BuildingPage }) {
             <ul className="flex flex-wrap gap-2">
               {building.units.map((unit) => (
                 <li key={unit.id}>
-                  <Badge variant={unit.archived ? "secondary" : "outline"}>{unit.label}</Badge>
+                  <Link
+                    href={`/units/${unit.id}` as `/${string}`}
+                    className="rounded-full focus-visible:ring-3 focus-visible:ring-ring/50 outline-none"
+                  >
+                    <Badge variant={unit.archived ? "secondary" : "outline"}>{unit.label}</Badge>
+                  </Link>
                 </li>
               ))}
             </ul>

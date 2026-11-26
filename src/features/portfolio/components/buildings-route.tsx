@@ -6,9 +6,13 @@ import { failureState } from "@/server/bff-pages/failure";
 
 import { parseBuildingsQuery } from "../schemas/portfolio.schema";
 import { fetchBuilding, fetchBuildings } from "../server/portfolio.service";
+import { fetchUnit } from "../server/unit.service";
 import { BuildingView } from "./building-view";
 import { BuildingsTable } from "./buildings-table";
 import { NewBuildingForm } from "./new-building-form";
+import { UnitAttributesForm } from "./unit-attributes-form";
+import { UnitCopyForm } from "./unit-copy-form";
+import { UnitHistory } from "./unit-history";
 
 type RawQuery = Record<string, string | string[] | undefined>;
 
@@ -80,4 +84,40 @@ export async function NewBuildingRoute() {
       <NewBuildingForm />
     </>
   );
+}
+
+/** One unit: its attributes (FR-PORT-02), copy to other units, and history. */
+export async function UnitRoute({ id }: { id: string }) {
+  const [t, locale] = await Promise.all([getTranslations("portfolio"), getLocale()]);
+  try {
+    const unit = await fetchUnit(id, locale);
+    const title = t("unit.title", { label: unit.label });
+    return (
+      <>
+        <PageHeader
+          title={title}
+          description={`${unit.buildingName} (${unit.buildingCode})`}
+          breadcrumbs={[
+            ...(await crumbs(t("list.title"))).slice(0, 1),
+            { label: unit.buildingName, href: `/buildings/${unit.buildingId}` as `/${string}` },
+            { label: title },
+          ]}
+        />
+        <div className="grid gap-5">
+          {unit.archived ? <Callout tone="warning">{t("unit.archived")}</Callout> : null}
+          <p className="text-muted-foreground text-sm">{t("unit.intro")}</p>
+          <UnitAttributesForm key={unit.current?.version ?? 0} unitId={unit.id} current={unit.current?.attributes} />
+          <UnitCopyForm unit={unit} />
+          <UnitHistory history={unit.history} />
+        </div>
+      </>
+    );
+  } catch (error) {
+    return (
+      <>
+        <PageHeader title={t("list.title")} breadcrumbs={await crumbs(t("list.title"))} />
+        <Callout tone="warning">{t(`states.${failureState(error)}`)}</Callout>
+      </>
+    );
+  }
 }
