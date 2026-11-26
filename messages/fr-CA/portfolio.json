@@ -10,7 +10,12 @@
     "count": "{count, plural, =0 {Aucun immeuble} one {# immeuble} other {# immeubles}}",
     "empty": "Vous n'avez pas encore d'immeuble. Ajoutez le premier pour commencer.",
     "noResults": "Aucun immeuble ne correspond à votre recherche.",
-    "columns": { "building": "Immeuble", "code": "Code", "address": "Adresse", "units": "Logements" },
+    "columns": {
+      "building": "Immeuble",
+      "code": "Code",
+      "address": "Adresse",
+      "units": "Logements"
+    },
     "archived": "Archivé",
     "previous": "Page précédente",
     "next": "Page suivante",
@@ -51,5 +56,117 @@
     "forbidden": "Vous n'avez pas le droit de voir ces immeubles.",
     "notFound": "Cet immeuble n'existe pas, ou il n'appartient pas à votre organisation.",
     "unavailable": "Les immeubles n'ont pas pu être chargés. Réessayez dans un instant."
+  },
+  "unit": {
+    "title": "Logement {label}",
+    "back": "Retour à l'immeuble",
+    "archived": "Archivé",
+    "tabAttributes": "Caractéristiques",
+    "intro": "Ces faits préremplissent le bail. Seul le type est requis; le reste peut attendre.",
+    "futureLeases": "Ces changements s'appliqueront aux prochains baux. Le bail en cours ne change pas.",
+    "noVersion": "Aucune caractéristique enregistrée pour l'instant.",
+    "currentVersion": "Version {version}, enregistrée le {date}",
+    "save": "Enregistrer",
+    "saved": "Enregistré : version {version}.",
+    "invalid": "Vérifiez les champs : un nombre ou un montant n'est pas valide.",
+    "refused": "Le changement n'a pas pu être enregistré.",
+    "groups": {
+      "typeAndSize": "Type et taille",
+      "included": "Inclus dans le loyer",
+      "parkingStorage": "Stationnement et rangement",
+      "accessibility": "Accessibilité"
+    },
+    "fields": {
+      "type": "Type de logement",
+      "area": "Superficie",
+      "areaUnit": "Unité",
+      "heatingIncluded": "Chauffage",
+      "hotWaterIncluded": "Eau chaude",
+      "electricityIncluded": "Électricité",
+      "source": "Source d'énergie",
+      "appliances": "Appareils fournis",
+      "furnished": "Meublé",
+      "snowRemovalIncluded": "Déneigement",
+      "lawnIncluded": "Pelouse",
+      "otherServices": "Autres services",
+      "parkingKind": "Stationnement",
+      "parkingSpaces": "Nombre de places",
+      "parkingIncluded": "Inclus dans le loyer",
+      "parkingAmount": "Montant par mois ($)",
+      "storageKind": "Rangement",
+      "storageIncluded": "Inclus dans le loyer",
+      "storageAmount": "Montant par mois ($)",
+      "stepFreeEntrance": "Entrée de plain-pied",
+      "floor": "Étage (0 : rez-de-chaussée, -1 : sous-sol)",
+      "elevator": "Ascenseur",
+      "adaptedBathroom": "Salle de bain adaptée",
+      "notes": "Notes d'accessibilité"
+    },
+    "types": {
+      "ROOMS_1_5": "1½",
+      "ROOMS_2_5": "2½",
+      "ROOMS_3_5": "3½",
+      "ROOMS_4_5": "4½",
+      "ROOMS_5_5": "5½",
+      "ROOMS_6_5": "6½",
+      "ROOMS_7_5": "7½",
+      "ROOMS_8_5": "8½",
+      "STUDIO": "Studio",
+      "HOUSE": "Maison",
+      "OTHER": "Autre"
+    },
+    "areaUnits": {
+      "FT2": "pi²",
+      "M2": "m²"
+    },
+    "energy": {
+      "ELECTRICITY": "Électricité",
+      "GAS": "Gaz",
+      "OIL": "Mazout",
+      "OTHER": "Autre"
+    },
+    "appliance": {
+      "STOVE": "Cuisinière",
+      "REFRIGERATOR": "Réfrigérateur",
+      "DISHWASHER": "Lave-vaisselle",
+      "WASHER": "Laveuse",
+      "DRYER": "Sécheuse"
+    },
+    "parkingKinds": {
+      "NONE": "Aucun",
+      "OUTDOOR": "Extérieur",
+      "INDOOR": "Intérieur"
+    },
+    "storageKinds": {
+      "NONE": "Aucun",
+      "LOCKER": "Casier",
+      "SHED": "Remise"
+    },
+    "tri": {
+      "YES": "Oui",
+      "NO": "Non",
+      "UNKNOWN": "Inconnu"
+    },
+    "copy": {
+      "title": "Copier vers d'autres logements",
+      "description": "Choisissez les groupes à copier et les logements qui les reçoivent. Un logement qui a un bail en cours reçoit la copie pour les prochains baux seulement.",
+      "groups": "Groupes à copier",
+      "targets": "Logements",
+      "noTargets": "Cet immeuble n'a pas d'autre logement.",
+      "noSource": "Enregistrez d'abord les caractéristiques de ce logement.",
+      "submit": "Copier",
+      "done": "Copié vers {count} logement(s).",
+      "invalid": "Choisissez au moins un groupe et un logement."
+    },
+    "history": {
+      "title": "Historique",
+      "empty": "Aucun changement enregistré.",
+      "version": "Version",
+      "date": "Date",
+      "summary": "Résumé",
+      "line": "{type}, chauffage {heating}"
+    },
+    "yes": "inclus",
+    "no": "non inclus"
   }
 }

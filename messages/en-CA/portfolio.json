@@ -10,7 +10,12 @@
     "count": "{count, plural, =0 {No building} one {# building} other {# buildings}}",
     "empty": "You have no building yet. Add the first one to get started.",
     "noResults": "No building matches your search.",
-    "columns": { "building": "Building", "code": "Code", "address": "Address", "units": "Units" },
+    "columns": {
+      "building": "Building",
+      "code": "Code",
+      "address": "Address",
+      "units": "Units"
+    },
     "archived": "Archived",
     "previous": "Previous page",
     "next": "Next page",
@@ -51,5 +56,117 @@
     "forbidden": "You are not allowed to see these buildings.",
     "notFound": "This building does not exist, or it is not in your organization.",
     "unavailable": "The buildings could not be loaded. Try again in a moment."
+  },
+  "unit": {
+    "title": "Unit {label}",
+    "back": "Back to the building",
+    "archived": "Archived",
+    "tabAttributes": "Attributes",
+    "intro": "These facts pre-fill the lease. Only the type is required; the rest can wait.",
+    "futureLeases": "These changes apply to future leases. The current lease does not change.",
+    "noVersion": "No attributes saved yet.",
+    "currentVersion": "Version {version}, saved on {date}",
+    "save": "Save",
+    "saved": "Saved: version {version}.",
+    "invalid": "Check the fields: a number or an amount is not valid.",
+    "refused": "The change could not be saved.",
+    "groups": {
+      "typeAndSize": "Type and size",
+      "included": "Included in the rent",
+      "parkingStorage": "Parking and storage",
+      "accessibility": "Accessibility"
+    },
+    "fields": {
+      "type": "Unit type",
+      "area": "Area",
+      "areaUnit": "Unit",
+      "heatingIncluded": "Heating",
+      "hotWaterIncluded": "Hot water",
+      "electricityIncluded": "Electricity",
+      "source": "Energy source",
+      "appliances": "Appliances provided",
+      "furnished": "Furnished",
+      "snowRemovalIncluded": "Snow removal",
+      "lawnIncluded": "Lawn care",
+      "otherServices": "Other services",
+      "parkingKind": "Parking",
+      "parkingSpaces": "Number of spaces",
+      "parkingIncluded": "Included in the rent",
+      "parkingAmount": "Amount per month ($)",
+      "storageKind": "Storage",
+      "storageIncluded": "Included in the rent",
+      "storageAmount": "Amount per month ($)",
+      "stepFreeEntrance": "Step-free entrance",
+      "floor": "Floor (0: ground floor, -1: basement)",
+      "elevator": "Elevator",
+      "adaptedBathroom": "Adapted bathroom",
+      "notes": "Accessibility notes"
+    },
+    "types": {
+      "ROOMS_1_5": "1½",
+      "ROOMS_2_5": "2½",
+      "ROOMS_3_5": "3½",
+      "ROOMS_4_5": "4½",
+      "ROOMS_5_5": "5½",
+      "ROOMS_6_5": "6½",
+      "ROOMS_7_5": "7½",
+      "ROOMS_8_5": "8½",
+      "STUDIO": "Studio",
+      "HOUSE": "House",
+      "OTHER": "Other"
+    },
+    "areaUnits": {
+      "FT2": "ft²",
+      "M2": "m²"
+    },
+    "energy": {
+      "ELECTRICITY": "Electricity",
+      "GAS": "Gas",
+      "OIL": "Oil",
+      "OTHER": "Other"
+    },
+    "appliance": {
+      "STOVE": "Stove",
+      "REFRIGERATOR": "Refrigerator",
+      "DISHWASHER": "Dishwasher",
+      "WASHER": "Washer",
+      "DRYER": "Dryer"
+    },
+    "parkingKinds": {
+      "NONE": "None",
+      "OUTDOOR": "Outdoor",
+      "INDOOR": "Indoor"
+    },
+    "storageKinds": {
+      "NONE": "None",
+      "LOCKER": "Locker",
+      "SHED": "Shed"
+    },
+    "tri": {
+      "YES": "Yes",
+      "NO": "No",
+      "UNKNOWN": "Unknown"
+    },
+    "copy": {
+      "title": "Copy to other units",
+      "description": "Choose the groups to copy and the units that receive them. A unit with a lease in progress receives the copy for future leases only.",
+      "groups": "Groups to copy",
+      "targets": "Units",
+      "noTargets": "This building has no other unit.",
+      "noSource": "Save this unit's attributes first.",
+      "submit": "Copy",
+      "done": "Copied to {count} unit(s).",
+      "invalid": "Choose at least one group and one unit."
+    },
+    "history": {
+      "title": "History",
+      "empty": "No change recorded.",
+      "version": "Version",
+      "date": "Date",
+      "summary": "Summary",
+      "line": "{type}, heating {heating}"
+    },
+    "yes": "included",
+    "no": "not included"
   }
 }
