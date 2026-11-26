@@ -21,6 +21,7 @@ export const MESSAGE_DOMAINS = [
   "dashboard",
   "buildings",
   "rules",
+  "portfolio",
   "settings",
   "feedback",
   "modules",

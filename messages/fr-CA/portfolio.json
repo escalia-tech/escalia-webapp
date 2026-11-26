@@ -1,0 +1,55 @@
+{
+  "list": {
+    "title": "Immeubles",
+    "description": "Les immeubles de votre organisation. La liste vient du coeur de la plateforme, jamais d'une donnée de démonstration.",
+    "searchLabel": "Rechercher un immeuble",
+    "searchPlaceholder": "Nom, code ou rue…",
+    "search": "Chercher",
+    "showArchived": "Afficher les immeubles archivés",
+    "add": "Ajouter un immeuble",
+    "count": "{count, plural, =0 {Aucun immeuble} one {# immeuble} other {# immeubles}}",
+    "empty": "Vous n'avez pas encore d'immeuble. Ajoutez le premier pour commencer.",
+    "noResults": "Aucun immeuble ne correspond à votre recherche.",
+    "columns": { "building": "Immeuble", "code": "Code", "address": "Adresse", "units": "Logements" },
+    "archived": "Archivé",
+    "previous": "Page précédente",
+    "next": "Page suivante",
+    "pageOf": "Page {page}"
+  },
+  "detail": {
+    "back": "Retour aux immeubles",
+    "code": "Code",
+    "codeLocked": "Le code ne peut plus changer : un bail l'utilise.",
+    "address": "Adresse",
+    "jurisdiction": "Juridiction",
+    "timeZone": "Fuseau horaire",
+    "yearBuilt": "Année de construction",
+    "units": "Logements",
+    "noUnits": "Aucun logement.",
+    "commonAreas": "Aires communes",
+    "noCommonAreas": "Aucune aire commune.",
+    "archived": "Archivé"
+  },
+  "new": {
+    "title": "Ajouter un immeuble",
+    "description": "Escalia est offert au Québec pour l'instant. Le code de l'immeuble est proposé pour vous.",
+    "civicNumber": "Numéro civique",
+    "street": "Rue",
+    "city": "Ville",
+    "postalCode": "Code postal",
+    "displayName": "Nom de l'immeuble (facultatif)",
+    "unitCount": "Nombre de logements",
+    "unitRange": "Ou une plage de numéros, par exemple 1-6",
+    "unitsHelp": "Indiquez un nombre ou une plage, pas les deux. Vous pourrez en ajouter plus tard.",
+    "submit": "Créer l'immeuble",
+    "invalid": "Vérifiez les champs : l'adresse est obligatoire, et il faut un nombre ou une plage de logements, pas les deux.",
+    "refused": "L'immeuble n'a pas pu être créé."
+  },
+  "states": {
+    "notConnected": "Le service des immeubles n'est pas connecté dans cet environnement.",
+    "unauthenticated": "Connectez-vous pour voir vos immeubles.",
+    "forbidden": "Vous n'avez pas le droit de voir ces immeubles.",
+    "notFound": "Cet immeuble n'existe pas, ou il n'appartient pas à votre organisation.",
+    "unavailable": "Les immeubles n'ont pas pu être chargés. Réessayez dans un instant."
+  }
+}
