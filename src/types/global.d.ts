@@ -9,6 +9,7 @@ import type feedback from "../../messages/fr-CA/feedback.json";
 import type gallery from "../../messages/fr-CA/gallery.json";
 import type legal from "../../messages/fr-CA/legal.json";
 import type modules from "../../messages/fr-CA/modules.json";
+import type rules from "../../messages/fr-CA/rules.json";
 import type settings from "../../messages/fr-CA/settings.json";
 import type shell from "../../messages/fr-CA/shell.json";
 
@@ -24,6 +25,7 @@ declare module "next-intl" {
       legal: typeof legal;
       dashboard: typeof dashboard;
       buildings: typeof buildings;
+      rules: typeof rules;
       settings: typeof settings;
       feedback: typeof feedback;
       modules: typeof modules;

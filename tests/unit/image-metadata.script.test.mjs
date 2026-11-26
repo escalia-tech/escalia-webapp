@@ -1,10 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  buildImageReference,
-  buildOciLabels,
-  readPackageMetadata,
-} from "../../scripts/docker/image-metadata.mjs";
+import { buildImageReference, buildOciLabels, readPackageMetadata } from "../../scripts/docker/image-metadata.mjs";
 
 describe("scripts/docker/image-metadata.mjs", () => {
   it("reads name and version from package.json", () => {

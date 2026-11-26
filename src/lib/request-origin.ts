@@ -5,9 +5,7 @@ export function resolvePublicOrigin(headers: Pick<Headers, "get">): string {
   const host = headers.get("x-forwarded-host") ?? headers.get("host");
   if (host) {
     const forwardedProto = headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
-    const proto =
-      forwardedProto ??
-      (host.includes("localhost") || host.startsWith("127.0.0.1") ? "http" : "https");
+    const proto = forwardedProto ?? (host.includes("localhost") || host.startsWith("127.0.0.1") ? "http" : "https");
     return `${proto}://${host}`;
   }
 

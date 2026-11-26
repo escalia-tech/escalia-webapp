@@ -6,6 +6,7 @@ import {
   FileText,
   LayoutDashboard,
   type LucideIcon,
+  Scale,
   Settings,
   Users,
   Wallet,
@@ -21,6 +22,7 @@ import {
 export type NavKey =
   | "dashboard"
   | "buildings"
+  | "rules"
   | "units"
   | "tenants"
   | "leases"
@@ -47,6 +49,7 @@ export const MAIN_NAV: readonly NavItem[] = [
   { key: "maintenance", href: "/maintenance", icon: Wrench, status: "planned" },
   { key: "documents", href: "/documents", icon: FileText, status: "planned" },
   { key: "reports", href: "/reports", icon: BarChart3, status: "planned" },
+  { key: "rules", href: "/rules", icon: Scale, status: "available" },
 ];
 
 export const CONFIG_NAV: readonly NavItem[] = [

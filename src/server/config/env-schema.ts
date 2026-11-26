@@ -35,6 +35,7 @@ const serverEnvSchema = z.object({
   NEXT_PUBLIC_CLIENT_LOGGING_ENABLED: booleanFlag,
   OTEL_ENABLED: booleanFlag,
   OTEL_SERVICE_NAME: z.preprocess(emptyToUndefined, z.string().min(1).default("escalia-webapp")),
+  BFF_BASE_URL: z.preprocess(emptyToUndefined, z.url().optional()),
   BFF_UPSTREAM_TIMEOUT_MS: z.preprocess(emptyToUndefined, z.coerce.number().int().min(100).max(60_000).default(5000)),
 });
 
@@ -52,6 +53,8 @@ export interface ServerEnv {
   otelEnabled: boolean;
   serviceName: string;
   upstreamTimeoutMs: number;
+  /** Base URL of escalia-bff. Without it, pages that need the real domain data say so instead of faking it. */
+  bffBaseUrl: string | undefined;
 }
 
 export class EnvironmentConfigError extends Error {
@@ -116,5 +119,6 @@ export function parseServerEnv(source: Record<string, string | undefined>): Serv
     otelEnabled: data.OTEL_ENABLED,
     serviceName: data.OTEL_SERVICE_NAME,
     upstreamTimeoutMs: data.BFF_UPSTREAM_TIMEOUT_MS,
+    bffBaseUrl: data.BFF_BASE_URL,
   };
 }
