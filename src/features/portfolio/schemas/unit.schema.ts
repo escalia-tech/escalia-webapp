@@ -85,8 +85,10 @@ const one = (value: Raw[string]): string => {
   const first = Array.isArray(value) ? value[0] : value;
   return typeof first === "string" ? first.trim() : "";
 };
-const many = (value: Raw[string]): string[] =>
-  (Array.isArray(value) ? value : value === undefined ? [] : [value]).filter((v): v is string => typeof v === "string");
+const many = (value: Raw[string]): string[] => {
+  const list = Array.isArray(value) ? value : [value];
+  return list.filter((v): v is string => typeof v === "string");
+};
 const checked = (value: Raw[string]) => one(value) === "on";
 
 /** "75", "75,50" and "75.5" are dollars; anything else is not an amount. Returns cents. */
