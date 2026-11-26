@@ -238,3 +238,110 @@ describe("lease service and actions (FR-LEASE-05)", () => {
     expect(redirect).not.toHaveBeenCalled();
   });
 });
+
+const TOKEN = "a".repeat(43);
+const tenantLease = {
+  leaseId: ID,
+  unitId: PERSON,
+  role: "TENANT",
+  status: "SIGNED",
+  access: "ACTIVE",
+  solidaritySummary: { fr: "Conjointe", en: "Joint" },
+  shareBasisPoints: 5000,
+};
+
+describe("invitations and the tenant pages (FR-TEN-01)", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    revalidatePath.mockClear();
+    redirect.mockClear();
+    vi.stubEnv("ESCALIA_BFF_URL", "http://bff.test");
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("loads the joined leases and one of them", async () => {
+    const { fetchTenantLease, fetchTenantLeases } = await import("@/features/leases/server/leases.service");
+    vi.stubGlobal("fetch", answer(200, { items: [tenantLease] }));
+    expect(await fetchTenantLeases("fr-CA")).toHaveLength(1);
+    vi.stubGlobal("fetch", answer(200, { lease: tenantLease }));
+    expect((await fetchTenantLease(ID, "fr-CA")).shareBasisPoints).toBe(5000);
+  });
+
+  it("invites, counts what was sent and explains a refusal", async () => {
+    const { inviteParties } = await import("@/features/leases/server/leases.service");
+    vi.stubGlobal("fetch", answer(200, { sent: 2 }));
+    expect(await inviteParties(ID, "fr-CA")).toEqual({ status: "sent", count: 2 });
+    vi.stubGlobal("fetch", answer(200, { odd: true }));
+    expect(await inviteParties(ID, "fr-CA")).toEqual({ status: "sent", count: 0 });
+    expect(await inviteParties("x", "fr-CA")).toEqual({ status: "invalid", reason: "id" });
+    vi.stubGlobal("fetch", answer(422, { code: "lease.invitation.email_required" }));
+    expect(await inviteParties(ID, "fr-CA")).toMatchObject({ status: "refused", reason: "emailRequired" });
+  });
+
+  it("accepts only with a well-formed link and both boxes ticked, and sends the versions", async () => {
+    const { acceptInvitation } = await import("@/features/leases/server/leases.service");
+    const fetcher = answer(200, { leaseId: ID, role: "TENANT" });
+    vi.stubGlobal("fetch", fetcher);
+    const ticked = form({ terms: "on", privacy: "on", language: "en" });
+    expect(await acceptInvitation(TOKEN, ticked, "fr-CA")).toEqual({ status: "joined", leaseId: ID });
+    const sent = JSON.parse(String((fetcher.mock.calls[0] as unknown as [string, RequestInit])[1].body));
+    expect(sent).toEqual({ token: TOKEN, language: "en", termsVersion: "2026-11", privacyVersion: "2026-11" });
+    await acceptInvitation(TOKEN, form({ terms: "on", privacy: "on" }), "fr-CA");
+    expect(JSON.parse(String((fetcher.mock.calls[1] as unknown as [string, RequestInit])[1].body)).language).toBe("fr");
+    expect(await acceptInvitation("short", ticked, "fr-CA")).toEqual({ status: "invalid", reason: "token" });
+    expect(await acceptInvitation(TOKEN, form({ terms: "on" }), "fr-CA")).toEqual({
+      status: "invalid",
+      reason: "terms",
+    });
+    expect(await acceptInvitation(TOKEN, form({ privacy: "on" }), "fr-CA")).toEqual({
+      status: "invalid",
+      reason: "terms",
+    });
+    vi.stubGlobal("fetch", answer(403, { code: "lease.invitation.email_mismatch" }));
+    expect(await acceptInvitation(TOKEN, ticked, "fr-CA")).toMatchObject({
+      status: "refused",
+      reason: "invitationAddress",
+    });
+    vi.stubGlobal("fetch", answer(200, { odd: true }));
+    expect(await acceptInvitation(TOKEN, ticked, "fr-CA")).toEqual({
+      status: "refused",
+      reason: undefined,
+      message: undefined,
+    });
+  });
+
+  it("asks for a new link, or says it cannot", async () => {
+    const { requestNewInvitation } = await import("@/features/leases/server/leases.service");
+    vi.stubGlobal("fetch", answer(200, {}));
+    expect(await requestNewInvitation(TOKEN, "fr-CA")).toEqual({ status: "requested" });
+    expect(await requestNewInvitation("short", "fr-CA")).toEqual({ status: "invalid" });
+    vi.stubGlobal("fetch", answer(410, { code: "lease.invitation.expired" }));
+    expect(await requestNewInvitation(TOKEN, "fr-CA")).toMatchObject({
+      status: "refused",
+      reason: "invitationExpired",
+    });
+  });
+
+  it("the actions redirect to the lease once joined, and revalidate only when something changed", async () => {
+    const actions = await import("@/features/leases/server/leases.actions");
+    vi.stubGlobal("fetch", answer(200, { sent: 1 }));
+    expect(await actions.inviteAction(ID)).toEqual({ status: "sent", count: 1 });
+    expect(revalidatePath).toHaveBeenCalledTimes(1);
+    expect(await actions.inviteAction("x")).toEqual({ status: "invalid", reason: "id" });
+    expect(revalidatePath).toHaveBeenCalledTimes(1);
+
+    vi.stubGlobal("fetch", answer(200, { leaseId: ID, role: "TENANT" }));
+    const ticked = form({ terms: "on", privacy: "on", language: "fr" });
+    expect(await actions.acceptInvitationAction(TOKEN, undefined, ticked)).toEqual({ status: "joined", leaseId: ID });
+    expect(redirect).toHaveBeenCalledWith({ href: `/tenant/${ID}`, locale: "fr-CA" });
+    redirect.mockClear();
+    expect(await actions.acceptInvitationAction(TOKEN, undefined, form({}))).toEqual({
+      status: "invalid",
+      reason: "terms",
+    });
+    expect(redirect).not.toHaveBeenCalled();
+
+    vi.stubGlobal("fetch", answer(200, {}));
+    expect(await actions.requestNewInvitationAction(TOKEN)).toEqual({ status: "requested" });
+  });
+});

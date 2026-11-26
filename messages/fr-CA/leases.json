@@ -22,7 +22,9 @@
     "role": "Choisissez le rôle de chaque personne.",
     "name": "Indiquez le nom de chaque personne.",
     "share": "La part du loyer doit être un pourcentage, par exemple 50 ou 33,33.",
-    "amount": "Le montant maximal doit être en dollars, par exemple 1500 ou 1500,50."
+    "amount": "Le montant maximal doit être en dollars, par exemple 1500 ou 1500,50.",
+    "terms": "Acceptez les conditions et la politique de confidentialité pour continuer.",
+    "token": "Ce lien d'invitation n'est pas valide."
   },
   "refusals": {
     "shares": "Les parts du loyer doivent totaliser 100 %.",
@@ -36,7 +38,12 @@
     "unknownTenant": "Une caution vise un locataire qui n'est pas sur le bail.",
     "notFound": "Ce bail n'existe pas, ou il n'appartient pas à votre organisation.",
     "unitNotFound": "Ce logement n'existe pas, ou il n'appartient pas à votre organisation.",
-    "occupantNotFound": "Cet occupant n'est pas sur le bail."
+    "occupantNotFound": "Cet occupant n'est pas sur le bail.",
+    "invitationNotFound": "Cette invitation n'existe pas.",
+    "invitationExpired": "Cette invitation a expiré. Demandez un nouveau lien.",
+    "invitationUsed": "Cette invitation a déjà été utilisée. Connectez-vous.",
+    "invitationAddress": "Cette invitation a été envoyée à une autre adresse courriel. Connectez-vous avec celle-ci.",
+    "emailRequired": "Un courriel est nécessaire pour inviter cette personne."
   },
   "roles": {
     "TENANT": "Locataire",
@@ -92,5 +99,40 @@
     "description": "On peut ajouter ou retirer un occupant en tout temps, même après la signature.",
     "none": "Aucun occupant.",
     "add": "Ajouter"
+  },
+  "invitations": {
+    "title": "Invitations",
+    "description": "Invitez les personnes de ce bail à joindre Escalia. Le lien est valable 30 jours; un nouvel envoi remplace le précédent.",
+    "send": "Envoyer les invitations",
+    "resend": "Renvoyer",
+    "sent": "{count, plural, =0 {Personne à inviter : ajoutez d'abord un courriel à chaque personne.} one {# invitation envoyée.} other {# invitations envoyées.}}",
+    "status": {
+      "notInvited": "Non invité",
+      "invited": "Invité le {date}, valide jusqu'au {until}",
+      "joined": "A rejoint le {date}",
+      "noEmail": "Aucun courriel"
+    }
+  },
+  "accept": {
+    "title": "Joindre votre bail",
+    "description": "Connectez-vous avec l'adresse courriel qui a reçu l'invitation, choisissez votre langue et acceptez les conditions.",
+    "language": "Langue",
+    "terms": "J'accepte les conditions d'utilisation",
+    "privacy": "J'ai lu la politique de confidentialité",
+    "submit": "Joindre le bail",
+    "requestNew": "Demander un nouveau lien",
+    "requestSent": "Votre locateur a été avisé et vous enverra un nouveau lien.",
+    "noToken": "Ce lien d'invitation n'est pas valide."
+  },
+  "tenant": {
+    "title": "Mes baux",
+    "description": "Les baux que vous avez joints.",
+    "empty": "Vous n'avez joint aucun bail pour l'instant.",
+    "open": "Ouvrir",
+    "pending": "Les conditions apparaîtront ici une fois le bail signé.",
+    "role": "Votre rôle",
+    "share": "Votre part du loyer",
+    "summary": "Qui répond du loyer",
+    "unit": "Logement"
   }
 }
