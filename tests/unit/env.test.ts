@@ -68,4 +68,10 @@ describe("parseServerEnv", () => {
   it("treats empty strings as unset", () => {
     expect(parseServerEnv({ NODE_ENV: "development", LOG_LEVEL: "", APP_ENV: "" }).appEnv).toBe("local");
   });
+
+  it("reads the BFF base URL when it is a URL, and leaves it out when blank", () => {
+    expect(parseServerEnv({ BFF_BASE_URL: "http://localhost:8081" }).bffBaseUrl).toBe("http://localhost:8081");
+    expect(parseServerEnv({ BFF_BASE_URL: " " }).bffBaseUrl).toBeUndefined();
+    expect(() => parseServerEnv({ BFF_BASE_URL: "not a url" })).toThrow(/BFF_BASE_URL/);
+  });
 });

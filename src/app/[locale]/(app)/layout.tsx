@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { cookies } from "next/headers";
+
 import { hasLocale } from "next-intl";
 
 import { AppShell } from "@/components/layout/app-shell";

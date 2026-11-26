@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+
 import { describe, expect, it } from "vitest";
 
 import { resolvePublicLocale } from "@/lib/resolve-public-locale";

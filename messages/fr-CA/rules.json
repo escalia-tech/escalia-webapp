@@ -1,0 +1,30 @@
+{
+  "title": "Règles en vigueur",
+  "description": "Les règles légales qui s'appliquent à vos immeubles, avec leur source. Elles viennent du jeu de règles de la juridiction, jamais de l'écran.",
+  "jurisdiction": "Juridiction",
+  "asOf": "En vigueur le {date}",
+  "searchLabel": "Chercher dans les règles",
+  "searchPlaceholder": "Dépôt, avis, délai…",
+  "search": "Chercher",
+  "count": "{count, plural, =0 {Aucune règle} one {# règle} other {# règles}}",
+  "empty": "Aucune règle ne correspond à votre recherche.",
+  "columns": {
+    "rule": "Règle",
+    "value": "Valeur",
+    "since": "En vigueur depuis",
+    "source": "Source"
+  },
+  "severity": {
+    "BLOCK": "Bloque l'action",
+    "WARN": "Avertit"
+  },
+  "alternative": "À la place : {text}",
+  "verifiedOn": "Vérifiée le {date}",
+  "packVersion": "Jeu de règles {version}",
+  "states": {
+    "notConnected": "Le service des règles n'est pas connecté dans cet environnement.",
+    "unauthenticated": "Connectez-vous pour voir les règles en vigueur.",
+    "forbidden": "Vous n'avez pas le droit de voir les règles.",
+    "unavailable": "Impossible de charger les règles. Réessayez dans un instant."
+  }
+}

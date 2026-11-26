@@ -8,7 +8,7 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import type { NavKey } from "@/config/navigation";
 import { Link } from "@/i18n/navigation";
 
-export type PlannedModuleKey = Exclude<NavKey, "dashboard" | "buildings" | "settings">;
+export type PlannedModuleKey = Exclude<NavKey, "dashboard" | "buildings" | "rules" | "settings">;
 
 /**
  * Translated placeholder for a validated-in-principle but not yet specified capability. It states
