@@ -5,6 +5,7 @@ import type auth from "../../messages/fr-CA/auth.json";
 import type buildings from "../../messages/fr-CA/buildings.json";
 import type common from "../../messages/fr-CA/common.json";
 import type dashboard from "../../messages/fr-CA/dashboard.json";
+import type documents from "../../messages/fr-CA/documents.json";
 import type feedback from "../../messages/fr-CA/feedback.json";
 import type gallery from "../../messages/fr-CA/gallery.json";
 import type legal from "../../messages/fr-CA/legal.json";
@@ -28,6 +29,7 @@ declare module "next-intl" {
       buildings: typeof buildings;
       rules: typeof rules;
       portfolio: typeof portfolio;
+      documents: typeof documents;
       settings: typeof settings;
       feedback: typeof feedback;
       modules: typeof modules;

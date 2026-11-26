@@ -69,17 +69,19 @@ export async function callBffAction(call: BffAction): Promise<BffActionResult> {
   if (!call.baseUrl) {
     throw new ApplicationError("upstream.unavailable", "The BFF is not configured", { retryable: false });
   }
+  const isForm = call.body instanceof FormData;
   const headers: Record<string, string> = {
     accept: "application/json, application/problem+json",
     "accept-language": call.language,
-    "content-type": "application/json",
     cookie: call.cookie,
   };
+  // A multipart body gets its boundary from fetch itself, so no content type is set for it.
+  if (!isForm) headers["content-type"] = "application/json";
   if (call.xsrfToken) headers["x-xsrf-token"] = call.xsrfToken;
   const response = await (call.fetcher ?? fetch)(new URL(call.path, call.baseUrl), {
     method: "POST",
     headers,
-    body: JSON.stringify(call.body),
+    body: call.body instanceof FormData ? call.body : JSON.stringify(call.body),
     cache: "no-store",
     signal: call.signal,
   });

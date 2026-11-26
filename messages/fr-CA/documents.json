@@ -1,0 +1,55 @@
+{
+  "title": "Documents",
+  "usage": "{used} Mo utilisés sur {quota} Mo",
+  "quotaWarning": "Votre espace de stockage est presque plein.",
+  "empty": "Aucun document pour l'instant.",
+  "download": "Télécharger",
+  "holdBadge": "Conservation",
+  "removed": "Retiré",
+  "done": "C'est fait.",
+  "refused": "L'action n'a pas pu être effectuée.",
+  "columns": {
+    "title": "Titre",
+    "category": "Catégorie",
+    "version": "Version",
+    "added": "Ajouté le"
+  },
+  "upload": {
+    "file": "Fichier",
+    "category": "Catégorie",
+    "title": "Titre (facultatif)",
+    "submit": "Téléverser",
+    "hint": "PDF, JPEG ou PNG, 25 Mo au maximum. La position GPS des photos est retirée."
+  },
+  "invalid": {
+    "file": "Choisissez un fichier.",
+    "tooLarge": "Ce fichier dépasse 25 Mo.",
+    "category": "Choisissez une catégorie.",
+    "reason": "Indiquez la raison.",
+    "id": "Cette demande n'est pas valide."
+  },
+  "categories": {
+    "LEASE": "Bail",
+    "NOTICE": "Avis",
+    "AGREEMENT": "Entente",
+    "RECEIPT": "Reçu",
+    "CORRESPONDENCE": "Correspondance",
+    "EVIDENCE": "Preuve",
+    "REPAIR_MEDIA": "Photos de réparation",
+    "MAINTENANCE": "Entretien",
+    "INSURANCE": "Assurance",
+    "BUILDING_RECORDS": "Dossier de l'immeuble",
+    "APPLICATION": "Demande de location",
+    "IDENTITY": "Pièce d'identité",
+    "OTHER": "Autre"
+  },
+  "holds": {
+    "title": "Conservation légale",
+    "description": "Un document sous conservation n'est pas anonymisé, même après son délai.",
+    "none": "Aucune conservation active.",
+    "until": "jusqu'au {date}",
+    "lift": "Lever",
+    "reason": "Raison de la conservation",
+    "place": "Placer une conservation"
+  }
+}
