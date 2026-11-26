@@ -8,6 +8,7 @@ import type dashboard from "../../messages/fr-CA/dashboard.json";
 import type documents from "../../messages/fr-CA/documents.json";
 import type feedback from "../../messages/fr-CA/feedback.json";
 import type gallery from "../../messages/fr-CA/gallery.json";
+import type leases from "../../messages/fr-CA/leases.json";
 import type legal from "../../messages/fr-CA/legal.json";
 import type modules from "../../messages/fr-CA/modules.json";
 import type portfolio from "../../messages/fr-CA/portfolio.json";
@@ -30,6 +31,7 @@ declare module "next-intl" {
       rules: typeof rules;
       portfolio: typeof portfolio;
       documents: typeof documents;
+      leases: typeof leases;
       settings: typeof settings;
       feedback: typeof feedback;
       modules: typeof modules;

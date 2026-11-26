@@ -1,0 +1,96 @@
+{
+  "title": "Baux",
+  "description": "Les baux de votre organisation. Un bail commence à partir d'un logement.",
+  "unitDescription": "Les baux de ce logement. Un nouveau bail commence en brouillon.",
+  "empty": "Aucun bail pour l'instant.",
+  "noTenant": "Sans locataire",
+  "create": "Commencer un bail",
+  "save": "Enregistrer les parties",
+  "saved": "C'est enregistré.",
+  "refused": "L'action n'a pas pu être effectuée.",
+  "status": {
+    "DRAFT": "Brouillon",
+    "SIGNED": "Signé",
+    "RECORDED": "Enregistré",
+    "ENDED": "Terminé"
+  },
+  "one": {
+    "title": "Bail"
+  },
+  "invalid": {
+    "id": "Cette demande n'est pas valide.",
+    "role": "Choisissez le rôle de chaque personne.",
+    "name": "Indiquez le nom de chaque personne.",
+    "share": "La part du loyer doit être un pourcentage, par exemple 50 ou 33,33.",
+    "amount": "Le montant maximal doit être en dollars, par exemple 1500 ou 1500,50."
+  },
+  "refusals": {
+    "shares": "Les parts du loyer doivent totaliser 100 %.",
+    "tenantRequired": "Un bail a au moins un locataire.",
+    "contactRequired": "Indiquez un courriel ou un téléphone pour chaque locataire et chaque caution.",
+    "duplicate": "Une même personne apparaît deux fois.",
+    "emailInvalid": "Un des courriels n'est pas valide.",
+    "nameRequired": "Indiquez le nom de chaque personne.",
+    "tooMany": "Il y a trop de personnes sur ce bail.",
+    "afterSigning": "Après la signature, les locataires et les cautions ne changent plus ici. Voir « Événements du bail ». Les occupants peuvent toujours être ajoutés ou retirés.",
+    "unknownTenant": "Une caution vise un locataire qui n'est pas sur le bail.",
+    "notFound": "Ce bail n'existe pas, ou il n'appartient pas à votre organisation.",
+    "unitNotFound": "Ce logement n'existe pas, ou il n'appartient pas à votre organisation.",
+    "occupantNotFound": "Cet occupant n'est pas sur le bail."
+  },
+  "roles": {
+    "TENANT": "Locataire",
+    "OCCUPANT": "Occupant",
+    "GUARANTOR": "Caution"
+  },
+  "languages": {
+    "fr": "Français",
+    "en": "Anglais"
+  },
+  "party": {
+    "legalName": "Nom légal",
+    "email": "Courriel",
+    "phone": "Téléphone",
+    "language": "Langue",
+    "address": "Adresse postale",
+    "share": "Part du loyer (%)",
+    "sharePlaceholder": "Part égale si vide",
+    "relation": "Lien avec le locataire",
+    "remove": "Retirer",
+    "addTenant": "Ajouter un locataire",
+    "addOccupant": "Ajouter un occupant",
+    "addGuarantor": "Ajouter une caution"
+  },
+  "solidarity": {
+    "title": "Responsabilité des locataires",
+    "help": "Avec plusieurs locataires, choisissez si chacun répond de tout le loyer (solidaire) ou seulement de sa part (conjointe).",
+    "SOLIDARY": "Solidaire",
+    "JOINT": "Conjointe",
+    "NOT_APPLICABLE": "Sans objet"
+  },
+  "guarantee": {
+    "scope": "Portée",
+    "duration": "Durée",
+    "maxAmount": "Montant maximal ($, facultatif)",
+    "guaranteed": "Locataires garantis (courriels)",
+    "guaranteedPlaceholder": "Tous si vide",
+    "scopes": {
+      "ALL_OBLIGATIONS": "Toutes les obligations",
+      "RENT_ONLY": "Loyer seulement"
+    },
+    "durations": {
+      "INITIAL_TERM": "Terme initial",
+      "INITIAL_TERM_AND_RENEWALS": "Terme initial et reconductions"
+    }
+  },
+  "parties": {
+    "title": "Parties au bail",
+    "description": "Locataires, occupants et cautions. Les personnes sans compte sont invitées plus tard."
+  },
+  "occupants": {
+    "title": "Occupants",
+    "description": "On peut ajouter ou retirer un occupant en tout temps, même après la signature.",
+    "none": "Aucun occupant.",
+    "add": "Ajouter"
+  }
+}

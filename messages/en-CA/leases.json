@@ -1,0 +1,96 @@
+{
+  "title": "Leases",
+  "description": "The leases of your organization. A lease starts from a unit.",
+  "unitDescription": "The leases of this unit. A new lease starts as a draft.",
+  "empty": "No lease yet.",
+  "noTenant": "No tenant",
+  "create": "Start a lease",
+  "save": "Save the parties",
+  "saved": "Saved.",
+  "refused": "The action could not be completed.",
+  "status": {
+    "DRAFT": "Draft",
+    "SIGNED": "Signed",
+    "RECORDED": "Recorded",
+    "ENDED": "Ended"
+  },
+  "one": {
+    "title": "Lease"
+  },
+  "invalid": {
+    "id": "This request is not valid.",
+    "role": "Choose the role of each person.",
+    "name": "Enter the name of each person.",
+    "share": "The share of the rent must be a percentage, for example 50 or 33.33.",
+    "amount": "The maximum amount must be in dollars, for example 1500 or 1500.50."
+  },
+  "refusals": {
+    "shares": "The shares of the rent must add up to 100%.",
+    "tenantRequired": "A lease has at least one tenant.",
+    "contactRequired": "Enter an email or a phone number for each tenant and guarantor.",
+    "duplicate": "The same person appears twice.",
+    "emailInvalid": "One of the emails is not valid.",
+    "nameRequired": "Enter the name of each person.",
+    "tooMany": "There are too many people on this lease.",
+    "afterSigning": "After signing, tenants and guarantors can no longer change here. See \"Lease events\". Occupants can still be added or removed.",
+    "unknownTenant": "A guarantor covers a tenant who is not on the lease.",
+    "notFound": "This lease does not exist, or it does not belong to your organization.",
+    "unitNotFound": "This unit does not exist, or it does not belong to your organization.",
+    "occupantNotFound": "This occupant is not on the lease."
+  },
+  "roles": {
+    "TENANT": "Tenant",
+    "OCCUPANT": "Occupant",
+    "GUARANTOR": "Guarantor"
+  },
+  "languages": {
+    "fr": "French",
+    "en": "English"
+  },
+  "party": {
+    "legalName": "Legal name",
+    "email": "Email",
+    "phone": "Phone",
+    "language": "Language",
+    "address": "Postal address",
+    "share": "Share of the rent (%)",
+    "sharePlaceholder": "Equal share if empty",
+    "relation": "Relation to the tenant",
+    "remove": "Remove",
+    "addTenant": "Add a tenant",
+    "addOccupant": "Add an occupant",
+    "addGuarantor": "Add a guarantor"
+  },
+  "solidarity": {
+    "title": "Responsibility of the tenants",
+    "help": "With several tenants, choose whether each answers for the whole rent (solidary) or only for their share (joint).",
+    "SOLIDARY": "Solidary",
+    "JOINT": "Joint",
+    "NOT_APPLICABLE": "Not applicable"
+  },
+  "guarantee": {
+    "scope": "Scope",
+    "duration": "Duration",
+    "maxAmount": "Maximum amount ($, optional)",
+    "guaranteed": "Tenants guaranteed (emails)",
+    "guaranteedPlaceholder": "All if empty",
+    "scopes": {
+      "ALL_OBLIGATIONS": "All obligations",
+      "RENT_ONLY": "Rent only"
+    },
+    "durations": {
+      "INITIAL_TERM": "Initial term",
+      "INITIAL_TERM_AND_RENEWALS": "Initial term and renewals"
+    }
+  },
+  "parties": {
+    "title": "Parties to the lease",
+    "description": "Tenants, occupants and guarantors. People without an account are invited later."
+  },
+  "occupants": {
+    "title": "Occupants",
+    "description": "An occupant can be added or removed at any time, even after signing.",
+    "none": "No occupant.",
+    "add": "Add"
+  }
+}
