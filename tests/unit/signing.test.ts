@@ -153,6 +153,8 @@ describe("signing service and actions", () => {
       status: "invalid",
       reason: "reason",
     });
+    expect(await s.verifyCode(session, new FormData(), "fr-CA")).toEqual({ status: "invalid", reason: "code" });
+    expect(await s.decline(session, new FormData(), "fr-CA")).toEqual({ status: "invalid", reason: "reason" });
     expect(await s.sign(session, form({ typedName: "" }), "fr-CA")).toEqual({ status: "invalid", reason: "name" });
     expect(fetcher).not.toHaveBeenCalled();
   });
