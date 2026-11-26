@@ -15,7 +15,7 @@ import { Link } from "@/i18n/navigation";
 
 export interface BreadcrumbEntry {
   label: string;
-  /** Locale-less path, e.g. `/properties`. Omit for the current page. */
+  /** Locale-less path, e.g. `/buildings`. Omit for the current page. */
   href?: `/${string}`;
 }
 

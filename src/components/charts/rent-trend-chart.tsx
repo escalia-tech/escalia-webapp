@@ -11,7 +11,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import type { MonthlyAmount } from "@/features/properties/schemas/property.schema";
+import type { MonthlyAmount } from "@/features/buildings/schemas/building.schema";
 import { formatMoney, formatMonth } from "@/lib/format";
 
 /** Monthly rent due (dashed line) vs rent received (filled area). `null` stays a gap, never zero. */

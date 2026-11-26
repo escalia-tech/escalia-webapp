@@ -19,8 +19,8 @@ const MAX = 280;
  * Reference form (React Hook Form + Zod + accessible errors + unsaved-changes guard).
  * It performs NO network call and persists nothing: there is no notes contract in the backend yet.
  */
-export function PropertyNoteDemoForm() {
-  const t = useTranslations("properties.detail.note");
+export function BuildingNoteDemoForm() {
+  const t = useTranslations("buildings.detail.note");
   const [validated, setValidated] = useState(false);
 
   const schema = z.object({
@@ -63,18 +63,18 @@ export function PropertyNoteDemoForm() {
         </CardHeader>
         <CardContent>
           <Field data-invalid={Boolean(errors.note)}>
-            <FieldLabel htmlFor="property-note">{t("label")}</FieldLabel>
+            <FieldLabel htmlFor="building-note">{t("label")}</FieldLabel>
             <Textarea
-              id="property-note"
+              id="building-note"
               rows={4}
               placeholder={t("placeholder")}
               aria-invalid={Boolean(errors.note)}
-              aria-describedby="property-note-help property-note-counter"
+              aria-describedby="building-note-help building-note-counter"
               {...register("note", { onChange: () => setValidated(false) })}
             />
             <div className="flex items-start justify-between gap-4">
-              <FieldDescription id="property-note-help">{t("help")}</FieldDescription>
-              <span id="property-note-counter" className="text-muted-foreground text-xs tabular-nums">
+              <FieldDescription id="building-note-help">{t("help")}</FieldDescription>
+              <span id="building-note-counter" className="text-muted-foreground text-xs tabular-nums">
                 {t("counter", { count: length })}
               </span>
             </div>

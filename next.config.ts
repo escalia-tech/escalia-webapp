@@ -25,6 +25,13 @@ const nextConfig: NextConfig = {
   // Next.js must not rewrite AGENTS.md / CLAUDE.md (project-owned agent instructions).
   agentRules: false,
   poweredByHeader: false,
+  // The section was renamed from "properties" to "buildings" (domain vocabulary, escalia-specs page-model).
+  async redirects() {
+    return [
+      { source: "/properties", destination: "/buildings", permanent: true },
+      { source: "/properties/:id", destination: "/buildings/:id", permanent: true },
+    ];
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

@@ -73,7 +73,7 @@ export const GET = bffHandler({ route: "/api/bff/<ressource>", operation: "<ress
 
 - **Serveur** : `getLogger("<module>")` (`src/lib/observability/logger/logger.server.ts`). **Navigateur** :
   `getClientLogger("<module>")`. Jamais `console.*` (règle Biome `noConsole` en erreur).
-- Événements : `<domaine>.<opération>.<résultat>` (ex. `properties.list.completed`), messages techniques **en anglais**.
+- Événements : `<domaine>.<opération>.<résultat>` (ex. `buildings.list.completed`), messages techniques **en anglais**.
 - Métadonnées : liste blanche + masquage récursif (mots de passe, jetons, témoins, données bancaires, courriels,
   téléphones, affectations `secret=…` dans les chaînes). Ne jamais journaliser de donnée personnelle brute.
 - Erreurs : `reportError(logger, "<événement>", error)` **une seule fois** par frontière (`markReported`).

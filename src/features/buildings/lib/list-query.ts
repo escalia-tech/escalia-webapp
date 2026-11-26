@@ -1,11 +1,11 @@
-import { type PropertyListQuery, propertyListQuerySchema } from "../schemas/property.schema";
+import { type BuildingListQuery, buildingListQuerySchema } from "../schemas/building.schema";
 
-const DEFAULTS = propertyListQuerySchema.parse({});
+const DEFAULTS = buildingListQuerySchema.parse({});
 
 /** Parse URL search params into a valid query; invalid values fall back to the defaults. */
 export function parseListQuery(
   params: Record<string, string | string[] | undefined> | URLSearchParams,
-): PropertyListQuery {
+): BuildingListQuery {
   const entries: Record<string, string> =
     params instanceof URLSearchParams
       ? Object.fromEntries(params.entries())
@@ -16,20 +16,20 @@ export function parseListQuery(
           }),
         );
 
-  const parsed = propertyListQuerySchema.safeParse(entries);
+  const parsed = buildingListQuerySchema.safeParse(entries);
   if (parsed.success) return parsed.data;
 
   // Keep each valid field individually so one bad parameter does not reset the others.
   const salvaged: Record<string, string> = {};
   for (const [key, value] of Object.entries(entries)) {
-    if (propertyListQuerySchema.safeParse({ [key]: value }).success) salvaged[key] = value;
+    if (buildingListQuerySchema.safeParse({ [key]: value }).success) salvaged[key] = value;
   }
-  const retry = propertyListQuerySchema.safeParse(salvaged);
+  const retry = buildingListQuerySchema.safeParse(salvaged);
   return retry.success ? retry.data : DEFAULTS;
 }
 
 /** Canonical, minimal query string (defaults omitted) so equal queries share one cache key and URL. */
-export function toSearchParams(query: PropertyListQuery): URLSearchParams {
+export function toSearchParams(query: BuildingListQuery): URLSearchParams {
   const params = new URLSearchParams();
   if (query.q) params.set("q", query.q);
   if (query.type) params.set("type", query.type);

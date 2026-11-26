@@ -14,9 +14,9 @@ export async function getNotifications(): Promise<NotificationsState> {
   return {
     status: "demo",
     items: [
-      { id: "demo-n1", kind: "payment", property: "Résidence Démo Cèdre", at: "2026-11-24T14:05:00Z" },
-      { id: "demo-n2", kind: "maintenance", property: "Les Érables (fictif)", at: "2026-11-23T09:40:00Z" },
-      { id: "demo-n3", kind: "document", property: "Condos du Lac (fictif)", at: "2026-11-21T17:20:00Z" },
+      { id: "demo-n1", kind: "payment", building: "Résidence Démo Cèdre", at: "2026-11-24T14:05:00Z" },
+      { id: "demo-n2", kind: "maintenance", building: "Les Érables (fictif)", at: "2026-11-23T09:40:00Z" },
+      { id: "demo-n3", kind: "document", building: "Condos du Lac (fictif)", at: "2026-11-21T17:20:00Z" },
     ],
   };
 }

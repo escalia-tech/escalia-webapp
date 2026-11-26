@@ -9,7 +9,7 @@ interface UnitsBarChartProps {
   data: { id: string; name: string; unitCount: number }[];
 }
 
-/** Horizontal bars: units per property, each bar labelled with its value (not colour alone). */
+/** Horizontal bars: units per building, each bar labelled with its value (not colour alone). */
 export function UnitsBarChart({ data }: UnitsBarChartProps) {
   const t = useTranslations("dashboard.charts.units");
   const config = { unitCount: { label: t("series"), color: "var(--chart-1)" } } satisfies ChartConfig;

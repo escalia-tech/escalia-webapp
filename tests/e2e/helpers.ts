@@ -36,8 +36,8 @@ export async function expectNoHorizontalOverflow(page: Page, label: string) {
 
 export const APP_ROUTES = [
   "dashboard",
-  "properties",
-  "properties/demo-cedre",
+  "buildings",
+  "buildings/demo-cedre",
   "units",
   "settings/profile",
   "settings/preferences",

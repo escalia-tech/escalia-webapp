@@ -18,7 +18,7 @@ export interface LogRecord {
   environment: string;
   layer: LogLayer;
   module: string;
-  /** Stable `domain.operation.outcome` name, e.g. `properties.list.completed`. */
+  /** Stable `domain.operation.outcome` name, e.g. `buildings.list.completed`. */
   event: string;
   message: string;
   correlationId?: string;

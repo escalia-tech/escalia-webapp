@@ -3,8 +3,8 @@ export type NotificationKind = "payment" | "maintenance" | "document";
 export interface DemoNotification {
   id: string;
   kind: NotificationKind;
-  /** Fictional property label interpolated into the translated message. */
-  property: string;
+  /** Fictional building label interpolated into the translated message. */
+  building: string;
   /** ISO timestamp. */
   at: string;
 }

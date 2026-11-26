@@ -1,11 +1,11 @@
 import "server-only";
 
 import type {
+  BuildingDetail,
+  BuildingSummary,
+  BuildingType,
   MonthlyAmount,
-  PropertyDetail,
-  PropertySummary,
-  PropertyType,
-} from "@/features/properties/schemas/property.schema";
+} from "@/features/buildings/schemas/building.schema";
 
 /**
  * FICTIONAL demonstration fixtures. Names, addresses and amounts are invented, deterministic and
@@ -33,9 +33,9 @@ const FIXTURE_MONTHS = [
 type Row = [
   id: string,
   name: string,
-  type: PropertyType,
+  type: BuildingType,
   city: string,
-  province: PropertySummary["address"]["province"],
+  province: BuildingSummary["address"]["province"],
   units: number,
   occupancy: number | null,
   rentPerUnitCents: number,
@@ -97,8 +97,8 @@ function buildHistory(id: string, dueCents: number, isNoData: boolean): MonthlyA
   });
 }
 
-function toDetail(row: Row, index: number): PropertyDetail {
-  const [id, name, propertyType, city, province, unitCount, occupancyRate, rentPerUnit] = row;
+function toDetail(row: Row, index: number): BuildingDetail {
+  const [id, name, buildingType, city, province, unitCount, occupancyRate, rentPerUnit] = row;
   const dueCents = Math.round(unitCount * rentPerUnit * (occupancyRate ?? 0.9));
   const noReceivedData = id === "demo-sorbier";
   const history = buildHistory(id, dueCents, noReceivedData);
@@ -106,7 +106,7 @@ function toDetail(row: Row, index: number): PropertyDetail {
   return {
     id,
     name,
-    propertyType,
+    buildingType,
     address: {
       line1: `${100 + index * 10}, rue Exemple`,
       city,
@@ -121,4 +121,4 @@ function toDetail(row: Row, index: number): PropertyDetail {
   };
 }
 
-export const PROPERTY_FIXTURES: readonly PropertyDetail[] = ROWS.map(toDetail);
+export const BUILDING_FIXTURES: readonly BuildingDetail[] = ROWS.map(toDetail);

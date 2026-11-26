@@ -20,7 +20,7 @@ import {
 
 export type NavKey =
   | "dashboard"
-  | "properties"
+  | "buildings"
   | "units"
   | "tenants"
   | "leases"
@@ -39,7 +39,7 @@ export interface NavItem {
 
 export const MAIN_NAV: readonly NavItem[] = [
   { key: "dashboard", href: "/dashboard", icon: LayoutDashboard, status: "available" },
-  { key: "properties", href: "/properties", icon: Building2, status: "available" },
+  { key: "buildings", href: "/buildings", icon: Building2, status: "available" },
   { key: "units", href: "/units", icon: DoorOpen, status: "planned" },
   { key: "tenants", href: "/tenants", icon: Users, status: "planned" },
   { key: "leases", href: "/leases", icon: FileSignature, status: "planned" },

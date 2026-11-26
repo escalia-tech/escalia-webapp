@@ -36,29 +36,29 @@ import { cn } from "@/lib/utils";
 
 import { parseListQuery, toSearchParams } from "../lib/list-query";
 import {
+  BUILDING_TYPES,
+  type BuildingListQuery,
+  type BuildingListResult,
+  type BuildingSummary,
   PAGE_SIZES,
-  PROPERTY_TYPES,
-  type PropertyListQuery,
-  type PropertyListResult,
-  type PropertySummary,
   type SORT_FIELDS,
-} from "../schemas/property.schema";
+} from "../schemas/building.schema";
 
 const ALL_TYPES = "all";
 const SEARCH_DEBOUNCE_MS = 300;
 
-interface PropertiesListProps {
+interface BuildingsListProps {
   /** Result computed by the Server Component for the initial URL (absent when it failed or a demo scenario is active). */
-  initialData?: PropertyListResult;
+  initialData?: BuildingListResult;
   /** Canonical query string that `initialData` corresponds to. */
   initialQueryString: string;
 }
 
 type SortField = (typeof SORT_FIELDS)[number];
 
-export function PropertiesList({ initialData, initialQueryString }: PropertiesListProps) {
-  const t = useTranslations("properties.list");
-  const tTypes = useTranslations("properties.types");
+export function BuildingsList({ initialData, initialQueryString }: BuildingsListProps) {
+  const t = useTranslations("buildings.list");
+  const tTypes = useTranslations("buildings.types");
   const tCommon = useTranslations("common");
   const tEmpty = useTranslations("feedback.empty");
   const locale = useLocale();
@@ -74,15 +74,15 @@ export function PropertiesList({ initialData, initialQueryString }: PropertiesLi
   const [searchText, setSearchText] = useState(query.q ?? "");
 
   const result = useQuery({
-    queryKey: ["properties", "list", queryString],
+    queryKey: ["buildings", "list", queryString],
     queryFn: ({ signal }) =>
-      bffFetch<PropertyListResult>(`/api/bff/properties${queryString ? `?${queryString}` : ""}`, { signal }),
+      bffFetch<BuildingListResult>(`/api/bff/buildings${queryString ? `?${queryString}` : ""}`, { signal }),
     initialData: queryString === initialQueryString ? initialData : undefined,
     placeholderData: keepPreviousData,
   });
 
   const navigate = useCallback(
-    (next: PropertyListQuery) => {
+    (next: BuildingListQuery) => {
       const qs = toSearchParams(next).toString();
       startTransition(() => {
         router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
@@ -91,7 +91,7 @@ export function PropertiesList({ initialData, initialQueryString }: PropertiesLi
     [router, pathname],
   );
 
-  function update(patch: Partial<PropertyListQuery>, resetPage = true) {
+  function update(patch: Partial<BuildingListQuery>, resetPage = true) {
     navigate({ ...query, ...patch, ...(resetPage ? { page: 1 } : {}) });
   }
 
@@ -128,7 +128,7 @@ export function PropertiesList({ initialData, initialQueryString }: PropertiesLi
     }
   }
 
-  const returnTo = `/properties${queryString ? `?${queryString}` : ""}`;
+  const returnTo = `/buildings${queryString ? `?${queryString}` : ""}`;
 
   const sortableHead = (field: SortField, label: string, align: "left" | "right" = "left") => {
     const active = query.sort === field;
@@ -210,7 +210,7 @@ export function PropertiesList({ initialData, initialQueryString }: PropertiesLi
         <Select
           value={query.type ?? ALL_TYPES}
           onValueChange={(value) =>
-            update({ type: value === ALL_TYPES ? undefined : (value as PropertyListQuery["type"]) })
+            update({ type: value === ALL_TYPES ? undefined : (value as BuildingListQuery["type"]) })
           }
         >
           <SelectTrigger aria-label={t("filters.type")} className="w-full sm:w-56">
@@ -218,7 +218,7 @@ export function PropertiesList({ initialData, initialQueryString }: PropertiesLi
           </SelectTrigger>
           <SelectContent>
             <SelectItem value={ALL_TYPES}>{t("filters.allTypes")}</SelectItem>
-            {PROPERTY_TYPES.map((type) => (
+            {BUILDING_TYPES.map((type) => (
               <SelectItem key={type} value={type}>
                 {tTypes(type)}
               </SelectItem>
@@ -295,39 +295,39 @@ export function PropertiesList({ initialData, initialQueryString }: PropertiesLi
                           </TableCell>
                         </TableRow>
                       ))
-                    : (data?.items ?? []).map((property: PropertySummary) => (
-                        <TableRow key={property.id} className="h-(--row-height)">
+                    : (data?.items ?? []).map((building: BuildingSummary) => (
+                        <TableRow key={building.id} className="h-(--row-height)">
                           <TableCell className="max-w-64 whitespace-normal">
                             <Link
-                              href={`/properties/${property.id}?returnTo=${encodeURIComponent(returnTo)}`}
+                              href={`/buildings/${building.id}?returnTo=${encodeURIComponent(returnTo)}`}
                               className="text-foreground focus-visible:ring-ring font-medium underline-offset-4 outline-none hover:underline focus-visible:ring-2"
                             >
-                              {property.name}
+                              {building.name}
                             </Link>
                             <p className="text-muted-foreground text-xs">
-                              {property.address.line1}, {property.address.postalCode}
+                              {building.address.line1}, {building.address.postalCode}
                             </p>
                             <p className="mt-1 flex flex-wrap items-center gap-1.5 md:hidden">
-                              <Badge variant="outline">{tTypes(property.propertyType)}</Badge>
+                              <Badge variant="outline">{tTypes(building.buildingType)}</Badge>
                             </p>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
-                            <Badge variant="outline">{tTypes(property.propertyType)}</Badge>
+                            <Badge variant="outline">{tTypes(building.buildingType)}</Badge>
                           </TableCell>
                           <TableCell>
-                            {property.address.city}, {property.address.province}
+                            {building.address.city}, {building.address.province}
                           </TableCell>
                           <TableCell className="text-right tabular-nums">
-                            {formatNumber(property.unitCount, locale)}
+                            {formatNumber(building.unitCount, locale)}
                           </TableCell>
                           <TableCell className="hidden text-right tabular-nums lg:table-cell">
-                            {formatPercent(property.occupancyRate, locale) ?? unavailable}
+                            {formatPercent(building.occupancyRate, locale) ?? unavailable}
                           </TableCell>
                           <TableCell className="hidden text-right tabular-nums xl:table-cell">
-                            {money(property.monthlyRentDue.amountCents)}
+                            {money(building.monthlyRentDue.amountCents)}
                           </TableCell>
                           <TableCell className="hidden text-right tabular-nums xl:table-cell">
-                            {money(property.monthlyRentReceived.amountCents)}
+                            {money(building.monthlyRentReceived.amountCents)}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -374,7 +374,7 @@ export function PropertiesList({ initialData, initialQueryString }: PropertiesLi
               <span aria-hidden>{tCommon("pagination.rowsPerPage")}</span>
               <Select
                 value={String(query.pageSize)}
-                onValueChange={(value) => update({ pageSize: Number(value) as PropertyListQuery["pageSize"] })}
+                onValueChange={(value) => update({ pageSize: Number(value) as BuildingListQuery["pageSize"] })}
               >
                 <SelectTrigger className="w-20" aria-label={tCommon("pagination.rowsPerPage")}>
                   <SelectValue />

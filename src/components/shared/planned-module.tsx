@@ -8,7 +8,7 @@ import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTi
 import type { NavKey } from "@/config/navigation";
 import { Link } from "@/i18n/navigation";
 
-export type PlannedModuleKey = Exclude<NavKey, "dashboard" | "properties" | "settings">;
+export type PlannedModuleKey = Exclude<NavKey, "dashboard" | "buildings" | "settings">;
 
 /**
  * Translated placeholder for a validated-in-principle but not yet specified capability. It states
@@ -36,7 +36,7 @@ export async function PlannedModule({ module }: { module: PlannedModuleKey }) {
         <EmptyContent>
           <p className="text-muted-foreground text-sm">{t("status.noActions")}</p>
           <Button asChild variant="outline">
-            <Link href="/properties">{tNav("properties")}</Link>
+            <Link href="/buildings">{tNav("buildings")}</Link>
           </Button>
           <p className="text-muted-foreground max-w-md text-xs">{t("status.reference")}</p>
         </EmptyContent>

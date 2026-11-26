@@ -5,7 +5,7 @@ import { markReported } from "@/lib/observability/errors/error-reporter";
 
 describe("toErrorResponse", () => {
   it("maps application errors with their status and a stable code", () => {
-    const { status, body } = toErrorResponse(new ApplicationError("resource.not_found", "Property not found"), "cid");
+    const { status, body } = toErrorResponse(new ApplicationError("resource.not_found", "Building not found"), "cid");
     expect(status).toBe(404);
     expect(body.error).toMatchObject({ code: "resource.not_found", correlationId: "cid", retryable: false });
   });

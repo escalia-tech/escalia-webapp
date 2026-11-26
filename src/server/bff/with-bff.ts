@@ -26,9 +26,9 @@ import { assertSameOrigin } from "../security/origin";
 const SLOW_REQUEST_THRESHOLD_MS = 2000;
 
 export interface BffOptions {
-  /** Templated route used in logs, e.g. `/api/bff/properties/[id]` (never the raw URL). */
+  /** Templated route used in logs, e.g. `/api/bff/buildings/[id]` (never the raw URL). */
   route: string;
-  /** Stable operation name for events, e.g. `properties.list`. */
+  /** Stable operation name for events, e.g. `buildings.list`. */
   operation: string;
   /** Mutations (non-GET) are protected by the same-origin check. */
   mutation?: boolean;

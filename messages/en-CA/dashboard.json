@@ -1,15 +1,15 @@
 {
   "title": "Dashboard",
-  "description": "Demo overview of your property portfolio.",
+  "description": "Demo overview of your building portfolio.",
   "period": "Reference period: {period}",
   "kpi": {
-    "properties": {
-      "label": "Properties",
-      "info": "Number of properties provided by the demo data source."
+    "buildings": {
+      "label": "Buildings",
+      "info": "Number of buildings provided by the demo data source."
     },
     "units": {
       "label": "Units",
-      "info": "Total units attached to the properties shown. Value provided by the source, not recomputed."
+      "info": "Total units attached to the buildings shown. Value provided by the source, not recomputed."
     },
     "rentDue": {
       "label": "Rent due (month)",
@@ -18,7 +18,7 @@
     "rentReceived": {
       "label": "Rent received (month)",
       "info": "Amount actually received for the reference month. Missing data is not counted as zero.",
-      "missing": "{count, plural, one {# property without received-rent data} other {# properties without received-rent data}}"
+      "missing": "{count, plural, one {# building without received-rent data} other {# buildings without received-rent data}}"
     }
   },
   "charts": {
@@ -31,22 +31,22 @@
       "summary": "Area chart: rent due and received per month over {count} months, from {from} to {to}."
     },
     "units": {
-      "title": "Units per property",
-      "description": "Number of units for each property.",
+      "title": "Units per building",
+      "description": "Number of units for each building.",
       "series": "Units",
-      "summary": "Horizontal bar chart: number of units for {count} properties."
+      "summary": "Horizontal bar chart: number of units for {count} buildings."
     },
     "types": {
-      "title": "Properties by type",
-      "description": "Breakdown of properties by type.",
-      "series": "Properties",
-      "total": "Properties",
-      "summary": "Donut chart: breakdown of {count} properties by type."
+      "title": "Buildings by type",
+      "description": "Breakdown of buildings by type.",
+      "series": "Buildings",
+      "total": "Buildings",
+      "summary": "Donut chart: breakdown of {count} buildings by type."
     },
     "table": {
       "toggle": "Show data as a table",
       "month": "Month",
-      "property": "Property",
+      "building": "Building",
       "type": "Type",
       "unavailable": "Not available"
     }

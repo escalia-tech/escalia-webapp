@@ -3,7 +3,7 @@
   "description": "Vue d’ensemble de démonstration de votre portefeuille d’immeubles.",
   "period": "Période de référence : {period}",
   "kpi": {
-    "properties": {
+    "buildings": {
       "label": "Immeubles",
       "info": "Nombre d’immeubles fournis par la source de données de démonstration."
     },
@@ -46,7 +46,7 @@
     "table": {
       "toggle": "Afficher les données sous forme de tableau",
       "month": "Mois",
-      "property": "Immeuble",
+      "building": "Immeuble",
       "type": "Type",
       "unavailable": "Non disponible"
     }

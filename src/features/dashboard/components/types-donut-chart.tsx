@@ -4,23 +4,23 @@ import { useTranslations } from "next-intl";
 import { Cell, Label, Pie, PieChart } from "recharts";
 
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import type { PropertyType } from "@/features/properties/schemas/property.schema";
+import type { BuildingType } from "@/features/buildings/schemas/building.schema";
 
 const COLORS = ["var(--chart-1)", "var(--chart-3)", "var(--chart-5)", "var(--chart-4)", "var(--chart-2)"];
 
 interface TypesDonutChartProps {
-  data: { propertyType: PropertyType; count: number }[];
+  data: { buildingType: BuildingType; count: number }[];
 }
 
 /** Donut with a visible legend listing label and count for each segment (colour is never the only cue). */
 export function TypesDonutChart({ data }: TypesDonutChartProps) {
   const t = useTranslations("dashboard.charts.types");
-  const tTypes = useTranslations("properties.types");
+  const tTypes = useTranslations("buildings.types");
   const total = data.reduce((sum, entry) => sum + entry.count, 0);
 
   const rows = data.map((entry, index) => ({
-    key: entry.propertyType,
-    name: tTypes(entry.propertyType),
+    key: entry.buildingType,
+    name: tTypes(entry.buildingType),
     count: entry.count,
     fill: COLORS[index % COLORS.length] ?? "var(--chart-1)",
   }));
