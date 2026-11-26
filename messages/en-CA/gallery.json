@@ -63,7 +63,7 @@
     "nameHelp": "Help text below the field.",
     "nameError": "This field is required.",
     "invalid": "Invalid field",
-    "select": "Property type",
+    "select": "Building type",
     "selectPlaceholder": "Choose a type",
     "checkbox": "I accept the demo terms",
     "switch": "Enable the demo option",
@@ -82,7 +82,7 @@
     "toastErrorText": "Demo error notification."
   },
   "table": {
-    "name": "Property",
+    "name": "Building",
     "units": "Units",
     "rent": "Rent due",
     "unavailable": "Not available"

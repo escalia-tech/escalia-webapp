@@ -45,7 +45,7 @@ export function NotificationsMenu({ state }: { state: NotificationsState }) {
             <ul className="divide-y">
               {state.items.map((item) => (
                 <li key={item.id} className="px-4 py-3">
-                  <p className="text-sm">{t(`kinds.${item.kind}`, { property: item.property })}</p>
+                  <p className="text-sm">{t(`kinds.${item.kind}`, { building: item.building })}</p>
                   <p className="text-muted-foreground mt-1 text-xs">
                     <time dateTime={item.at}>
                       {format.dateTime(new Date(item.at), { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })}

@@ -6,10 +6,10 @@ import { ChartCard } from "@/components/charts/chart-card";
 import { RentTrendChart } from "@/components/charts/rent-trend-chart";
 import { PageHeader } from "@/components/layout/page-header";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { getDashboardSummary } from "@/features/buildings/server/buildings.service";
 import { KpiCard } from "@/features/dashboard/components/kpi-card";
 import { TypesDonutChart } from "@/features/dashboard/components/types-donut-chart";
 import { UnitsBarChart } from "@/features/dashboard/components/units-bar-chart";
-import { getDashboardSummary } from "@/features/properties/server/properties.service";
 import { formatMoney, formatMonth, formatNumber } from "@/lib/format";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,11 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function DashboardPage() {
   const [t, tTypes, summary, locale] = await Promise.all([
     getTranslations("dashboard"),
-    getTranslations("properties.types"),
+    getTranslations("buildings.types"),
     getDashboardSummary(),
     getLocale(),
   ]);
-  const { kpis, monthly, unitsByProperty, propertiesByType, meta } = summary;
+  const { kpis, monthly, unitsByBuilding, buildingsByType, meta } = summary;
   const unavailable = t("charts.table.unavailable");
   const first = monthly[0]?.month;
   const last = monthly.at(-1)?.month;
@@ -46,10 +46,10 @@ export default async function DashboardPage() {
       <section aria-label={t("title")} className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard
           icon={Building2}
-          label={t("kpi.properties.label")}
-          value={formatNumber(kpis.propertyCount, locale)}
-          info={t("kpi.properties.info")}
-          infoLabel={t("kpi.properties.label")}
+          label={t("kpi.buildings.label")}
+          value={formatNumber(kpis.buildingCount, locale)}
+          info={t("kpi.buildings.info")}
+          infoLabel={t("kpi.buildings.label")}
         />
         <KpiCard
           icon={DoorOpen}
@@ -123,18 +123,18 @@ export default async function DashboardPage() {
         <ChartCard
           title={t("charts.units.title")}
           description={t("charts.units.description")}
-          summary={t("charts.units.summary", { count: unitsByProperty.length })}
+          summary={t("charts.units.summary", { count: unitsByBuilding.length })}
           tableToggleLabel={t("charts.table.toggle")}
           table={
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t("charts.table.property")}</TableHead>
+                  <TableHead>{t("charts.table.building")}</TableHead>
                   <TableHead className="text-right">{t("charts.units.series")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {unitsByProperty.map((row) => (
+                {unitsByBuilding.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell>{row.name}</TableCell>
                     <TableCell className="text-right tabular-nums">{formatNumber(row.unitCount, locale)}</TableCell>
@@ -144,13 +144,13 @@ export default async function DashboardPage() {
             </Table>
           }
         >
-          <UnitsBarChart data={unitsByProperty} />
+          <UnitsBarChart data={unitsByBuilding} />
         </ChartCard>
 
         <ChartCard
           title={t("charts.types.title")}
           description={t("charts.types.description")}
-          summary={t("charts.types.summary", { count: kpis.propertyCount })}
+          summary={t("charts.types.summary", { count: kpis.buildingCount })}
           tableToggleLabel={t("charts.table.toggle")}
           table={
             <Table>
@@ -161,9 +161,9 @@ export default async function DashboardPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {propertiesByType.map((row) => (
-                  <TableRow key={row.propertyType}>
-                    <TableCell>{tTypes(row.propertyType)}</TableCell>
+                {buildingsByType.map((row) => (
+                  <TableRow key={row.buildingType}>
+                    <TableCell>{tTypes(row.buildingType)}</TableCell>
                     <TableCell className="text-right tabular-nums">{formatNumber(row.count, locale)}</TableCell>
                   </TableRow>
                 ))}
@@ -171,7 +171,7 @@ export default async function DashboardPage() {
             </Table>
           }
         >
-          <TypesDonutChart data={propertiesByType} />
+          <TypesDonutChart data={buildingsByType} />
         </ChartCard>
       </div>
     </>

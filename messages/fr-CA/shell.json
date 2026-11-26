@@ -9,7 +9,7 @@
     "soon": "À venir",
     "items": {
       "dashboard": "Tableau de bord",
-      "properties": "Immeubles",
+      "buildings": "Immeubles",
       "units": "Logements",
       "tenants": "Locataires",
       "leases": "Baux",
@@ -31,7 +31,7 @@
       "placeholder": "Rechercher une page ou un immeuble…",
       "empty": "Aucun résultat.",
       "groupPages": "Pages",
-      "groupProperties": "Immeubles (données fictives)",
+      "groupBuildings": "Immeubles (données fictives)",
       "unavailable": "La recherche d’immeubles est momentanément indisponible."
     },
     "help": {
@@ -49,9 +49,9 @@
       "demoNotice": "Notifications fictives de démonstration. Aucune notification réelle n’est disponible.",
       "unavailable": "Les notifications sont indisponibles.",
       "kinds": {
-        "payment": "Un paiement de loyer est en attente de rapprochement pour {property}.",
-        "maintenance": "Une requête d’entretien a été ouverte pour {property}.",
-        "document": "Un document est prêt à être consulté pour {property}."
+        "payment": "Un paiement de loyer est en attente de rapprochement pour {building}.",
+        "maintenance": "Une requête d’entretien a été ouverte pour {building}.",
+        "document": "Un document est prêt à être consulté pour {building}."
       }
     },
     "locale": {

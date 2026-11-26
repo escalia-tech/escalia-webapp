@@ -2,7 +2,7 @@ import type { AppLocale } from "./routing";
 
 /**
  * Language is independent from region, currency, time zone and tax jurisdiction.
- * "en-CA" does NOT mean Ontario: fiscal rules come from business data (property location), never from locale.
+ * "en-CA" does NOT mean Ontario: fiscal rules come from business data (building location), never from locale.
  */
 export const LOCALE_META: Record<AppLocale, { short: string; nativeName: string; htmlLang: string }> = {
   "fr-CA": { short: "FR", nativeName: "Français", htmlLang: "fr-CA" },
@@ -19,7 +19,7 @@ export const MESSAGE_DOMAINS = [
   "auth",
   "legal",
   "dashboard",
-  "properties",
+  "buildings",
   "settings",
   "feedback",
   "modules",

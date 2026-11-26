@@ -4,7 +4,7 @@ import { StatusScreen } from "@/components/feedback/status-screen";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 
-/** Localised 404. Used for unknown routes and `notFound()` calls (e.g. unknown property id). */
+/** Localised 404. Used for unknown routes and `notFound()` calls (e.g. unknown building id). */
 export default function LocaleNotFound() {
   const t = useTranslations("feedback.status.notFound");
   const tCommon = useTranslations("common.actions");

@@ -1,19 +1,19 @@
 import "server-only";
 
 import type {
+  BuildingListQuery,
+  BuildingSummary,
+  BuildingType,
   DashboardSummary,
-  PropertyListQuery,
-  PropertySummary,
-  PropertyType,
-} from "@/features/properties/schemas/property.schema";
+} from "@/features/buildings/schemas/building.schema";
 import type {
-  PropertiesPage,
-  PropertiesRepository,
+  BuildingsPage,
+  BuildingsRepository,
   RepositoryContext,
-} from "@/features/properties/server/properties.repository";
+} from "@/features/buildings/server/buildings.repository";
 import { ApplicationError } from "@/lib/observability/errors/application-error";
 
-import { FIXTURE_PERIOD, PROPERTY_FIXTURES } from "./properties.fixtures";
+import { BUILDING_FIXTURES, FIXTURE_PERIOD } from "./buildings.fixtures";
 
 const BASE_LATENCY_MS = 120;
 const SLOW_LATENCY_MS = 1500;
@@ -45,12 +45,12 @@ function stripDiacritics(text: string): string {
     .toLowerCase();
 }
 
-function toSummary(detail: (typeof PROPERTY_FIXTURES)[number]): PropertySummary {
+function toSummary(detail: (typeof BUILDING_FIXTURES)[number]): BuildingSummary {
   const { rentHistory: _rentHistory, ...summary } = detail;
   return summary;
 }
 
-async function simulate(scenario: PropertyListQuery["scenario"], context: RepositoryContext): Promise<void> {
+async function simulate(scenario: BuildingListQuery["scenario"], context: RepositoryContext): Promise<void> {
   if (scenario === "error") {
     throw new ApplicationError("upstream.unavailable", "Demo scenario: upstream failure");
   }
@@ -62,18 +62,18 @@ async function simulate(scenario: PropertyListQuery["scenario"], context: Reposi
 }
 
 /** Demo adapter: filters, sorts and paginates the fictional fixtures in memory. */
-export const demoPropertiesRepository: PropertiesRepository = {
+export const demoBuildingsRepository: BuildingsRepository = {
   source: "demo-fixtures",
   period: FIXTURE_PERIOD,
 
-  async list(query, context): Promise<PropertiesPage> {
+  async list(query, context): Promise<BuildingsPage> {
     await simulate(query.scenario, context);
 
     const needle = query.q ? stripDiacritics(query.q) : undefined;
-    const filtered = PROPERTY_FIXTURES.filter((property) => {
-      if (query.type && property.propertyType !== query.type) return false;
+    const filtered = BUILDING_FIXTURES.filter((building) => {
+      if (query.type && building.buildingType !== query.type) return false;
       if (!needle) return true;
-      return [property.name, property.address.city, property.address.line1].some((field) =>
+      return [building.name, building.address.city, building.address.line1].some((field) =>
         stripDiacritics(field).includes(needle),
       );
     });
@@ -95,15 +95,15 @@ export const demoPropertiesRepository: PropertiesRepository = {
 
   async get(id, context) {
     await sleep(BASE_LATENCY_MS, context.signal);
-    return PROPERTY_FIXTURES.find((property) => property.id === id) ?? null;
+    return BUILDING_FIXTURES.find((building) => building.id === id) ?? null;
   },
 
   async dashboard(context): Promise<Omit<DashboardSummary, "meta">> {
     await sleep(BASE_LATENCY_MS, context.signal);
 
-    const latest = PROPERTY_FIXTURES.map((property) => property.rentHistory.at(-1));
-    const monthly = (PROPERTY_FIXTURES[0]?.rentHistory ?? []).map((entry, index) => {
-      const entries = PROPERTY_FIXTURES.map((property) => property.rentHistory[index]);
+    const latest = BUILDING_FIXTURES.map((building) => building.rentHistory.at(-1));
+    const monthly = (BUILDING_FIXTURES[0]?.rentHistory ?? []).map((entry, index) => {
+      const entries = BUILDING_FIXTURES.map((building) => building.rentHistory[index]);
       const due = entries.reduce((sum, item) => sum + (item?.dueCents ?? 0), 0);
       const available = entries.filter((item) => item?.receivedCents !== null && item?.receivedCents !== undefined);
       return {
@@ -115,25 +115,25 @@ export const demoPropertiesRepository: PropertiesRepository = {
       };
     });
 
-    const byType = new Map<PropertyType, number>();
-    for (const property of PROPERTY_FIXTURES) {
-      byType.set(property.propertyType, (byType.get(property.propertyType) ?? 0) + 1);
+    const byType = new Map<BuildingType, number>();
+    for (const building of BUILDING_FIXTURES) {
+      byType.set(building.buildingType, (byType.get(building.buildingType) ?? 0) + 1);
     }
 
     return {
       kpis: {
-        propertyCount: PROPERTY_FIXTURES.length,
-        unitCount: PROPERTY_FIXTURES.reduce((sum, property) => sum + property.unitCount, 0),
+        buildingCount: BUILDING_FIXTURES.length,
+        unitCount: BUILDING_FIXTURES.reduce((sum, building) => sum + building.unitCount, 0),
         rentDueCents: latest.reduce((sum, item) => sum + (item?.dueCents ?? 0), 0),
         rentReceivedCents: latest.reduce((sum, item) => sum + (item?.receivedCents ?? 0), 0),
         receivedMissingCount: latest.filter((item) => item?.receivedCents === null).length,
       },
       monthly,
-      unitsByProperty: [...PROPERTY_FIXTURES]
+      unitsByBuilding: [...BUILDING_FIXTURES]
         .sort((left, right) => right.unitCount - left.unitCount)
         .slice(0, 8)
-        .map((property) => ({ id: property.id, name: property.name, unitCount: property.unitCount })),
-      propertiesByType: [...byType.entries()].map(([propertyType, count]) => ({ propertyType, count })),
+        .map((building) => ({ id: building.id, name: building.name, unitCount: building.unitCount })),
+      buildingsByType: [...byType.entries()].map(([buildingType, count]) => ({ buildingType, count })),
     };
   },
 };

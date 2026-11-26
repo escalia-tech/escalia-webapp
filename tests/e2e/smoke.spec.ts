@@ -21,7 +21,7 @@ test.describe("access control", () => {
   });
 
   test("BFF refuses anonymous reads with 401 and no data", async ({ request }) => {
-    const response = await request.get("/api/bff/properties");
+    const response = await request.get("/api/bff/buildings");
     expect(response.status()).toBe(401);
     const body = await response.json();
     expect(body.error.code).toBe("auth.unauthenticated");
@@ -170,11 +170,11 @@ test.describe("demo session and application shell", () => {
 
   test("language switch keeps the route and query string", async ({ page }) => {
     await enterDemo(page);
-    await page.goto("/properties?q=lac&type=condominium");
+    await page.goto("/buildings?q=lac&type=condominium");
     await page.getByRole("button", { name: /Changer de langue/ }).click();
     await page.getByRole("menuitemradio", { name: "English" }).click();
-    await expect(page).toHaveURL(/\/properties\?q=lac&type=condominium/);
-    await expect(page.getByRole("heading", { level: 1, name: "Properties" })).toBeVisible();
+    await expect(page).toHaveURL(/\/buildings\?q=lac&type=condominium/);
+    await expect(page.getByRole("heading", { level: 1, name: "Buildings" })).toBeVisible();
   });
 
   test("Escalia Assist opens demonstration resources without a support request", async ({ page }) => {
@@ -207,16 +207,16 @@ test.describe("demo session and application shell", () => {
     await enterDemo(page);
     await page.goto("/nope");
     await expect(page.getByRole("heading", { name: "Page introuvable" })).toBeVisible();
-    await page.goto("/en-CA/properties/does-not-exist");
+    await page.goto("/en-CA/buildings/does-not-exist");
     await expect(page.getByRole("heading", { name: "Page not found" })).toBeVisible();
   });
 });
 
-test.describe("properties reference module", () => {
+test.describe("buildings reference module", () => {
   test.beforeEach(async ({ page }) => enterDemo(page));
 
   test("search, filter, sort and paginate are reflected in the URL", async ({ page }) => {
-    await page.goto("/properties");
+    await page.goto("/buildings");
     await settle(page);
     await expect(page.getByRole("link", { name: "Centre Démo Frêne" })).toBeVisible();
 
@@ -237,14 +237,14 @@ test.describe("properties reference module", () => {
   });
 
   test("no result state offers to clear filters", async ({ page }) => {
-    await page.goto("/properties?q=zzzzzz");
+    await page.goto("/buildings?q=zzzzzz");
     await expect(page.getByText("Aucun résultat").first()).toBeVisible();
     await page.getByRole("button", { name: "Effacer les filtres" }).last().click();
     await expect(page.getByRole("link", { name: "Centre Démo Frêne" })).toBeVisible();
   });
 
   test("failure scenario shows a recoverable error with a support reference", async ({ page }) => {
-    await page.goto("/properties?scenario=error");
+    await page.goto("/buildings?scenario=error");
     await expect(page.getByRole("alert").filter({ hasText: "Impossible de charger les immeubles" })).toBeVisible({
       timeout: 20_000,
     });
@@ -253,24 +253,24 @@ test.describe("properties reference module", () => {
   });
 
   test("detail page links back to the filtered list through a validated returnTo", async ({ page }) => {
-    await page.goto("/properties?q=cedre");
+    await page.goto("/buildings?q=cedre");
     await page.getByRole("link", { name: "Résidence Démo Cèdre" }).click();
-    await expect(page).toHaveURL(/\/properties\/demo-cedre/);
+    await expect(page).toHaveURL(/\/buildings\/demo-cedre/);
     await expect(page.getByRole("heading", { level: 1, name: "Résidence Démo Cèdre" })).toBeVisible();
     await page.getByRole("link", { name: "Retour à la liste des immeubles" }).click();
-    await expect(page).toHaveURL(/\/properties\?q=cedre/);
+    await expect(page).toHaveURL(/\/buildings\?q=cedre/);
   });
 
   test("a hostile returnTo falls back to the list", async ({ page }) => {
-    await page.goto("/properties/demo-cedre?returnTo=https%3A%2F%2Fevil.example");
+    await page.goto("/buildings/demo-cedre?returnTo=https%3A%2F%2Fevil.example");
     const back = page.getByRole("link", { name: "Retour à la liste des immeubles" });
-    await expect(back).toHaveAttribute("href", /\/properties$/);
+    await expect(back).toHaveAttribute("href", /\/buildings$/);
   });
 
   test("demo note form validates and sends nothing", async ({ page }) => {
     const requests: string[] = [];
     page.on("request", (request) => requests.push(request.url()));
-    await page.goto("/properties/demo-cedre");
+    await page.goto("/buildings/demo-cedre");
     await settle(page);
     const before = requests.length;
     await page.getByRole("button", { name: "Valider la note" }).click();

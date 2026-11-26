@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { parseListQuery, toSearchParams } from "@/features/properties/lib/list-query";
+import { parseListQuery, toSearchParams } from "@/features/buildings/lib/list-query";
 
 describe("parseListQuery", () => {
   it("returns defaults for empty input", () => {

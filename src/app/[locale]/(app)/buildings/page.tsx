@@ -2,25 +2,25 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { PageHeader } from "@/components/layout/page-header";
-import { PropertiesList } from "@/features/properties/components/properties-list";
-import { parseListQuery, toSearchParams } from "@/features/properties/lib/list-query";
-import type { PropertyListResult } from "@/features/properties/schemas/property.schema";
-import { listProperties } from "@/features/properties/server/properties.service";
+import { BuildingsList } from "@/features/buildings/components/buildings-list";
+import { parseListQuery, toSearchParams } from "@/features/buildings/lib/list-query";
+import type { BuildingListResult } from "@/features/buildings/schemas/building.schema";
+import { listBuildings } from "@/features/buildings/server/buildings.service";
 import { isApplicationError } from "@/lib/observability/errors/application-error";
 import { getLogger } from "@/lib/observability/logger/logger.server";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("properties");
+  const t = await getTranslations("buildings");
   return { title: t("title") };
 }
 
-export default async function PropertiesPage({
+export default async function BuildingsPage({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const [t, tNav, rawParams] = await Promise.all([
-    getTranslations("properties"),
+    getTranslations("buildings"),
     getTranslations("shell.nav.items"),
     searchParams,
   ]);
@@ -30,12 +30,12 @@ export default async function PropertiesPage({
   // The first page is rendered on the server (fast first paint). A failure here must not break the
   // page: the client falls back to the BFF and shows loading / error states with a safe retry.
   // Demo failure scenarios are deliberately left to the client so the states are visible.
-  let initialData: PropertyListResult | undefined;
+  let initialData: BuildingListResult | undefined;
   if (!query.scenario) {
     try {
-      initialData = await listProperties(query);
+      initialData = await listBuildings(query);
     } catch (error) {
-      getLogger("properties").warn("properties.list.initial_load_failed", {
+      getLogger("buildings").warn("buildings.list.initial_load_failed", {
         errorName: error instanceof Error ? error.name : "unknown",
         errorCode: isApplicationError(error) ? error.code : undefined,
       });
@@ -50,7 +50,7 @@ export default async function PropertiesPage({
         demoData
         breadcrumbs={[{ label: tNav("dashboard"), href: "/dashboard" }, { label: t("title") }]}
       />
-      <PropertiesList initialData={initialData} initialQueryString={initialQueryString} />
+      <BuildingsList initialData={initialData} initialQueryString={initialQueryString} />
     </>
   );
 }

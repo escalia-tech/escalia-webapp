@@ -9,8 +9,8 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { getBuilding } from "@/features/buildings/server/buildings.service";
 import { GalleryInteractive } from "@/features/gallery/components/gallery-interactive";
-import { getProperty } from "@/features/properties/server/properties.service";
 import { formatMoney } from "@/lib/format";
 import { isDemoModeEnabled } from "@/server/config/env";
 
@@ -20,10 +20,10 @@ export const metadata: Metadata = { title: "Components", robots: { index: false,
 export default async function ComponentGalleryPage() {
   if (!isDemoModeEnabled()) notFound();
 
-  const [t, locale, { property }] = await Promise.all([
+  const [t, locale, { building }] = await Promise.all([
     getTranslations("gallery"),
     getLocale(),
-    getProperty("demo-cedre"),
+    getBuilding("demo-cedre"),
   ]);
 
   return (
@@ -101,10 +101,10 @@ export default async function ComponentGalleryPage() {
             </TableHeader>
             <TableBody>
               <TableRow className="h-(--row-height)">
-                <TableCell>{property.name}</TableCell>
-                <TableCell className="text-right tabular-nums">{property.unitCount}</TableCell>
+                <TableCell>{building.name}</TableCell>
+                <TableCell className="text-right tabular-nums">{building.unitCount}</TableCell>
                 <TableCell className="text-right tabular-nums">
-                  {formatMoney(property.monthlyRentDue.amountCents, locale) ?? t("table.unavailable")}
+                  {formatMoney(building.monthlyRentDue.amountCents, locale) ?? t("table.unavailable")}
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -115,7 +115,7 @@ export default async function ComponentGalleryPage() {
           <h2 id="g-charts" className="text-lg font-semibold">
             {t("sections.charts")}
           </h2>
-          <RentTrendChart data={property.rentHistory} />
+          <RentTrendChart data={building.rentHistory} />
         </section>
       </div>
     </>

@@ -4,11 +4,11 @@
     "title": "This section is not available yet",
     "body": "The journeys, business rules, API contracts and permissions of this section must be specified first. No fake data or action is shown.",
     "noActions": "No action is available at this time.",
-    "reference": "Meanwhile, the Properties section shows the expected behaviour of lists and detail pages."
+    "reference": "Meanwhile, the Buildings section shows the expected behaviour of lists and detail pages."
   },
   "units": {
     "title": "Units",
-    "description": "Browse and follow the units attached to properties."
+    "description": "Browse and follow the units attached to buildings."
   },
   "tenants": {
     "title": "Tenants",
@@ -24,7 +24,7 @@
   },
   "maintenance": {
     "title": "Requests & maintenance",
-    "description": "Tenant requests and property maintenance follow-up."
+    "description": "Tenant requests and building maintenance follow-up."
   },
   "documents": {
     "title": "Documents",

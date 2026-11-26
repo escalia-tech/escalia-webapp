@@ -17,7 +17,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { ALL_NAV } from "@/config/navigation";
-import type { PropertyListResult } from "@/features/properties/schemas/property.schema";
+import type { BuildingListResult } from "@/features/buildings/schemas/building.schema";
 import { useRouter } from "@/i18n/navigation";
 import { bffFetch } from "@/lib/bff-client";
 
@@ -31,8 +31,8 @@ function useDebounced(value: string, delayMs: number) {
 }
 
 /**
- * Global search (Ctrl/Cmd + K): navigation pages plus demo properties fetched through the BFF.
- * Properties come from fictional fixtures; the group label says so.
+ * Global search (Ctrl/Cmd + K): navigation pages plus demo buildings fetched through the BFF.
+ * Buildings come from fictional fixtures; the group label says so.
  */
 export function SearchCommand() {
   const t = useTranslations("shell");
@@ -52,10 +52,10 @@ export function SearchCommand() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  const properties = useQuery({
-    queryKey: ["properties", "search", debounced],
+  const buildings = useQuery({
+    queryKey: ["buildings", "search", debounced],
     queryFn: ({ signal }) =>
-      bffFetch<PropertyListResult>(`/api/bff/properties?q=${encodeURIComponent(debounced)}&pageSize=10`, { signal }),
+      bffFetch<BuildingListResult>(`/api/bff/buildings?q=${encodeURIComponent(debounced)}&pageSize=10`, { signal }),
     enabled: open && debounced.length >= 2,
   });
 
@@ -93,9 +93,7 @@ export function SearchCommand() {
         <Command shouldFilter>
           <CommandInput value={query} onValueChange={setQuery} placeholder={t("header.search.placeholder")} />
           <CommandList>
-            <CommandEmpty>
-              {properties.isError ? t("header.search.unavailable") : t("header.search.empty")}
-            </CommandEmpty>
+            <CommandEmpty>{buildings.isError ? t("header.search.unavailable") : t("header.search.empty")}</CommandEmpty>
             <CommandGroup heading={t("header.search.groupPages")}>
               {ALL_NAV.map((item) => {
                 const Icon = item.icon;
@@ -108,17 +106,17 @@ export function SearchCommand() {
                 );
               })}
             </CommandGroup>
-            {properties.data && properties.data.items.length > 0 ? (
-              <CommandGroup heading={t("header.search.groupProperties")}>
-                {properties.data.items.map((property) => (
+            {buildings.data && buildings.data.items.length > 0 ? (
+              <CommandGroup heading={t("header.search.groupBuildings")}>
+                {buildings.data.items.map((building) => (
                   <CommandItem
-                    key={property.id}
-                    value={`${property.name} ${property.address.city}`}
-                    onSelect={() => go(`/properties/${property.id}`)}
+                    key={building.id}
+                    value={`${building.name} ${building.address.city}`}
+                    onSelect={() => go(`/buildings/${building.id}`)}
                   >
                     <Building2 aria-hidden />
-                    <span>{property.name}</span>
-                    <span className="text-muted-foreground ml-auto text-xs">{property.address.city}</span>
+                    <span>{building.name}</span>
+                    <span className="text-muted-foreground ml-auto text-xs">{building.address.city}</span>
                   </CommandItem>
                 ))}
               </CommandGroup>

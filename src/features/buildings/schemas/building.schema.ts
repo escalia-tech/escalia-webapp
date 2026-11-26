@@ -1,13 +1,13 @@
 import { z } from "zod";
 
 /**
- * Properties DTOs. IMPORTANT: no backend contract exists yet. These shapes describe what the demo
+ * Buildings DTOs. IMPORTANT: no backend contract exists yet. These shapes describe what the demo
  * adapter returns and what the UI consumes; they are NOT an upstream contract. When the real API is
  * specified (docs/features/TEMPLATE.md), only the adapter and the mapping layer change.
  */
 
-export const PROPERTY_TYPES = ["multi-residential", "single-family", "condominium", "commercial", "mixed-use"] as const;
-export type PropertyType = (typeof PROPERTY_TYPES)[number];
+export const BUILDING_TYPES = ["multi-residential", "single-family", "condominium", "commercial", "mixed-use"] as const;
+export type BuildingType = (typeof BUILDING_TYPES)[number];
 
 export const PROVINCES = ["QC", "ON", "NB", "NS"] as const;
 
@@ -18,10 +18,10 @@ export const moneySchema = z.object({
 });
 export type Money = z.infer<typeof moneySchema>;
 
-export const propertySummarySchema = z.object({
+export const buildingSummarySchema = z.object({
   id: z.string().regex(/^[a-z0-9-]{3,40}$/),
   name: z.string().min(1).max(120),
-  propertyType: z.enum(PROPERTY_TYPES),
+  buildingType: z.enum(BUILDING_TYPES),
   address: z.object({
     line1: z.string(),
     city: z.string(),
@@ -35,7 +35,7 @@ export const propertySummarySchema = z.object({
   monthlyRentDue: moneySchema,
   monthlyRentReceived: moneySchema,
 });
-export type PropertySummary = z.infer<typeof propertySummarySchema>;
+export type BuildingSummary = z.infer<typeof buildingSummarySchema>;
 
 export const monthlyAmountSchema = z.object({
   month: z.string().regex(/^\d{4}-\d{2}$/),
@@ -44,10 +44,10 @@ export const monthlyAmountSchema = z.object({
 });
 export type MonthlyAmount = z.infer<typeof monthlyAmountSchema>;
 
-export const propertyDetailSchema = propertySummarySchema.extend({
+export const buildingDetailSchema = buildingSummarySchema.extend({
   rentHistory: z.array(monthlyAmountSchema),
 });
-export type PropertyDetail = z.infer<typeof propertyDetailSchema>;
+export type BuildingDetail = z.infer<typeof buildingDetailSchema>;
 
 export const dataSourceSchema = z.object({
   /** Where the data came from. The UI shows a "fictional data" label whenever it is `demo-fixtures`. */
@@ -61,9 +61,9 @@ export const PAGE_SIZES = [10, 20, 50] as const;
 export const SORT_FIELDS = ["name", "city", "unitCount"] as const;
 
 /** Query accepted by the list endpoint (URL parameters; also used for shareable filter state). */
-export const propertyListQuerySchema = z.object({
+export const buildingListQuerySchema = z.object({
   q: z.string().trim().max(80).optional(),
-  type: z.enum(PROPERTY_TYPES).optional(),
+  type: z.enum(BUILDING_TYPES).optional(),
   page: z.coerce.number().int().min(1).max(1000).default(1),
   pageSize: z.coerce
     .number()
@@ -75,28 +75,28 @@ export const propertyListQuerySchema = z.object({
   /** Demo-only failure injection used to exercise loading/error states. Ignored outside demo mode. */
   scenario: z.enum(["slow", "error", "timeout"]).optional(),
 });
-export type PropertyListQuery = z.infer<typeof propertyListQuerySchema>;
+export type BuildingListQuery = z.infer<typeof buildingListQuerySchema>;
 
-export const propertyListResultSchema = z.object({
-  items: z.array(propertySummarySchema),
+export const buildingListResultSchema = z.object({
+  items: z.array(buildingSummarySchema),
   page: z.number().int(),
   pageSize: z.number().int(),
   totalCount: z.number().int(),
   pageCount: z.number().int(),
   meta: dataSourceSchema,
 });
-export type PropertyListResult = z.infer<typeof propertyListResultSchema>;
+export type BuildingListResult = z.infer<typeof buildingListResultSchema>;
 
-export const propertyDetailResultSchema = z.object({
-  property: propertyDetailSchema,
+export const buildingDetailResultSchema = z.object({
+  building: buildingDetailSchema,
   meta: dataSourceSchema,
 });
-export type PropertyDetailResult = z.infer<typeof propertyDetailResultSchema>;
+export type BuildingDetailResult = z.infer<typeof buildingDetailResultSchema>;
 
 export const dashboardSummarySchema = z.object({
   meta: dataSourceSchema,
   kpis: z.object({
-    propertyCount: z.number().int(),
+    buildingCount: z.number().int(),
     unitCount: z.number().int(),
     rentDueCents: z.number().int(),
     /** Sum of the figures that ARE available; missing data is reported separately, never counted as zero. */
@@ -104,7 +104,7 @@ export const dashboardSummarySchema = z.object({
     receivedMissingCount: z.number().int(),
   }),
   monthly: z.array(monthlyAmountSchema),
-  unitsByProperty: z.array(z.object({ id: z.string(), name: z.string(), unitCount: z.number().int() })),
-  propertiesByType: z.array(z.object({ propertyType: z.enum(PROPERTY_TYPES), count: z.number().int() })),
+  unitsByBuilding: z.array(z.object({ id: z.string(), name: z.string(), unitCount: z.number().int() })),
+  buildingsByType: z.array(z.object({ buildingType: z.enum(BUILDING_TYPES), count: z.number().int() })),
 });
 export type DashboardSummary = z.infer<typeof dashboardSummarySchema>;

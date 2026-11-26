@@ -9,7 +9,7 @@
     "soon": "Coming soon",
     "items": {
       "dashboard": "Dashboard",
-      "properties": "Properties",
+      "buildings": "Buildings",
       "units": "Units",
       "tenants": "Tenants",
       "leases": "Leases",
@@ -27,12 +27,12 @@
     "search": {
       "trigger": "Search…",
       "title": "Global search",
-      "description": "Search for a page or a demo property.",
-      "placeholder": "Search for a page or a property…",
+      "description": "Search for a page or a demo building.",
+      "placeholder": "Search for a page or a building…",
       "empty": "No results.",
       "groupPages": "Pages",
-      "groupProperties": "Properties (fictional data)",
-      "unavailable": "Property search is temporarily unavailable."
+      "groupBuildings": "Buildings (fictional data)",
+      "unavailable": "Building search is temporarily unavailable."
     },
     "help": {
       "label": "Help",
@@ -49,9 +49,9 @@
       "demoNotice": "Fictional demo notifications. No real notification is available.",
       "unavailable": "Notifications are unavailable.",
       "kinds": {
-        "payment": "A rent payment is awaiting reconciliation for {property}.",
-        "maintenance": "A maintenance request was opened for {property}.",
-        "document": "A document is ready to view for {property}."
+        "payment": "A rent payment is awaiting reconciliation for {building}.",
+        "maintenance": "A maintenance request was opened for {building}.",
+        "document": "A document is ready to view for {building}."
       }
     },
     "locale": {

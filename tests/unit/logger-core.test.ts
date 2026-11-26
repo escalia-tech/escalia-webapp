@@ -29,15 +29,15 @@ describe("logger core", () => {
 
   it("adds layer, module, event and the ambient correlation id", () => {
     const { logger, emitted } = setup();
-    logger.info("properties.list.completed", { durationMs: 5 });
+    logger.info("buildings.list.completed", { durationMs: 5 });
     expect(emitted[0]?.fields).toMatchObject({
       layer: "server",
       module: "test",
-      event: "properties.list.completed",
+      event: "buildings.list.completed",
       correlationId: "ambient-id",
       durationMs: 5,
     });
-    expect(emitted[0]?.message).toBe("properties list completed");
+    expect(emitted[0]?.message).toBe("buildings list completed");
   });
 
   it("lets explicit bindings override ambient context", () => {

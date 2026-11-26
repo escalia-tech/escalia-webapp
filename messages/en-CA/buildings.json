@@ -1,5 +1,5 @@
 {
-  "title": "Properties",
+  "title": "Buildings",
   "description": "Demo list showing search, filtering, sorting and pagination.",
   "types": {
     "multi-residential": "Multi-residential",
@@ -9,18 +9,18 @@
     "mixed-use": "Mixed-use"
   },
   "list": {
-    "region": "Property list",
-    "caption": "Demo properties, sorted and filtered according to your criteria",
+    "region": "Building list",
+    "caption": "Demo buildings, sorted and filtered according to your criteria",
     "search": {
-      "label": "Search properties",
+      "label": "Search buildings",
       "placeholder": "Name or city…"
     },
     "filters": {
-      "type": "Property type",
+      "type": "Building type",
       "allTypes": "All types"
     },
     "columns": {
-      "name": "Property",
+      "name": "Building",
       "type": "Type",
       "city": "City",
       "units": "Units",
@@ -40,15 +40,15 @@
     "resultsAnnouncement": "{count, plural, =0 {No results} one {# result} other {# results}}",
     "refreshing": "Refreshing results…",
     "empty": {
-      "title": "No properties",
-      "description": "No property is available at this time."
+      "title": "No buildings",
+      "description": "No building is available at this time."
     },
     "noResults": {
       "title": "No results",
-      "description": "No property matches your search or filters."
+      "description": "No building matches your search or filters."
     },
     "error": {
-      "title": "Unable to load properties",
+      "title": "Unable to load buildings",
       "description": "The list could not be loaded. Your filters are kept; you can try again."
     },
     "scenario": {
@@ -58,7 +58,7 @@
     }
   },
   "detail": {
-    "back": "Back to the property list",
+    "back": "Back to the building list",
     "address": "Address",
     "type": "Type",
     "units": "Units",
@@ -66,11 +66,11 @@
     "occupancyInfo": "Provided by the data source, not recomputed. “Not available” is different from 0%.",
     "rentDue": "Rent due (reference month)",
     "rentReceived": "Rent received (reference month)",
-    "summaryTitle": "Property record",
+    "summaryTitle": "Building record",
     "historyTitle": "Rent history",
     "notFound": {
-      "title": "Property not found",
-      "description": "This property does not exist or is no longer available."
+      "title": "Building not found",
+      "description": "This building does not exist or is no longer available."
     },
     "note": {
       "title": "Internal note (demo form)",

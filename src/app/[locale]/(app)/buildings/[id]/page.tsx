@@ -12,8 +12,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { PropertyNoteDemoForm } from "@/features/properties/components/property-note-demo-form";
-import { getProperty } from "@/features/properties/server/properties.service";
+import { BuildingNoteDemoForm } from "@/features/buildings/components/building-note-demo-form";
+import { getBuilding } from "@/features/buildings/server/buildings.service";
 import { Link } from "@/i18n/navigation";
 import { formatMoney, formatMonth, formatNumber, formatPercent } from "@/lib/format";
 import { isApplicationError } from "@/lib/observability/errors/application-error";
@@ -24,9 +24,9 @@ type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-async function loadProperty(id: string) {
+async function loadBuilding(id: string) {
   try {
-    return await getProperty(id);
+    return await getBuilding(id);
   } catch (error) {
     if (isApplicationError(error) && error.code === "resource.not_found") notFound();
     throw error;
@@ -36,42 +36,42 @@ async function loadProperty(id: string) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
   try {
-    const { property } = await getProperty(id);
-    return { title: property.name };
+    const { building } = await getBuilding(id);
+    return { title: building.name };
   } catch {
     return {};
   }
 }
 
-export default async function PropertyDetailPage({ params, searchParams }: PageProps) {
+export default async function BuildingDetailPage({ params, searchParams }: PageProps) {
   const [{ id }, rawSearch, locale] = await Promise.all([params, searchParams, getLocale()]);
-  const [t, tList, tTypes, tDash, tNav, { property, meta }] = await Promise.all([
-    getTranslations("properties.detail"),
-    getTranslations("properties"),
-    getTranslations("properties.types"),
+  const [t, tList, tTypes, tDash, tNav, { building, meta }] = await Promise.all([
+    getTranslations("buildings.detail"),
+    getTranslations("buildings"),
+    getTranslations("buildings.types"),
     getTranslations("dashboard.charts.table"),
     getTranslations("shell.nav.items"),
-    loadProperty(id),
+    loadBuilding(id),
   ]);
   const tRent = await getTranslations("dashboard.charts.rent");
 
-  // `returnTo` is user-controlled: only an in-app /properties path is accepted.
-  const returnTo = safeReturnTo(rawSearch.returnTo, "/properties");
-  const backHref = returnTo.startsWith("/properties") ? returnTo : "/properties";
+  // `returnTo` is user-controlled: only an in-app /buildings path is accepted.
+  const returnTo = safeReturnTo(rawSearch.returnTo, "/buildings");
+  const backHref = returnTo.startsWith("/buildings") ? returnTo : "/buildings";
   const unavailable = tList("list.unavailable");
-  const first = property.rentHistory[0]?.month;
-  const last = property.rentHistory.at(-1)?.month;
+  const first = building.rentHistory[0]?.month;
+  const last = building.rentHistory.at(-1)?.month;
 
   return (
     <>
       <PageHeader
-        title={property.name}
-        description={`${property.address.line1}, ${property.address.city} (${property.address.province}) ${property.address.postalCode}`}
+        title={building.name}
+        description={`${building.address.line1}, ${building.address.city} (${building.address.province}) ${building.address.postalCode}`}
         demoData
         breadcrumbs={[
           { label: tNav("dashboard"), href: "/dashboard" },
           { label: tList("title"), href: backHref as `/${string}` },
-          { label: property.name },
+          { label: building.name },
         ]}
         actions={
           <Button asChild variant="outline">
@@ -92,24 +92,24 @@ export default async function PropertyDetailPage({ params, searchParams }: PageP
             <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 text-sm">
               <dt className="text-muted-foreground">{t("type")}</dt>
               <dd>
-                <Badge variant="outline">{tTypes(property.propertyType)}</Badge>
+                <Badge variant="outline">{tTypes(building.buildingType)}</Badge>
               </dd>
               <dt className="text-muted-foreground">{t("units")}</dt>
-              <dd className="font-medium tabular-nums">{formatNumber(property.unitCount, locale)}</dd>
+              <dd className="font-medium tabular-nums">{formatNumber(building.unitCount, locale)}</dd>
               <dt className="text-muted-foreground flex items-center gap-1">
                 {t("occupancy")}
                 <InfoTooltip label={t("occupancy")}>{t("occupancyInfo")}</InfoTooltip>
               </dt>
               <dd className="font-medium tabular-nums">
-                {formatPercent(property.occupancyRate, locale) ?? unavailable}
+                {formatPercent(building.occupancyRate, locale) ?? unavailable}
               </dd>
               <dt className="text-muted-foreground">{t("rentDue")}</dt>
               <dd className="font-medium tabular-nums">
-                {formatMoney(property.monthlyRentDue.amountCents, locale) ?? unavailable}
+                {formatMoney(building.monthlyRentDue.amountCents, locale) ?? unavailable}
               </dd>
               <dt className="text-muted-foreground">{t("rentReceived")}</dt>
               <dd className="font-medium tabular-nums">
-                {formatMoney(property.monthlyRentReceived.amountCents, locale) ?? unavailable}
+                {formatMoney(building.monthlyRentReceived.amountCents, locale) ?? unavailable}
               </dd>
               <dt className="text-muted-foreground">{t("period")}</dt>
               <dd className="text-muted-foreground text-xs">{formatMonth(meta.period, locale, "long")}</dd>
@@ -124,7 +124,7 @@ export default async function PropertyDetailPage({ params, searchParams }: PageP
           info={tRent("info")}
           infoLabel={t("historyTitle")}
           summary={tRent("summary", {
-            count: property.rentHistory.length,
+            count: building.rentHistory.length,
             from: first ? formatMonth(first, locale, "long") : "",
             to: last ? formatMonth(last, locale, "long") : "",
           })}
@@ -139,7 +139,7 @@ export default async function PropertyDetailPage({ params, searchParams }: PageP
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {property.rentHistory.map((row) => (
+                {building.rentHistory.map((row) => (
                   <TableRow key={row.month}>
                     <TableCell>{formatMonth(row.month, locale, "long")}</TableCell>
                     <TableCell className="text-right tabular-nums">
@@ -154,11 +154,11 @@ export default async function PropertyDetailPage({ params, searchParams }: PageP
             </Table>
           }
         >
-          <RentTrendChart data={property.rentHistory} />
+          <RentTrendChart data={building.rentHistory} />
         </ChartCard>
 
         <div className="lg:col-span-3">
-          <PropertyNoteDemoForm />
+          <BuildingNoteDemoForm />
         </div>
       </div>
     </>

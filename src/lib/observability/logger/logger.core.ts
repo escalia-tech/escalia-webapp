@@ -26,7 +26,7 @@ export interface LoggerCoreOptions {
   bindings?: LoggerBindings;
 }
 
-/** `properties.list.completed` -> `properties list completed` (stable, English). */
+/** `buildings.list.completed` -> `buildings list completed` (stable, English). */
 export function humanizeEvent(event: string): string {
   return event.replace(/[._-]+/g, " ").trim();
 }

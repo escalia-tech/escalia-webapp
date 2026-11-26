@@ -28,7 +28,7 @@ const CAPTURE = process.env.CAPTURE_SCREENSHOTS === "true";
 /** Which combinations are captured as images (the overflow check covers the whole matrix). */
 function shouldCapture(width: number, locale: string, theme: Theme, route: string): boolean {
   if (!CAPTURE) return false;
-  const key = ["login", "dashboard", "properties", "properties/demo-cedre", "settings/preferences"].includes(route);
+  const key = ["login", "dashboard", "buildings", "buildings/demo-cedre", "settings/preferences"].includes(route);
   if (!key) return false;
   if (width === 1440) return locale === "fr-CA";
   if (width === 768) return locale === "fr-CA" && theme === "light";
