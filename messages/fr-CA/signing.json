@@ -1,0 +1,83 @@
+{
+  "title": "Signature",
+  "description": "Lisez le document, puis signez-le électroniquement.",
+  "gone": "Cette demande de signature est introuvable ou n'est plus disponible.",
+  "refused": "L'action n'a pas pu être effectuée.",
+  "document": "Document à signer",
+  "fingerprint": "Empreinte SHA-256 :",
+  "meta": "Votre rôle : {role}. À signer avant le {date}.",
+  "state": {
+    "OPEN": "Cette demande est ouverte.",
+    "COMPLETED": "Tout le monde a signé. Le document scellé est dans les documents du demandeur.",
+    "DECLINED": "Cette demande est fermée : une personne a refusé de signer.",
+    "EXPIRED": "Cette demande a expiré.",
+    "WITHDRAWN": "Cette demande a été retirée.",
+    "signed": "Vous avez signé ce document. Merci.",
+    "declined": "Vous avez refusé de signer ce document.",
+    "waiting": "Ce n'est pas encore votre tour de signer. Vous recevrez un courriel."
+  },
+  "consent": {
+    "title": "Signer électroniquement",
+    "text": "En continuant, vous acceptez de signer ce document par voie électronique. Votre signature a la même valeur qu'une signature sur papier. Si vous préférez le papier, dites-le.",
+    "accept": "J'accepte de signer électroniquement",
+    "paper": "Je préfère le papier",
+    "paperSent": "Nous avons avisé le demandeur que vous préférez le papier."
+  },
+  "code": {
+    "title": "Confirmez votre identité",
+    "text": "Nous envoyons un code à six chiffres à {email}. Il est valable 10 minutes.",
+    "send": "Envoyer le code",
+    "sent": "Code envoyé à {email}.",
+    "label": "Code à six chiffres",
+    "verify": "Vérifier le code"
+  },
+  "sign": {
+    "title": "Signer",
+    "text": "Écrivez votre nom pour signer. Vous pouvez aussi dessiner votre signature.",
+    "name": "Votre nom",
+    "confirmVariation": "Je confirme que ce nom est le mien (compte : {name}).",
+    "drawing": "Signature dessinée (facultatif)",
+    "clearDrawing": "Effacer",
+    "submit": "Signer le document"
+  },
+  "decline": {
+    "open": "Refuser de signer",
+    "reason": "Pourquoi refusez-vous ?",
+    "submit": "Refuser",
+    "cancel": "Annuler"
+  },
+  "invalid": {
+    "id": "Cette demande n'est pas valide.",
+    "code": "Le code a six chiffres.",
+    "name": "Écrivez votre nom (2 à 120 caractères).",
+    "reason": "Indiquez la raison du refus.",
+    "drawing": "La signature dessinée n'est pas valide.",
+    "hash": "Cette empreinte n'est pas valide."
+  },
+  "refusals": {
+    "notFound": "Demande de signature introuvable.",
+    "closed": "Ce lien a expiré ou la demande est terminée.",
+    "notYourTurn": "Ce n'est pas encore votre tour de signer.",
+    "otpNotNeeded": "Aucun code n'est nécessaire.",
+    "otpRate": "Trop de codes demandés. Réessayez plus tard.",
+    "otpWrong": "Code invalide.",
+    "otpExpired": "Ce code a expiré. Demandez-en un nouveau.",
+    "otpBlocked": "Code bloqué. Demandez un nouveau code.",
+    "otpRequired": "Confirmez votre identité avec le code envoyé par courriel.",
+    "consentRequired": "Acceptez de signer électroniquement pour continuer.",
+    "hashMismatch": "Ce document a changé depuis l'envoi. Il ne peut pas être signé. Nous avons avisé le demandeur.",
+    "nameVariation": "Ce nom diffère du vôtre. Confirmez cette variation pour signer.",
+    "alreadyDone": "Vous avez déjà répondu à cette demande.",
+    "batchNotAllowed": "Ces documents demandent un code : signez-les un à la fois.",
+    "drawingInvalid": "La signature dessinée n'est pas valide.",
+    "verifyRate": "Trop de vérifications. Réessayez plus tard."
+  },
+  "verify": {
+    "title": "Vérifier un document",
+    "description": "Choisissez un fichier PDF : son empreinte est calculée dans votre navigateur et le fichier n'est pas envoyé. Nous disons seulement s'il s'agit d'un document scellé par Escalia.",
+    "choose": "Choisir un fichier PDF",
+    "found": "Document scellé par Escalia : « {title} », terminé le {date}, signé par {signers} personne(s).",
+    "notFound": "Ce fichier n'est pas un document scellé par Escalia, ou il a été modifié.",
+    "error": "La vérification n'a pas pu être faite. Réessayez plus tard."
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "title": "Signature",
+  "description": "Read the document, then sign it electronically.",
+  "gone": "This signature request cannot be found or is no longer available.",
+  "refused": "The action could not be completed.",
+  "document": "Document to sign",
+  "fingerprint": "SHA-256 fingerprint:",
+  "meta": "Your role: {role}. Sign before {date}.",
+  "state": {
+    "OPEN": "This request is open.",
+    "COMPLETED": "Everyone has signed. The sealed document is in the requester's documents.",
+    "DECLINED": "This request is closed: someone declined to sign.",
+    "EXPIRED": "This request has expired.",
+    "WITHDRAWN": "This request was withdrawn.",
+    "signed": "You signed this document. Thank you.",
+    "declined": "You declined to sign this document.",
+    "waiting": "It is not your turn to sign yet. You will get an email."
+  },
+  "consent": {
+    "title": "Sign electronically",
+    "text": "By continuing, you agree to sign this document electronically. Your signature has the same value as a signature on paper. If you prefer paper, say so.",
+    "accept": "I agree to sign electronically",
+    "paper": "I prefer paper",
+    "paperSent": "We told the requester that you prefer paper."
+  },
+  "code": {
+    "title": "Confirm who you are",
+    "text": "We send a six-digit code to {email}. It is valid for 10 minutes.",
+    "send": "Send the code",
+    "sent": "Code sent to {email}.",
+    "label": "Six-digit code",
+    "verify": "Verify the code"
+  },
+  "sign": {
+    "title": "Sign",
+    "text": "Type your name to sign. You can also draw your signature.",
+    "name": "Your name",
+    "confirmVariation": "I confirm this name is mine (account: {name}).",
+    "drawing": "Drawn signature (optional)",
+    "clearDrawing": "Clear",
+    "submit": "Sign the document"
+  },
+  "decline": {
+    "open": "Decline to sign",
+    "reason": "Why are you declining?",
+    "submit": "Decline",
+    "cancel": "Cancel"
+  },
+  "invalid": {
+    "id": "This request is not valid.",
+    "code": "The code has six digits.",
+    "name": "Type your name (2 to 120 characters).",
+    "reason": "Give the reason for declining.",
+    "drawing": "The drawn signature is not valid.",
+    "hash": "This fingerprint is not valid."
+  },
+  "refusals": {
+    "notFound": "Signing request not found.",
+    "closed": "This link has expired or the request is closed.",
+    "notYourTurn": "It is not your turn to sign yet.",
+    "otpNotNeeded": "No code is needed.",
+    "otpRate": "Too many codes requested. Try again later.",
+    "otpWrong": "Invalid code.",
+    "otpExpired": "This code has expired. Ask for a new one.",
+    "otpBlocked": "Code blocked. Ask for a new code.",
+    "otpRequired": "Confirm your identity with the code sent by email.",
+    "consentRequired": "Accept to sign electronically to continue.",
+    "hashMismatch": "This document has changed since it was sent. It cannot be signed. We told the requester.",
+    "nameVariation": "This name differs from yours. Confirm the variation to sign.",
+    "alreadyDone": "You already answered this request.",
+    "batchNotAllowed": "These documents need a code: sign them one at a time.",
+    "drawingInvalid": "The drawn signature is not valid.",
+    "verifyRate": "Too many checks. Try again later."
+  },
+  "verify": {
+    "title": "Check a document",
+    "description": "Choose a PDF file: its fingerprint is computed in your browser and the file is not uploaded. We only say whether it is a document sealed by Escalia.",
+    "choose": "Choose a PDF file",
+    "found": "Document sealed by Escalia: \"{title}\", completed on {date}, signed by {signers} person(s).",
+    "notFound": "This file is not a document sealed by Escalia, or it was changed.",
+    "error": "The check could not be made. Try again later."
+  }
+}
