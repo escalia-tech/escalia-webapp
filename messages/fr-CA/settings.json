@@ -118,7 +118,8 @@
     "invalid": {
       "digest": "Choisissez une fréquence de résumé.",
       "time": "Indiquez une heure de début et de fin pour les heures calmes.",
-      "id": "Identifiant de notification invalide."
+      "id": "Identifiant de notification invalide.",
+      "push": "Cette inscription du navigateur n’est pas valide."
     },
     "locked": {
       "title": "Toujours envoyés",
@@ -135,7 +136,14 @@
       "inApp": "Dans l’application",
       "email": "Courriel",
       "push": "Notifications du navigateur",
-      "pushHelp": "Les notifications du navigateur ne sont pas encore offertes."
+      "pushHelp": "Recevez les avis importants dans ce navigateur, même quand Escalia est fermé. Aucun montant ni adresse n’y figure.",
+      "pushEnable": "Activer sur ce navigateur",
+      "pushDisable": "Désactiver sur ce navigateur",
+      "pushActive": "Actif sur ce navigateur.",
+      "pushDenied": "Le navigateur a refusé les notifications. Autorisez-les dans ses réglages.",
+      "pushUnsupported": "Ce navigateur ne permet pas les notifications. Sur iPhone, ajoutez d’abord Escalia à l’écran d’accueil.",
+      "pushUnavailable": "Les notifications du navigateur ne sont pas encore configurées sur ce serveur.",
+      "pushFailed": "L’activation a échoué. Réessayez dans un instant."
     },
     "digest": {
       "title": "Résumé",

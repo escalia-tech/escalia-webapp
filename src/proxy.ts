@@ -37,6 +37,7 @@ function buildCsp(nonce: string): string {
     `img-src 'self' blob: data:`,
     "font-src 'self'",
     `connect-src 'self'${isDev ? " ws: wss:" : ""}`,
+    "worker-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

@@ -118,7 +118,8 @@
     "invalid": {
       "digest": "Choose a digest frequency.",
       "time": "Enter a start and an end time for quiet hours.",
-      "id": "Invalid notification identifier."
+      "id": "Invalid notification identifier.",
+      "push": "This browser subscription is not valid."
     },
     "locked": {
       "title": "Always sent",
@@ -135,7 +136,14 @@
       "inApp": "In the app",
       "email": "Email",
       "push": "Browser notifications",
-      "pushHelp": "Browser notifications are not offered yet."
+      "pushHelp": "Get important notices in this browser, even when Escalia is closed. No amounts or addresses appear in them.",
+      "pushEnable": "Turn on in this browser",
+      "pushDisable": "Turn off in this browser",
+      "pushActive": "On in this browser.",
+      "pushDenied": "The browser refused notifications. Allow them in its settings.",
+      "pushUnsupported": "This browser cannot show notifications. On iPhone, first add Escalia to the home screen.",
+      "pushUnavailable": "Browser notifications are not configured on this server yet.",
+      "pushFailed": "Turning on failed. Try again in a moment."
     },
     "digest": {
       "title": "Digest",

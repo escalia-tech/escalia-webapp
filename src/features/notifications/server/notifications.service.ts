@@ -6,6 +6,7 @@ import {
   type NotificationPreferences,
   notificationsPageSchema,
   parsePreferencesForm,
+  parsePushSubscription,
   preferencesPageSchema,
   toNotifications,
 } from "../schemas/notifications.schema";
@@ -45,7 +46,7 @@ export async function getPreferences(language: string): Promise<NotificationPref
 
 export type NotificationOutcome =
   | { status: "done" }
-  | { status: "invalid"; reason: "id" | "digest" | "time" }
+  | { status: "invalid"; reason: "id" | "digest" | "time" | "push" }
   | { status: "refused"; message: string | undefined };
 
 /** Marks one notification, or all of them when `ids` is null, as read. */
@@ -67,6 +68,30 @@ export async function savePreferences(form: FormData, language: string): Promise
     "notifications.preferences.save",
     "/actions/update-notification-preferences",
     parsed.body,
+    language,
+  );
+  return result.ok ? { status: "done" } : { status: "refused", message: result.message };
+}
+
+/** Registers this browser for web push (BR-4); the subscription comes from `PushSubscription.toJSON()`. */
+export async function registerPush(subscription: unknown, language: string): Promise<NotificationOutcome> {
+  const body = parsePushSubscription(subscription);
+  if (!body) return { status: "invalid", reason: "push" };
+  const result = await postBffAction(
+    "notifications.push.register",
+    "/actions/register-push-subscription",
+    body,
+    language,
+  );
+  return result.ok ? { status: "done" } : { status: "refused", message: result.message };
+}
+
+export async function removePush(endpoint: string, language: string): Promise<NotificationOutcome> {
+  if (!/^https:\/\/\S{1,990}$/.test(endpoint)) return { status: "invalid", reason: "push" };
+  const result = await postBffAction(
+    "notifications.push.remove",
+    "/actions/remove-push-subscription",
+    { endpoint },
     language,
   );
   return result.ok ? { status: "done" } : { status: "refused", message: result.message };

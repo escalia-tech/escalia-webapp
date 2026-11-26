@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 import type { NotificationPreferences } from "../schemas/notifications.schema";
 import { type PreferencesFormState, savePreferencesAction } from "../server/notifications.actions";
+import { PushToggle } from "./push-toggle";
 
 const DIGEST_KEY = { DAILY: "daily", WEEKLY: "weekly", OFF: "off" } as const;
 
@@ -84,6 +85,7 @@ export function PreferencesForm({ preferences }: { preferences: NotificationPref
               {t("channels.push")}
             </label>
             <p className="text-muted-foreground text-sm">{t("channels.pushHelp")}</p>
+            <PushToggle vapidPublicKey={preferences.vapidPublicKey} />
           </fieldset>
 
           <fieldset className="grid gap-2">

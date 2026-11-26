@@ -167,3 +167,52 @@ describe("notification service and actions (FR-COM-02)", () => {
     expect(revalidatePath).not.toHaveBeenCalled();
   });
 });
+
+describe("web push (FR-COM-02 BR-4)", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    revalidatePath.mockClear();
+    vi.stubEnv("ESCALIA_BFF_URL", "http://bff.test");
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  const browser = { endpoint: "https://push.example.test/abc", keys: { p256dh: "key", auth: "secret" } };
+
+  it("reads the browser's subscription and refuses anything that is not https or has no keys", async () => {
+    const { parsePushSubscription } = await import("@/features/notifications/schemas/notifications.schema");
+
+    expect(parsePushSubscription(browser)).toEqual({
+      endpoint: "https://push.example.test/abc",
+      p256dh: "key",
+      auth: "secret",
+    });
+    expect(parsePushSubscription({ ...browser, endpoint: "http://push.example.test/abc" })).toBeNull();
+    expect(parsePushSubscription({ endpoint: browser.endpoint })).toBeNull();
+    expect(parsePushSubscription(null)).toBeNull();
+  });
+
+  it("registers and removes a subscription through the BFF, and revalidates only on success", async () => {
+    const actions = await import("@/features/notifications/server/notifications.actions");
+    const fetcher = answer(200, {});
+    vi.stubGlobal("fetch", fetcher);
+
+    expect(await actions.registerPushAction(browser)).toEqual({ status: "done" });
+    expect(await actions.removePushAction(browser.endpoint)).toEqual({ status: "done" });
+    expect(fetcher).toHaveBeenCalledTimes(2);
+    expect(revalidatePath).toHaveBeenCalledTimes(2);
+    revalidatePath.mockClear();
+    expect(await actions.registerPushAction({ endpoint: "nope" })).toEqual({ status: "invalid", reason: "push" });
+    expect(await actions.removePushAction("http://x")).toEqual({ status: "invalid", reason: "push" });
+    vi.stubGlobal("fetch", answer(422, { code: "x" }));
+    expect((await actions.registerPushAction(browser)).status).toBe("refused");
+    expect((await actions.removePushAction(browser.endpoint)).status).toBe("refused");
+    expect(revalidatePath).not.toHaveBeenCalled();
+  });
+
+  it("reads the server key from the preferences page", async () => {
+    const { getPreferences } = await import("@/features/notifications/server/notifications.service");
+    vi.stubGlobal("fetch", answer(200, { preferences: { ...preferences.preferences, vapidPublicKey: "BKey" } }));
+
+    expect((await getPreferences("fr-CA"))?.vapidPublicKey).toBe("BKey");
+  });
+});

@@ -47,6 +47,7 @@ const preferencesSchema = z.object({
   emailMasked: z.string().nullish(),
   emailInvalid: z.boolean(),
   pushSubscribed: z.boolean(),
+  vapidPublicKey: z.string().nullish(),
 });
 export type NotificationPreferences = z.infer<typeof preferencesSchema>;
 
@@ -86,4 +87,25 @@ export function parsePreferencesForm(form: FormData): ParsedPreferences {
       ...(quietHoursEnabled ? { quietFrom: from, quietTo: to } : {}),
     },
   };
+}
+
+const HTTPS = /^https:\/\/\S{1,990}$/;
+
+export interface PushBody {
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+}
+
+/** What a browser's `PushSubscription.toJSON()` gives, checked before it goes to the core (the core checks again). */
+export function parsePushSubscription(value: unknown): PushBody | null {
+  const parsed = z
+    .object({
+      endpoint: z.string().regex(HTTPS),
+      keys: z.object({ p256dh: z.string().min(1).max(200), auth: z.string().min(1).max(100) }),
+    })
+    .safeParse(value);
+  return parsed.success
+    ? { endpoint: parsed.data.endpoint, p256dh: parsed.data.keys.p256dh, auth: parsed.data.keys.auth }
+    : null;
 }

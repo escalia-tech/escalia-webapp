@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 
 import { getLocale } from "next-intl/server";
 
-import { markRead, type NotificationOutcome, savePreferences } from "./notifications.service";
+import { markRead, type NotificationOutcome, registerPush, removePush, savePreferences } from "./notifications.service";
 
 export type PreferencesFormState = NotificationOutcome | undefined;
 
@@ -26,4 +26,12 @@ export async function savePreferencesAction(
   form: FormData,
 ): Promise<PreferencesFormState> {
   return finish(await savePreferences(form, await getLocale()));
+}
+
+export async function registerPushAction(subscription: unknown): Promise<NotificationOutcome> {
+  return finish(await registerPush(subscription, await getLocale()));
+}
+
+export async function removePushAction(endpoint: string): Promise<NotificationOutcome> {
+  return finish(await removePush(endpoint, await getLocale()));
 }
