@@ -1,0 +1,55 @@
+{
+  "title": "Documents",
+  "usage": "{used} MB used of {quota} MB",
+  "quotaWarning": "Your storage space is almost full.",
+  "empty": "No documents yet.",
+  "download": "Download",
+  "holdBadge": "Legal hold",
+  "removed": "Removed",
+  "done": "Done.",
+  "refused": "The action could not be completed.",
+  "columns": {
+    "title": "Title",
+    "category": "Category",
+    "version": "Version",
+    "added": "Added on"
+  },
+  "upload": {
+    "file": "File",
+    "category": "Category",
+    "title": "Title (optional)",
+    "submit": "Upload",
+    "hint": "PDF, JPEG or PNG, 25 MB at most. The GPS position of photos is removed."
+  },
+  "invalid": {
+    "file": "Choose a file.",
+    "tooLarge": "This file is over 25 MB.",
+    "category": "Choose a category.",
+    "reason": "Give the reason.",
+    "id": "This request is not valid."
+  },
+  "categories": {
+    "LEASE": "Lease",
+    "NOTICE": "Notice",
+    "AGREEMENT": "Agreement",
+    "RECEIPT": "Receipt",
+    "CORRESPONDENCE": "Correspondence",
+    "EVIDENCE": "Evidence",
+    "REPAIR_MEDIA": "Repair photos",
+    "MAINTENANCE": "Maintenance",
+    "INSURANCE": "Insurance",
+    "BUILDING_RECORDS": "Building records",
+    "APPLICATION": "Rental application",
+    "IDENTITY": "Identity document",
+    "OTHER": "Other"
+  },
+  "holds": {
+    "title": "Legal hold",
+    "description": "A document under a hold is not anonymized, even after its retention period.",
+    "none": "No active holds.",
+    "until": "until {date}",
+    "lift": "Lift",
+    "reason": "Reason for the hold",
+    "place": "Place a hold"
+  }
+}

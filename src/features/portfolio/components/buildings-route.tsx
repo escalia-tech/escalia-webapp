@@ -5,10 +5,12 @@ import { PageHeader } from "@/components/layout/page-header";
 import { failureState } from "@/server/bff-pages/failure";
 
 import { parseBuildingsQuery } from "../schemas/portfolio.schema";
+import { fetchDocuments } from "../server/documents.service";
 import { fetchBuilding, fetchBuildings } from "../server/portfolio.service";
 import { fetchUnit } from "../server/unit.service";
 import { BuildingView } from "./building-view";
 import { BuildingsTable } from "./buildings-table";
+import { DocumentsPanel } from "./documents-panel";
 import { NewBuildingForm } from "./new-building-form";
 import { UnitAttributesForm } from "./unit-attributes-form";
 import { UnitCopyForm } from "./unit-copy-form";
@@ -59,6 +61,9 @@ export async function BuildingRoute({ id }: { id: string }) {
       <>
         <PageHeader title={building.displayName} breadcrumbs={await crumbs(building.displayName)} />
         <BuildingView building={building} />
+        <div className="mt-5">
+          <DocumentsSection subjectType="BUILDING" subjectId={building.id} />
+        </div>
       </>
     );
   } catch (error) {
@@ -68,6 +73,16 @@ export async function BuildingRoute({ id }: { id: string }) {
         <Callout tone="warning">{t(`states.${failureState(error)}`)}</Callout>
       </>
     );
+  }
+}
+
+/** The documents panel of a building or unit; a failure shows a message and leaves the rest of the page. */
+async function DocumentsSection({ subjectType, subjectId }: { subjectType: "BUILDING" | "UNIT"; subjectId: string }) {
+  const [t, locale] = await Promise.all([getTranslations("portfolio"), getLocale()]);
+  try {
+    return <DocumentsPanel page={await fetchDocuments(subjectType, subjectId, locale)} />;
+  } catch (error) {
+    return <Callout tone="warning">{t(`states.${failureState(error)}`)}</Callout>;
   }
 }
 
@@ -109,6 +124,7 @@ export async function UnitRoute({ id }: { id: string }) {
           <UnitAttributesForm key={unit.current?.version ?? 0} unitId={unit.id} current={unit.current?.attributes} />
           <UnitCopyForm unit={unit} />
           <UnitHistory history={unit.history} />
+          <DocumentsSection subjectType="UNIT" subjectId={unit.id} />
         </div>
       </>
     );
