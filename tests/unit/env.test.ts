@@ -70,8 +70,8 @@ describe("parseServerEnv", () => {
   });
 
   it("reads the BFF base URL when it is a URL, and leaves it out when blank", () => {
-    expect(parseServerEnv({ BFF_BASE_URL: "http://localhost:8081" }).bffBaseUrl).toBe("http://localhost:8081");
-    expect(parseServerEnv({ BFF_BASE_URL: " " }).bffBaseUrl).toBeUndefined();
-    expect(() => parseServerEnv({ BFF_BASE_URL: "not a url" })).toThrow(/BFF_BASE_URL/);
+    expect(parseServerEnv({ ESCALIA_BFF_URL: "http://localhost:8081" }).bffBaseUrl).toBe("http://localhost:8081");
+    expect(parseServerEnv({ ESCALIA_BFF_URL: " " }).bffBaseUrl).toBeUndefined();
+    expect(() => parseServerEnv({ ESCALIA_BFF_URL: "not a url" })).toThrow(/ESCALIA_BFF_URL/);
   });
 });
