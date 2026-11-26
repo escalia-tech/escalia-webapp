@@ -1,22 +1,73 @@
 import "server-only";
 
-import { isDemoModeEnabled } from "@/server/config/env";
+import { fetchBffPage, postBffAction } from "@/server/bff-pages/client";
 
+import {
+  type NotificationPreferences,
+  notificationsPageSchema,
+  parsePreferencesForm,
+  preferencesPageSchema,
+  toNotifications,
+} from "../schemas/notifications.schema";
 import type { NotificationsState } from "../types";
 
+const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
 /**
- * Notifications for the header menu. No notification backend exists yet: only FICTIONAL demo items
- * are returned, and only when demo mode is enabled in a non-production environment. Everywhere else
- * the state is `unavailable` (the UI says so instead of showing fake data).
+ * The bell of the header (FR-COM-02). Any failure of the BFF, including "no session", becomes `unavailable`: the
+ * header says so instead of showing nothing or something invented.
  */
-export async function getNotifications(): Promise<NotificationsState> {
-  if (!isDemoModeEnabled()) return { status: "unavailable" };
-  return {
-    status: "demo",
-    items: [
-      { id: "demo-n1", kind: "payment", building: "Résidence Démo Cèdre", at: "2026-11-24T14:05:00Z" },
-      { id: "demo-n2", kind: "maintenance", building: "Les Érables (fictif)", at: "2026-11-23T09:40:00Z" },
-      { id: "demo-n3", kind: "document", building: "Condos du Lac (fictif)", at: "2026-11-21T17:20:00Z" },
-    ],
-  };
+export async function getNotifications(language: string): Promise<NotificationsState> {
+  try {
+    const page = await fetchBffPage("notifications.list", "/pages/notifications", notificationsPageSchema, {
+      language,
+    });
+    return { status: "ready", items: toNotifications(page), unreadCount: page.unreadCount };
+  } catch {
+    return { status: "unavailable" };
+  }
+}
+
+/** The preferences screen; null when the BFF cannot answer. */
+export async function getPreferences(language: string): Promise<NotificationPreferences | null> {
+  try {
+    const page = await fetchBffPage(
+      "notifications.preferences",
+      "/pages/notification-preferences",
+      preferencesPageSchema,
+      { language },
+    );
+    return page.preferences;
+  } catch {
+    return null;
+  }
+}
+
+export type NotificationOutcome =
+  | { status: "done" }
+  | { status: "invalid"; reason: "id" | "digest" | "time" }
+  | { status: "refused"; message: string | undefined };
+
+/** Marks one notification, or all of them when `ids` is null, as read. */
+export async function markRead(ids: string[] | null, language: string): Promise<NotificationOutcome> {
+  if (ids?.some((id) => !ID.test(id))) return { status: "invalid", reason: "id" };
+  const result = await postBffAction(
+    "notifications.read",
+    "/actions/mark-notifications-read",
+    ids === null ? { all: true } : { ids },
+    language,
+  );
+  return result.ok ? { status: "done" } : { status: "refused", message: result.message };
+}
+
+export async function savePreferences(form: FormData, language: string): Promise<NotificationOutcome> {
+  const parsed = parsePreferencesForm(form);
+  if (!parsed.ok) return { status: "invalid", reason: parsed.reason };
+  const result = await postBffAction(
+    "notifications.preferences.save",
+    "/actions/update-notification-preferences",
+    parsed.body,
+    language,
+  );
+  return result.ok ? { status: "done" } : { status: "refused", message: result.message };
 }

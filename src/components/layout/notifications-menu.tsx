@@ -1,21 +1,27 @@
 "use client";
 
+import { useTransition } from "react";
+
 import { Bell } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { markAllReadAction, markReadAction } from "@/features/notifications/server/notifications.actions";
 import type { NotificationsState } from "@/features/notifications/types";
+import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 
 /**
- * Notifications popover. Data comes from the server layout: fictional demo items in dev/test, an
- * explicit "unavailable" state otherwise. There are no actions (no mark-as-read) because no contract exists.
+ * The bell (FR-COM-02): the notifications the core wrote for the signed-in person, unread first, with "mark all
+ * as read" and a link to the preferences. Without a BFF session the state is "unavailable" and says so.
  */
 export function NotificationsMenu({ state }: { state: NotificationsState }) {
   const t = useTranslations("shell.header.notifications");
   const format = useFormatter();
-  const count = state.status === "demo" ? state.items.length : 0;
+  const [pending, startTransition] = useTransition();
+  const count = state.status === "ready" ? state.unreadCount : 0;
 
   return (
     <Popover>
@@ -38,23 +44,51 @@ export function NotificationsMenu({ state }: { state: NotificationsState }) {
       <PopoverContent align="end" className="w-[min(22rem,calc(100vw-1.5rem))] gap-0 p-0">
         <div className="flex items-center justify-between gap-2 border-b px-4 py-3">
           <h2 className="text-base leading-[22px] font-semibold">{t("title")}</h2>
-          {state.status === "demo" ? <Badge variant="secondary">{t("unread", { count })}</Badge> : null}
+          {state.status === "ready" ? <Badge variant="secondary">{t("unread", { count })}</Badge> : null}
         </div>
-        {state.status === "demo" ? (
+        {state.status === "ready" ? (
           <>
-            <ul className="divide-y">
-              {state.items.map((item) => (
-                <li key={item.id} className="px-4 py-3">
-                  <p className="text-sm">{t(`kinds.${item.kind}`, { building: item.building })}</p>
-                  <p className="text-muted-foreground mt-1 text-xs">
-                    <time dateTime={item.at}>
-                      {format.dateTime(new Date(item.at), { dateStyle: "medium", timeStyle: "short", timeZone: "UTC" })}
-                    </time>
-                  </p>
-                </li>
-              ))}
-            </ul>
-            <p className="bg-info-surface text-info-foreground border-t px-4 py-2.5 text-xs">{t("demoNotice")}</p>
+            {state.items.length === 0 ? (
+              <p className="text-muted-foreground px-4 py-6 text-sm">{t("empty")}</p>
+            ) : (
+              <ul className="max-h-96 divide-y overflow-y-auto">
+                {state.items.map((item) => (
+                  <li key={item.id} className={cn("px-4 py-3", item.readAt === null && "bg-muted/40")}>
+                    <p className={cn("text-sm", item.readAt === null && "font-semibold")}>{item.title}</p>
+                    <p className="text-muted-foreground mt-0.5 text-sm">{item.body}</p>
+                    <p className="text-muted-foreground mt-1 flex items-center justify-between gap-2 text-xs">
+                      <time dateTime={item.createdAt}>
+                        {format.dateTime(new Date(item.createdAt), { dateStyle: "medium", timeStyle: "short" })}
+                      </time>
+                      {item.readAt === null ? (
+                        <Button
+                          variant="link"
+                          size="sm"
+                          className="h-auto p-0 text-xs"
+                          disabled={pending}
+                          onClick={() => startTransition(() => void markReadAction(item.id))}
+                        >
+                          {t("markRead")}
+                        </Button>
+                      ) : null}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="flex items-center justify-between gap-2 border-t px-4 py-2.5">
+              <Button
+                variant="ghost"
+                size="sm"
+                disabled={pending || count === 0}
+                onClick={() => startTransition(() => void markAllReadAction())}
+              >
+                {t("markAllRead")}
+              </Button>
+              <Button variant="link" size="sm" asChild>
+                <Link href="/settings/notifications">{t("preferences")}</Link>
+              </Button>
+            </div>
           </>
         ) : (
           <p className="text-muted-foreground px-4 py-6 text-sm">{t("unavailable")}</p>

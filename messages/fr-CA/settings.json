@@ -110,6 +110,45 @@
     "title": "Notifications",
     "description": "Catégories et canaux de notification.",
     "unavailableTitle": "Non disponible pour le moment",
-    "unavailableBody": "Aucun service de notification n’est configuré. Les catégories, la lecture et les préférences seront spécifiées avant leur développement."
+    "unavailableBody": "Les préférences de notification ne peuvent pas être chargées pour le moment.",
+    "refused": "Les préférences n’ont pas pu être enregistrées.",
+    "saved": "Préférences enregistrées.",
+    "save": "Enregistrer",
+    "emailInvalid": "Votre adresse courriel semble invalide : les courriels ne sont plus envoyés. Mettez-la à jour dans votre profil.",
+    "invalid": {
+      "digest": "Choisissez une fréquence de résumé.",
+      "time": "Indiquez une heure de début et de fin pour les heures calmes.",
+      "id": "Identifiant de notification invalide."
+    },
+    "locked": {
+      "title": "Toujours envoyés",
+      "help": "Les avis officiels sont toujours envoyés par courriel et dans l’application : ils peuvent avoir des effets juridiques."
+    },
+    "categories": {
+      "legal": "Avis officiels",
+      "account": "Compte et sécurité",
+      "urgent": "Réparations urgentes",
+      "operational": "Opérations courantes",
+      "digest": "Résumé"
+    },
+    "channels": {
+      "inApp": "Dans l’application",
+      "email": "Courriel",
+      "push": "Notifications du navigateur",
+      "pushHelp": "Les notifications du navigateur ne sont pas encore offertes."
+    },
+    "digest": {
+      "title": "Résumé",
+      "daily": "Chaque jour",
+      "weekly": "Chaque lundi",
+      "off": "Aucun"
+    },
+    "quiet": {
+      "title": "Heures calmes",
+      "enabled": "Retenir les messages non urgents",
+      "from": "De",
+      "to": "à",
+      "help": "Les avis officiels, les alertes de compte et les urgences ne sont jamais retenus."
+    }
   }
 }

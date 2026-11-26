@@ -1,12 +1,14 @@
-export type NotificationKind = "payment" | "maintenance" | "document";
-
-export interface DemoNotification {
+/** One notification of the centre, already written by the core in the reader's language (FR-COM-02). */
+export interface AppNotification {
   id: string;
-  kind: NotificationKind;
-  /** Fictional building label interpolated into the translated message. */
-  building: string;
-  /** ISO timestamp. */
-  at: string;
+  code: string;
+  category: "LEGAL" | "ACCOUNT" | "URGENT" | "OPERATIONAL" | "DIGEST";
+  title: string;
+  body: string;
+  createdAt: string;
+  readAt: string | null;
 }
 
-export type NotificationsState = { status: "demo"; items: DemoNotification[] } | { status: "unavailable" };
+export type NotificationsState =
+  | { status: "ready"; items: AppNotification[]; unreadCount: number }
+  | { status: "unavailable" };

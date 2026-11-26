@@ -46,14 +46,11 @@
       "label": "Notifications",
       "title": "Notifications",
       "unread": "{count, plural, =0 {Aucune notification} one {# notification} other {# notifications}}",
-      "empty": "Aucune notification.",
-      "demoNotice": "Notifications fictives de démonstration. Aucune notification réelle n’est disponible.",
+      "empty": "Rien de nouveau.",
       "unavailable": "Les notifications sont indisponibles.",
-      "kinds": {
-        "payment": "Un paiement de loyer est en attente de rapprochement pour {building}.",
-        "maintenance": "Une requête d’entretien a été ouverte pour {building}.",
-        "document": "Un document est prêt à être consulté pour {building}."
-      }
+      "markRead": "Marquer comme lu",
+      "markAllRead": "Tout marquer comme lu",
+      "preferences": "Préférences"
     },
     "locale": {
       "label": "Changer de langue",
