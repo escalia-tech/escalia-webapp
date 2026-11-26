@@ -2,6 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 
 import { Callout } from "@/components/feedback/callout";
 import { PageHeader } from "@/components/layout/page-header";
+import { UnitLeases } from "@/features/leases/components/leases-route";
 import { failureState } from "@/server/bff-pages/failure";
 
 import { parseBuildingsQuery } from "../schemas/portfolio.schema";
@@ -123,6 +124,7 @@ export async function UnitRoute({ id }: { id: string }) {
           <p className="text-muted-foreground text-sm">{t("unit.intro")}</p>
           <UnitAttributesForm key={unit.current?.version ?? 0} unitId={unit.id} current={unit.current?.attributes} />
           <UnitCopyForm unit={unit} />
+          <UnitLeases unitId={unit.id} />
           <UnitHistory history={unit.history} />
           <DocumentsSection subjectType="UNIT" subjectId={unit.id} />
         </div>
