@@ -42,3 +42,6 @@ deploy/runtime.env
 
 .DS_Store
 *~
+
+# Coverage and mutation reports
+reports/
