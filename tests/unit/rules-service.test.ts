@@ -31,7 +31,7 @@ describe("getRules", () => {
   afterEach(() => vi.unstubAllGlobals());
 
   it("asks the BFF with the session cookie, the language and the query, and returns the validated page", async () => {
-    vi.stubEnv("BFF_BASE_URL", "http://bff.test");
+    vi.stubEnv("ESCALIA_BFF_URL", "http://bff.test");
     const fetcher = vi.fn(async () => new Response(JSON.stringify(page), { status: 200 }));
     vi.stubGlobal("fetch", fetcher);
 
@@ -44,7 +44,7 @@ describe("getRules", () => {
   });
 
   it("fails closed when no BFF is configured", async () => {
-    vi.stubEnv("BFF_BASE_URL", "");
+    vi.stubEnv("ESCALIA_BFF_URL", "");
 
     await expect((await load())({ jurisdiction: "CA-QC" }, "fr-CA")).rejects.toMatchObject({
       code: "upstream.unavailable",

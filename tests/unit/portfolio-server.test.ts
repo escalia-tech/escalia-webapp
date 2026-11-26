@@ -17,7 +17,7 @@ const answer = (status: number, body: unknown) => vi.fn(async () => new Response
 describe("portfolio server code", () => {
   beforeEach(() => {
     vi.resetModules();
-    vi.stubEnv("BFF_BASE_URL", "http://bff.test");
+    vi.stubEnv("ESCALIA_BFF_URL", "http://bff.test");
   });
   afterEach(() => vi.unstubAllGlobals());
 
