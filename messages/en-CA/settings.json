@@ -110,6 +110,45 @@
     "title": "Notifications",
     "description": "Notification categories and channels.",
     "unavailableTitle": "Not available at this time",
-    "unavailableBody": "No notification service is configured. Categories, read state and preferences will be specified before they are built."
+    "unavailableBody": "Notification preferences cannot be loaded right now.",
+    "refused": "Preferences could not be saved.",
+    "saved": "Preferences saved.",
+    "save": "Save",
+    "emailInvalid": "Your email address looks invalid: emails are no longer sent. Update it in your profile.",
+    "invalid": {
+      "digest": "Choose a digest frequency.",
+      "time": "Enter a start and an end time for quiet hours.",
+      "id": "Invalid notification identifier."
+    },
+    "locked": {
+      "title": "Always sent",
+      "help": "Official notices are always sent by email and in the app: they can have legal effect."
+    },
+    "categories": {
+      "legal": "Official notices",
+      "account": "Account and security",
+      "urgent": "Urgent repairs",
+      "operational": "Day-to-day operations",
+      "digest": "Digest"
+    },
+    "channels": {
+      "inApp": "In the app",
+      "email": "Email",
+      "push": "Browser notifications",
+      "pushHelp": "Browser notifications are not offered yet."
+    },
+    "digest": {
+      "title": "Digest",
+      "daily": "Every day",
+      "weekly": "Every Monday",
+      "off": "None"
+    },
+    "quiet": {
+      "title": "Quiet hours",
+      "enabled": "Hold non-urgent messages",
+      "from": "From",
+      "to": "to",
+      "help": "Official notices, account alerts and emergencies are never held."
+    }
   }
 }

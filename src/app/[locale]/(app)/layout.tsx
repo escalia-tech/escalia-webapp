@@ -32,7 +32,7 @@ export default async function AppLayout({
     return null;
   }
 
-  const [cookieStore, notifications] = await Promise.all([cookies(), getNotifications()]);
+  const [cookieStore, notifications] = await Promise.all([cookies(), getNotifications(resolvedLocale)]);
   const defaultSidebarOpen = cookieStore.get(COOKIE_NAMES.sidebar)?.value !== "false";
 
   return (
