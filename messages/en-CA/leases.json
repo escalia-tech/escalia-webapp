@@ -64,12 +64,18 @@
     "buildingNotFound": "This building does not exist, or it does not belong to your organization.",
     "bylawsNotFound": "This by-laws version does not exist.",
     "annexNotFound": "This annex is not on this lease.",
-    "cannotAcknowledge": "Your role on this lease does not allow acknowledging this annex."
+    "cannotAcknowledge": "Your role on this lease does not allow acknowledging this annex.",
+    "signingNotReady": "The lease must be ready (terms filled in, nothing blocking) before it is sent for signature.",
+    "signingContact": "Every signer needs an email address to receive the signing request.",
+    "signingNotOpen": "No signing request is open for this lease.",
+    "deliveryNotFound": "This person has no copy due on this lease.",
+    "deliveryDate": "The date the copy was handed over cannot be in the future."
   },
   "roles": {
     "TENANT": "Tenant",
     "OCCUPANT": "Occupant",
-    "GUARANTOR": "Guarantor"
+    "GUARANTOR": "Guarantor",
+    "LANDLORD": "Landlord"
   },
   "languages": {
     "fr": "French",
@@ -280,5 +286,45 @@
     "doneNoDate": "Receipt confirmed.",
     "acknowledge": "I received and read this document",
     "readOnly": "This document is shown to you for information."
+  },
+  "signing": {
+    "title": "Lease signature",
+    "description": "The lease and its annexes are frozen as a PDF, then signed by the tenants and guarantors, and last by you.",
+    "none": "The lease has not been sent for signature yet.",
+    "send": "Send for signature",
+    "resend": "Send for signature again",
+    "withdraw": "Withdraw from signature",
+    "sentAt": "Sent on {date}, valid until {until}",
+    "state": {
+      "OPEN": "In progress",
+      "COMPLETED": "Signed by everyone",
+      "WITHDRAWN": "Withdrawn",
+      "EXPIRED": "Expired",
+      "DECLINED": "Declined"
+    },
+    "signerState": {
+      "WAITING": "Waiting for their turn",
+      "INVITED": "Invited to sign",
+      "SIGNED": "Signed",
+      "DECLINED": "Declined"
+    },
+    "sentOk": "The lease was sent for signature.",
+    "withdrawn": "The lease was withdrawn from signature.",
+    "hash": "Document fingerprint: {hash}",
+    "finalHash": "Signed PDF fingerprint: {hash}",
+    "copies": "Copies to hand over",
+    "copyDue": "Due by {date}",
+    "copyDone": "Delivered on {date}",
+    "copyPending": "Not delivered yet",
+    "copyHand": "Handed over in person on {date}",
+    "handLabel": "Handed over in person on",
+    "hand": "Record delivery",
+    "handDone": "The delivery was recorded.",
+    "tenantTitle": "Lease signature",
+    "myState": "Your signature: {state}",
+    "sign": "Sign the lease",
+    "signHint": "Read and confirm the annexes above first: signing is refused until that is done.",
+    "signed": "You signed this lease.",
+    "waiting": "The lease is not open for signature yet."
   }
 }

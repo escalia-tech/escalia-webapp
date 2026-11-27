@@ -64,12 +64,18 @@
     "buildingNotFound": "Cet immeuble n'existe pas, ou il n'appartient pas à votre organisation.",
     "bylawsNotFound": "Cette version du règlement n'existe pas.",
     "annexNotFound": "Cette annexe n'existe pas sur ce bail.",
-    "cannotAcknowledge": "Votre rôle sur ce bail ne permet pas d'accuser réception de cette annexe."
+    "cannotAcknowledge": "Votre rôle sur ce bail ne permet pas d'accuser réception de cette annexe.",
+    "signingNotReady": "Le bail doit être prêt (conditions remplies, sans problème bloquant) avant d'être envoyé en signature.",
+    "signingContact": "Chaque signataire a besoin d'un courriel pour recevoir la demande de signature.",
+    "signingNotOpen": "Aucune demande de signature n'est ouverte pour ce bail.",
+    "deliveryNotFound": "Cette personne n'a pas de copie à recevoir sur ce bail.",
+    "deliveryDate": "La date de remise ne peut pas être dans le futur."
   },
   "roles": {
     "TENANT": "Locataire",
     "OCCUPANT": "Occupant",
-    "GUARANTOR": "Caution"
+    "GUARANTOR": "Caution",
+    "LANDLORD": "Propriétaire"
   },
   "languages": {
     "fr": "Français",
@@ -280,5 +286,45 @@
     "doneNoDate": "Réception confirmée.",
     "acknowledge": "J'ai reçu et lu ce document",
     "readOnly": "Ce document vous est présenté pour information."
+  },
+  "signing": {
+    "title": "Signature du bail",
+    "description": "Le bail et ses annexes sont figés en PDF, puis signés par les locataires et les cautions, et en dernier par vous.",
+    "none": "Le bail n'a pas encore été envoyé en signature.",
+    "send": "Envoyer en signature",
+    "resend": "Renvoyer en signature",
+    "withdraw": "Retirer de la signature",
+    "sentAt": "Envoyé le {date}, valable jusqu'au {until}",
+    "state": {
+      "OPEN": "En cours",
+      "COMPLETED": "Signé par tous",
+      "WITHDRAWN": "Retiré",
+      "EXPIRED": "Expiré",
+      "DECLINED": "Refusé"
+    },
+    "signerState": {
+      "WAITING": "En attente de son tour",
+      "INVITED": "Invité à signer",
+      "SIGNED": "A signé",
+      "DECLINED": "A refusé"
+    },
+    "sentOk": "Le bail a été envoyé en signature.",
+    "withdrawn": "Le bail a été retiré de la signature.",
+    "hash": "Empreinte du document : {hash}",
+    "finalHash": "Empreinte du PDF signé : {hash}",
+    "copies": "Copies à remettre",
+    "copyDue": "À remettre au plus tard le {date}",
+    "copyDone": "Remise le {date}",
+    "copyPending": "Pas encore remise",
+    "copyHand": "Remise en main propre le {date}",
+    "handLabel": "Remise en main propre le",
+    "hand": "Enregistrer la remise",
+    "handDone": "La remise a été enregistrée.",
+    "tenantTitle": "Signature du bail",
+    "myState": "Votre signature : {state}",
+    "sign": "Signer le bail",
+    "signHint": "Lisez et confirmez d'abord les annexes ci-dessus : la signature est refusée tant que ce n'est pas fait.",
+    "signed": "Vous avez signé ce bail.",
+    "waiting": "Le bail n'est pas encore ouvert à la signature."
   }
 }

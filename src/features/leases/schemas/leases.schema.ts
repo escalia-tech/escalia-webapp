@@ -160,6 +160,11 @@ export const REFUSAL_KEYS = {
   "lease.invitation.used": "invitationUsed",
   "lease.invitation.email_mismatch": "invitationAddress",
   "lease.invitation.email_required": "emailRequired",
+  "lease.signing.not_ready": "signingNotReady",
+  "lease.signing.contact_required": "signingContact",
+  "lease.signing.not_open": "signingNotOpen",
+  "lease.copy_delivery.not_found": "deliveryNotFound",
+  "lease.copy_delivery.date": "deliveryDate",
 } as const;
 export type RefusalKey = (typeof REFUSAL_KEYS)[keyof typeof REFUSAL_KEYS];
 

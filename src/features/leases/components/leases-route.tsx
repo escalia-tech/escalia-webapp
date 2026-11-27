@@ -9,11 +9,13 @@ import { failureState } from "@/server/bff-pages/failure";
 
 import { fetchLeaseAnnexes } from "../server/bylaws.service";
 import { fetchLease, fetchLeaseLanguage, fetchLeases } from "../server/leases.service";
+import { fetchLeaseSigning } from "../server/signing.service";
 import { AnnexesPanel } from "./annexes-panel";
 import { CreateLeaseButton } from "./create-lease-button";
 import { InvitationsPanel } from "./invitations-panel";
 import { LanguagePanel } from "./language-panel";
 import { PartiesEditor } from "./parties-editor";
+import { SigningPanel } from "./signing-panel";
 import { TermsEditor } from "./terms-editor";
 
 async function crumbs(title: string) {
@@ -80,10 +82,11 @@ export async function LeaseRoute({ id }: { id: string }) {
     getLocale(),
   ]);
   try {
-    const [lease, language, annexes] = await Promise.all([
+    const [lease, language, annexes, signing] = await Promise.all([
       fetchLease(id, locale),
       fetchLeaseLanguage(id, locale),
       fetchLeaseAnnexes(id, locale),
+      fetchLeaseSigning(id, locale),
     ]);
     const title = t("one.title");
     return (
@@ -101,6 +104,7 @@ export async function LeaseRoute({ id }: { id: string }) {
         <TermsEditor lease={lease} />
         <InvitationsPanel lease={lease} />
         <AnnexesPanel lease={lease} annexes={annexes} />
+        <SigningPanel lease={lease} signing={signing} />
         <LanguagePanel leaseId={lease.id} language={language} />
       </>
     );
