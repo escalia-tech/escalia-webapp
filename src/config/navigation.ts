@@ -9,6 +9,7 @@ import {
   type LucideIcon,
   Scale,
   Settings,
+  Upload,
   Users,
   Wallet,
   Wrench,
@@ -24,6 +25,7 @@ export type NavKey =
   | "dashboard"
   | "buildings"
   | "rules"
+  | "imports"
   | "units"
   | "tenants"
   | "leases"
@@ -52,6 +54,7 @@ export const MAIN_NAV: readonly NavItem[] = [
   { key: "maintenance", href: "/maintenance", icon: Wrench, status: "planned" },
   { key: "documents", href: "/documents", icon: FileText, status: "planned" },
   { key: "reports", href: "/reports", icon: BarChart3, status: "planned" },
+  { key: "imports", href: "/imports", icon: Upload, status: "available" },
   { key: "rules", href: "/rules", icon: Scale, status: "available" },
 ];
 

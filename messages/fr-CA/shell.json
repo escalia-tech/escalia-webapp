@@ -19,7 +19,8 @@
       "rules": "Règles en vigueur",
       "reports": "Rapports",
       "settings": "Configuration",
-      "tenant": "Mes baux"
+      "tenant": "Mes baux",
+      "imports": "Importer"
     }
   },
   "header": {

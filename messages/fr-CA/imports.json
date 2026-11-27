@@ -1,0 +1,113 @@
+{
+  "title": "Importer mon parc",
+  "description": "Apportez vos immeubles, vos logements, vos baux déjà signés et vos locataires depuis un fichier CSV. Rien n'est enregistré avant votre confirmation.",
+  "history": "Imports précédents",
+  "empty": "Aucun import pour l'instant.",
+  "refused": "L'import a été refusé.",
+  "upload": {
+    "title": "1. Fichier",
+    "description": "Un fichier CSV (UTF-8 ou Windows-1252), au plus 2 Mo et 1 000 lignes. Une ligne par logement, avec son bail et jusqu'à 4 locataires.",
+    "label": "Fichier CSV",
+    "hint": "Les colonnes du formulaire du TAL (adresse, durée, loyer, services, pièces, animaux) sont reconnues. Ce qui manque reste à compléter sur le bail.",
+    "submit": "Lire le fichier"
+  },
+  "invalid": {
+    "file": "Choisissez un fichier CSV.",
+    "size": "Le fichier dépasse 2 Mo.",
+    "id": "Cet import est introuvable."
+  },
+  "refusals": {
+    "fileEmpty": "Nous n'arrivons pas à lire ce fichier. Utilisez le modèle Escalia.",
+    "tooManyRows": "Le fichier compte plus de 1 000 lignes. Divisez-le en plusieurs fichiers.",
+    "tooBig": "Le fichier dépasse 2 Mo.",
+    "purged": "Le fichier a été supprimé 7 jours après l'import.",
+    "notChecked": "Vérifiez les colonnes avant d'importer.",
+    "mapping": "Associez au moins l'adresse, le logement, le début du bail et le loyer, chaque champ une seule fois.",
+    "finished": "Cet import est terminé.",
+    "notFound": "Cet import n'existe pas, ou il n'appartient pas à votre organisation."
+  },
+  "status": {
+    "UPLOADED": "Fichier lu",
+    "VALIDATED": "Vérifié",
+    "DONE": "Terminé",
+    "FAILED": "Échec"
+  },
+  "counts": {
+    "summary": "{imported} sur {total} lignes importées"
+  },
+  "mapping": {
+    "title": "2. Colonnes",
+    "intro": "Choisissez le champ que remplit chaque colonne. Les colonnes que vous ignorez ne sont pas lues.",
+    "ignore": "Ignorer cette colonne",
+    "missing": "Il manque encore : {fields}.",
+    "check": "Vérifier les lignes"
+  },
+  "preview": {
+    "title": "3. Vérification",
+    "summary": "{valid} prêtes, {invalid} à corriger, {duplicate} déjà présentes."
+  },
+  "report": {
+    "title": "4. Rapport",
+    "summary": "{imported} lignes importées, {failed} en échec.",
+    "invite": "Vos locataires n'ont pas encore reçu d'invitation. Vérifiez leurs coordonnées puis invitez-les depuis le bail.",
+    "errors": "Télécharger les lignes à corriger (CSV)"
+  },
+  "run": "Importer {count, plural, one {# ligne prête} other {# lignes prêtes}}",
+  "rows": {
+    "number": "#",
+    "address": "Adresse",
+    "unit": "Logement",
+    "status": "État",
+    "errors": "À corriger",
+    "lease": "Voir le bail"
+  },
+  "rowStatus": {
+    "VALID": "Prêt",
+    "INVALID": "Erreur",
+    "DUPLICATE": "Déjà présent",
+    "IMPORTED": "Importé",
+    "FAILED": "Échec"
+  },
+  "rowErrors": {
+    "required": "Valeur obligatoire manquante.",
+    "date": "Date invalide (AAAA-MM-JJ ou JJ/MM/AAAA).",
+    "amount": "Montant invalide.",
+    "due_day": "Le jour d'échéance va de 1 à 28.",
+    "rooms": "Le nombre de pièces va de 1 à 30.",
+    "choice": "Valeur non reconnue.",
+    "email": "Courriel invalide.",
+    "reach": "Indiquez un courriel ou un téléphone pour ce locataire.",
+    "end_before_start": "La fin du bail précède son début.",
+    "other": "Cette ligne est refusée (adresse hors Québec, bail qui chevauche un autre ou règle du portefeuille)."
+  },
+  "fields": {
+    "address": "Adresse de l'immeuble",
+    "civic_number": "Numéro civique",
+    "city": "Ville",
+    "province": "Province",
+    "postal_code": "Code postal",
+    "unit": "Logement",
+    "start_date": "Début du bail",
+    "end_date": "Fin du bail",
+    "rent": "Loyer mensuel",
+    "services": "Coût des services",
+    "due_day": "Jour d'échéance",
+    "rooms": "Nombre de pièces",
+    "use": "Usage (habitation ou mixte)",
+    "heating": "Chauffage payé par",
+    "hot_water": "Eau chaude payée par",
+    "electricity": "Électricité payée par",
+    "pets": "Animaux permis",
+    "smoke_free": "Logement non-fumeur",
+    "opening_balance": "Solde initial",
+    "opening_date": "Date du solde initial",
+    "tenant": "Locataire {n} : {part}",
+    "parts": {
+      "name": "nom",
+      "email": "courriel",
+      "phone": "téléphone",
+      "language": "langue",
+      "address": "adresse postale"
+    }
+  }
+}
