@@ -50,5 +50,66 @@
       "type": "Type",
       "unavailable": "Non disponible"
     }
+  },
+  "real": {
+    "title": "Santé du portefeuille",
+    "unavailable": "Indisponible",
+    "table": "Afficher en tableau",
+    "unit": "Unité",
+    "occupancy": {
+      "label": "Taux d'occupation",
+      "info": "Unités avec un bail en vigueur aujourd'hui, sur toutes les unités non archivées.",
+      "none": "Aucune unité",
+      "note": "{occupied} sur {total} unités"
+    },
+    "collection": {
+      "label": "Loyer perçu (mois)",
+      "info": "Paiements reçus divisés par le loyer facturé du dernier mois. Les lignes renversées sont exclues.",
+      "none": "Rien de facturé"
+    },
+    "rent": {
+      "label": "Loyer en vigueur (mensuel)",
+      "info": "Le loyer mensuel des baux en vigueur aujourd'hui."
+    },
+    "vacancyGap": {
+      "label": "Loyer manquant par vacance",
+      "info": "Ce que les unités vacantes payaient par mois. Une unité jamais louée n'ajoute rien.",
+      "unknown": "{count, plural, one {# unité vacante sans loyer connu} other {# unités vacantes sans loyer connu}}"
+    },
+    "arrears": {
+      "title": "Retards de loyer par ancienneté",
+      "description": "Dû : {owed} · Crédit détenu pour les locataires : {credit}",
+      "summary": "Total dû : {owed}",
+      "series": "Montant dû",
+      "bucket": "Ancienneté",
+      "current": "À jour",
+      "days1to7": "1 à 7 jours",
+      "days8to21": "8 à 21 jours",
+      "days22Plus": "22 jours et plus",
+      "missing": "Les registres n'ont pas répondu. Réessayez dans un instant."
+    },
+    "ending": {
+      "title": "Baux qui se terminent bientôt",
+      "summary": "{within60} d'ici 60 jours · {within90} entre 61 et 90 jours",
+      "in": "Fin",
+      "days": "{date} (dans {count, plural, one {# jour} other {# jours}})",
+      "empty": "Aucun bail ne se termine dans les 90 prochains jours."
+    },
+    "waiting": {
+      "title": "En attente de quelqu'un",
+      "description": "Ce qui est bloqué tant qu'une personne n'agit pas.",
+      "signature": "Baux en attente de signature",
+      "pending": "Invitations non acceptées",
+      "never": "Locataires jamais invités"
+    },
+    "vacant": {
+      "title": "Unités vacantes",
+      "description": "{count, plural, =0 {Aucune unité vacante} one {# unité vacante} other {# unités vacantes}}, la plus longue vacance en premier.",
+      "empty": "Toutes les unités sont louées.",
+      "days": "Vacante depuis",
+      "daysValue": "{count, plural, one {# jour} other {# jours}}",
+      "never": "Jamais louée",
+      "lastRent": "Dernier loyer"
+    }
   }
 }

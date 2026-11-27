@@ -50,5 +50,66 @@
       "type": "Type",
       "unavailable": "Not available"
     }
+  },
+  "real": {
+    "title": "Portfolio health",
+    "unavailable": "Unavailable",
+    "table": "Show as a table",
+    "unit": "Unit",
+    "occupancy": {
+      "label": "Occupancy",
+      "info": "Units with a lease in force today, out of all units that are not archived.",
+      "none": "No unit",
+      "note": "{occupied} of {total} units"
+    },
+    "collection": {
+      "label": "Rent collected (month)",
+      "info": "Payments received divided by rent charged in the latest month. Reversed lines are left out.",
+      "none": "Nothing charged"
+    },
+    "rent": {
+      "label": "Rent in force (monthly)",
+      "info": "The monthly rent of the leases in force today."
+    },
+    "vacancyGap": {
+      "label": "Rent lost to vacancy",
+      "info": "What vacant units last paid each month. A unit that was never leased adds nothing.",
+      "unknown": "{count, plural, one {# vacant unit has no known rent} other {# vacant units have no known rent}}"
+    },
+    "arrears": {
+      "title": "Late rent by age",
+      "description": "Owed: {owed} · Credit held for tenants: {credit}",
+      "summary": "Total owed: {owed}",
+      "series": "Amount owed",
+      "bucket": "Lateness",
+      "current": "Current",
+      "days1to7": "1 to 7 days",
+      "days8to21": "8 to 21 days",
+      "days22Plus": "22 days and more",
+      "missing": "The ledgers did not answer. Try again in a moment."
+    },
+    "ending": {
+      "title": "Leases ending soon",
+      "summary": "{within60} within 60 days · {within90} between 61 and 90 days",
+      "in": "Ends",
+      "days": "{date} (in {count, plural, one {# day} other {# days}})",
+      "empty": "No lease ends in the next 90 days."
+    },
+    "waiting": {
+      "title": "Waiting on someone",
+      "description": "What is stuck until a person acts.",
+      "signature": "Leases out for signature",
+      "pending": "Invitations not accepted",
+      "never": "Tenants never invited"
+    },
+    "vacant": {
+      "title": "Vacant units",
+      "description": "{count, plural, =0 {No vacant unit} one {# vacant unit} other {# vacant units}}, longest vacancy first.",
+      "empty": "Every unit is rented.",
+      "days": "Vacant for",
+      "daysValue": "{count, plural, one {# day} other {# days}}",
+      "never": "Never leased",
+      "lastRent": "Last rent"
+    }
   }
 }

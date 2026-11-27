@@ -21,6 +21,19 @@ export interface DashboardView {
   unitsByBuilding: { id: string; name: string; unitCount: number }[];
   /** Only the demo has a building type; the real domain has none, so the chart is left out. */
   buildingsByType: { buildingType: BuildingType; count: number }[] | null;
+  /** The figures below exist only for the real organization (FR-DASH-01); the demo has none of them. */
+  real: RealFigures | null;
+}
+
+export interface RealFigures {
+  occupancy: { occupied: number; total: number; ratePercent: number | null } | null;
+  /** Payments received over rent charged in the latest month, in percent; null when nothing was charged. */
+  collectionPercent: number | null;
+  arrears: { ageing: DashboardPage["ageing"]; receivableCents: number; creditCents: number; ledgersMissing: boolean };
+  endingSoon: DashboardPage["endingSoon"];
+  waiting: DashboardPage["waiting"];
+  vacantUnits: DashboardPage["vacantUnits"];
+  rent: DashboardPage["rent"];
 }
 
 export function fromDemo(summary: DashboardSummary): DashboardView {
@@ -31,6 +44,7 @@ export function fromDemo(summary: DashboardSummary): DashboardView {
     monthly: summary.monthly,
     unitsByBuilding: summary.unitsByBuilding,
     buildingsByType: summary.buildingsByType,
+    real: null,
   };
 }
 
@@ -50,5 +64,30 @@ export function fromBff(page: DashboardPage, currentMonth: string): DashboardVie
     monthly: page.monthly,
     unitsByBuilding: page.unitsByBuilding,
     buildingsByType: null,
+    real: {
+      occupancy: occupancy(page),
+      collectionPercent:
+        latest && latest.dueCents > 0 ? Math.round((latest.receivedCents / latest.dueCents) * 100) : null,
+      arrears: {
+        ageing: page.ageing,
+        receivableCents: page.receivableCents,
+        creditCents: page.creditCents,
+        ledgersMissing: page.unavailable.includes("ledgers"),
+      },
+      endingSoon: page.endingSoon ?? null,
+      waiting: page.waiting ?? null,
+      vacantUnits: page.vacantUnits,
+      rent: page.rent ?? null,
+    },
+  };
+}
+
+function occupancy(page: DashboardPage): RealFigures["occupancy"] {
+  if (page.occupiedUnitCount == null || page.unitCount == null) return null;
+  const total = page.unitCount;
+  return {
+    occupied: page.occupiedUnitCount,
+    total,
+    ratePercent: total > 0 ? Math.round((page.occupiedUnitCount / total) * 100) : null,
   };
 }
