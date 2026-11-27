@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 
 import { Callout } from "@/components/feedback/callout";
 import { Button } from "@/components/ui/button";
+import { NativeSelect } from "@/components/ui/native-select";
 import { bffFetch } from "@/lib/bff-client";
 import { useErrorMessage } from "@/lib/use-error-message";
 
@@ -36,7 +37,7 @@ export function DevSignIn({ returnTo }: { returnTo: string }) {
   }
 
   return (
-    <section aria-labelledby="dev-sign-in-title" className="mt-6 space-y-3 rounded-lg border border-dashed p-4">
+    <section aria-labelledby="dev-sign-in-title" className="mb-6 space-y-3 rounded-lg border bg-card p-4 shadow-xs">
       <h2 id="dev-sign-in-title" className="flex items-center gap-2 text-sm font-semibold">
         <FlaskConical className="size-4" aria-hidden />
         {t("title")}
@@ -44,8 +45,8 @@ export function DevSignIn({ returnTo }: { returnTo: string }) {
       <p className="text-muted-foreground text-sm">{t("description")}</p>
       <label className="block text-sm">
         <span className="mb-1 block">{t("user")}</span>
-        <select
-          className="border-input bg-background w-full rounded-md border px-3 py-2 text-sm"
+        <NativeSelect
+          className="w-full"
           value={user}
           onChange={(event) => setUser(event.target.value as (typeof USERS)[number])}
         >
@@ -54,7 +55,7 @@ export function DevSignIn({ returnTo }: { returnTo: string }) {
               {t(`users.${value}`)}
             </option>
           ))}
-        </select>
+        </NativeSelect>
       </label>
       {failure ? (
         <Callout tone="danger" role="alert" title={t("error")}>
