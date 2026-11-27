@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreateOrganizationCard } from "@/features/organization/components/create-organization-card";
 import { Link } from "@/i18n/navigation";
+import { redirectIfUnauthenticated } from "@/server/auth/sign-in-redirect";
 import { failureState, isMissingOrganization } from "@/server/bff-pages/failure";
 
 import { fetchLeaseAnnexes } from "../server/bylaws.service";
@@ -74,6 +75,7 @@ export async function LeasesRoute() {
       </>
     );
   } catch (error) {
+    redirectIfUnauthenticated(error, locale, "/leases");
     return (
       <>
         {header}
@@ -126,6 +128,7 @@ export async function LeaseRoute({ id }: { id: string }) {
       </>
     );
   } catch (error) {
+    redirectIfUnauthenticated(error, locale, `/leases/${id}`);
     return (
       <>
         <PageHeader title={t("title")} breadcrumbs={await crumbs(t("title"))} />
