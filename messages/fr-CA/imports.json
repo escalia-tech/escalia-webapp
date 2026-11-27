@@ -8,7 +8,7 @@
     "title": "1. Fichier",
     "description": "Un fichier CSV (UTF-8 ou Windows-1252), au plus 2 Mo et 1 000 lignes. Une ligne par logement, avec son bail et jusqu'à 4 locataires.",
     "label": "Fichier CSV",
-    "hint": "Les colonnes du formulaire du TAL (adresse, durée, loyer, services, pièces, animaux) sont reconnues. Ce qui manque reste à compléter sur le bail. Vous pouvez aussi déposer un bail du TAL en PDF (sections A à D lues) ; les copies numérisées ne sont pas encore lues.",
+    "hint": "Les colonnes du formulaire du TAL (adresse, durée, loyer, services, pièces, animaux) sont reconnues. Ce qui manque reste à compléter sur le bail. Vous pouvez aussi déposer un bail du TAL en PDF (sections A à D lues) ; les copies numérisées sont lues par reconnaissance de texte (OCR), vérifiez ce qui a été lu.",
     "submit": "Lire le fichier"
   },
   "invalid": {

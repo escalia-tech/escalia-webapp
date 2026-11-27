@@ -8,7 +8,7 @@
     "title": "1. File",
     "description": "A CSV file (UTF-8 or Windows-1252), at most 2 MB and 1,000 rows. One row per unit, with its lease and up to 4 tenants.",
     "label": "CSV file",
-    "hint": "The columns of the TAL form (address, term, rent, services, rooms, pets) are recognised. What is missing stays to complete on the lease. You can also drop a TAL lease PDF (sections A to D are read); scanned copies are not read yet.",
+    "hint": "The columns of the TAL form (address, term, rent, services, rooms, pets) are recognised. What is missing stays to complete on the lease. You can also drop a TAL lease PDF (sections A to D are read); scanned copies are read by text recognition (OCR), so check what was read.",
     "submit": "Read the file"
   },
   "invalid": {
