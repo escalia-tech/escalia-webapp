@@ -1,0 +1,26 @@
+name: webapp
+
+on:
+  push:
+    branches: [main, step-1-and-2]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Lint and format (Biome)
+        run: npm run check
+      - name: Types (Next.js types are generated first)
+        run: npm run typecheck
+      - name: Unit tests with the coverage floors
+        run: npm run test:coverage
