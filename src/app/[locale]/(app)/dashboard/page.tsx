@@ -7,6 +7,7 @@ import { ChartCard } from "@/components/charts/chart-card";
 import { RentTrendChart } from "@/components/charts/rent-trend-chart";
 import { PageHeader } from "@/components/layout/page-header";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { homeFor, navAudience } from "@/config/navigation";
 import { getDashboardSummary } from "@/features/buildings/server/buildings.service";
 import { KpiCard } from "@/features/dashboard/components/kpi-card";
 import { RealMetrics } from "@/features/dashboard/components/real-metrics";
@@ -19,6 +20,7 @@ import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { formatMoney, formatMonth, formatNumber } from "@/lib/format";
 import { isApplicationError } from "@/lib/observability/errors/application-error";
+import { fetchShellRoles } from "@/server/auth/shell";
 import { isMissingOrganization } from "@/server/bff-pages/failure";
 import { getServerEnv } from "@/server/config/env";
 
@@ -33,6 +35,10 @@ export default async function DashboardPage() {
     getTranslations("buildings.types"),
     getLocale(),
   ]);
+  // The dashboard is the landlord's overview: a tenant, occupant or guarantor starts on "Mes baux" instead.
+  if (homeFor(navAudience(await fetchShellRoles(locale))) === "/tenant") {
+    redirect({ href: "/tenant", locale: hasLocale(routing.locales, locale) ? locale : routing.defaultLocale });
+  }
   // With a BFF configured the figures are the organization's own; without one the labelled demo stays.
   const view = await loadView(locale).catch((error: unknown) => {
     if (isMissingOrganization(error)) return null;

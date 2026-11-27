@@ -101,3 +101,11 @@ export function isNavItemActive(pathnameWithoutLocale: string, item: NavItem): b
   const section = item.key === "settings" ? "/settings" : item.href;
   return pathnameWithoutLocale === section || pathnameWithoutLocale.startsWith(`${section}/`);
 }
+
+/**
+ * Where a person starts after signing in. A lease party who is not a landlord starts on "Mes baux": the dashboard is
+ * the landlord's overview.
+ */
+export function homeFor(audience: NavAudience): "/dashboard" | "/tenant" {
+  return audience.party && !audience.landlord ? "/tenant" : "/dashboard";
+}

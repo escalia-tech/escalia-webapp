@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ALL_NAV, CONFIG_NAV, isNavItemActive, MAIN_NAV, navAudience, navFor } from "@/config/navigation";
+import { ALL_NAV, CONFIG_NAV, homeFor, isNavItemActive, MAIN_NAV, navAudience, navFor } from "@/config/navigation";
 
 const keys = (items: { key: string }[]) => items.map((item) => item.key);
 
@@ -40,6 +40,15 @@ describe("menu by membership (page model section 4)", () => {
     expect(isNavItemActive("/leasesx", leases)).toBe(false);
     expect(isNavItemActive("/settings/organization", settings)).toBe(true);
     expect(isNavItemActive("/buildings", settings)).toBe(false);
+  });
+
+  it("starts a lease party on Mes baux and everyone else on the dashboard", () => {
+    expect(homeFor(navAudience(["TENANT"]))).toBe("/tenant");
+    expect(homeFor(navAudience(["GUARANTOR"]))).toBe("/tenant");
+    expect(homeFor(navAudience(["OWNER"]))).toBe("/dashboard");
+    expect(homeFor(navAudience(["OWNER", "TENANT"]))).toBe("/dashboard");
+    expect(homeFor(navAudience(["APPLICANT"]))).toBe("/dashboard");
+    expect(homeFor(navAudience(null))).toBe("/dashboard");
   });
 
   it("no longer lists the units and tenants placeholders", () => {
