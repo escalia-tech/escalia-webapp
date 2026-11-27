@@ -4,6 +4,7 @@ import { Callout } from "@/components/feedback/callout";
 import { PageHeader } from "@/components/layout/page-header";
 import { UnitLeases } from "@/features/leases/components/leases-route";
 import { CreateOrganizationCard } from "@/features/organization/components/create-organization-card";
+import { redirectIfUnauthenticated } from "@/server/auth/sign-in-redirect";
 import { failureState, isMissingOrganization } from "@/server/bff-pages/failure";
 
 import { parseBuildingsQuery } from "../schemas/portfolio.schema";
@@ -45,6 +46,7 @@ export async function BuildingsRoute({ rawQuery }: { rawQuery: RawQuery }) {
       </>
     );
   } catch (error) {
+    redirectIfUnauthenticated(error, locale, "/buildings");
     return (
       <>
         {header}
@@ -73,6 +75,7 @@ export async function BuildingRoute({ id }: { id: string }) {
       </>
     );
   } catch (error) {
+    redirectIfUnauthenticated(error, locale, `/buildings/${id}`);
     return (
       <>
         <PageHeader title={t("list.title")} breadcrumbs={await crumbs(t("list.title"))} />
@@ -136,6 +139,7 @@ export async function UnitRoute({ id }: { id: string }) {
       </>
     );
   } catch (error) {
+    redirectIfUnauthenticated(error, locale, `/units/${id}`);
     return (
       <>
         <PageHeader title={t("list.title")} breadcrumbs={await crumbs(t("list.title"))} />
