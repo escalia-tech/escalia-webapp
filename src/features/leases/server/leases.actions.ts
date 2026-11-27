@@ -10,14 +10,18 @@ import {
   type AcceptOutcome,
   acceptInvitation,
   addOccupant,
+  cancelLease,
   createLease,
+  fetchClauseGProposal,
   type InviteOutcome,
   inviteParties,
   type LeaseOutcome,
+  type ProposalOutcome,
   type RequestOutcome,
   removeOccupant,
   requestNewInvitation,
   saveParties,
+  saveTerms,
 } from "./leases.service";
 
 export type LeaseFormState = LeaseOutcome | undefined;
@@ -85,4 +89,20 @@ export async function acceptInvitationAction(
 
 export async function requestNewInvitationAction(token: string): Promise<RequestOutcome> {
   return requestNewInvitation(token, await getLocale());
+}
+
+export async function saveTermsAction(
+  leaseId: string,
+  _previous: LeaseFormState,
+  form: FormData,
+): Promise<LeaseFormState> {
+  return finish(await saveTerms(leaseId, form, await getLocale()));
+}
+
+export async function cancelLeaseAction(leaseId: string): Promise<LeaseOutcome> {
+  return finish(await cancelLease(leaseId, await getLocale()));
+}
+
+export async function clauseGProposalAction(leaseId: string): Promise<ProposalOutcome> {
+  return fetchClauseGProposal(leaseId, await getLocale());
 }

@@ -3,6 +3,7 @@ import "server-only";
 import { fetchBffPage, postBffAction } from "@/server/bff-pages/client";
 
 import {
+  clauseGProposalSchema,
   INVITATION_TOKEN,
   invitationAcceptedSchema,
   invitationsSentSchema,
@@ -13,10 +14,12 @@ import {
   PRIVACY_VERSION,
   parseOccupantForm,
   parsePartiesForm,
+  parseTermsForm,
   type RefusalKey,
   refusalKey,
   TERMS_VERSION,
   type TenantLease,
+  type TermsReason,
   tenantLeasePageSchema,
   tenantLeasesPageSchema,
 } from "../schemas/leases.schema";
@@ -34,7 +37,7 @@ export async function fetchLease(id: string, language: string): Promise<Lease> {
 
 export type LeaseOutcome =
   | { status: "done"; leaseId: string | undefined }
-  | { status: "invalid"; reason: "id" | "role" | "name" | "share" | "amount" }
+  | { status: "invalid"; reason: "id" | "role" | "name" | "share" | "amount" | TermsReason }
   | { status: "refused"; reason: RefusalKey | undefined; message: string | undefined };
 
 async function send(
@@ -141,4 +144,46 @@ export async function requestNewInvitation(token: string, language: string): Pro
   return result.ok
     ? { status: "requested" }
     : { status: "refused", reason: refusalKey(result.code), message: result.message };
+}
+
+/** Saves the terms; the core answers with the lease and the findings its rules produced. */
+export async function saveTerms(leaseId: string, form: FormData, language: string): Promise<LeaseOutcome> {
+  if (!ID.test(leaseId)) return { status: "invalid", reason: "id" };
+  const parsed = parseTermsForm(form);
+  if (!parsed.ok) return { status: "invalid", reason: parsed.reason };
+  return send("leases.terms", `/actions/set-lease-terms/${leaseId}`, parsed.body, language);
+}
+
+export async function cancelLease(leaseId: string, language: string): Promise<LeaseOutcome> {
+  if (!ID.test(leaseId)) return { status: "invalid", reason: "id" };
+  return send("leases.cancel", `/actions/cancel-lease/${leaseId}`, {}, language);
+}
+
+export type ProposalOutcome =
+  | {
+      status: "proposal";
+      amountCents: number | undefined;
+      periodStart: string | undefined;
+      periodEnd: string | undefined;
+    }
+  | { status: "none"; monthsOfHistory: number }
+  | { status: "invalid" };
+
+/** The clause G proposal from the rent history; without twelve months there is nothing to propose. */
+export async function fetchClauseGProposal(leaseId: string, language: string): Promise<ProposalOutcome> {
+  if (!ID.test(leaseId)) return { status: "invalid" };
+  const page = await fetchBffPage(
+    "leases.clause-g",
+    `/pages/leases/${leaseId}/clause-g-proposal` as `/pages/${string}`,
+    clauseGProposalSchema,
+    { language },
+  );
+  return page.amountCents === null || page.amountCents === undefined
+    ? { status: "none", monthsOfHistory: page.monthsOfHistory }
+    : {
+        status: "proposal",
+        amountCents: page.amountCents,
+        periodStart: page.periodStart ?? undefined,
+        periodEnd: page.periodEnd ?? undefined,
+      };
 }

@@ -12,7 +12,11 @@
     "DRAFT": "Draft",
     "SIGNED": "Signed",
     "RECORDED": "Recorded",
-    "ENDED": "Ended"
+    "ENDED": "Ended",
+    "READY": "Ready",
+    "OUT_FOR_SIGNATURE": "Out for signature",
+    "ACTIVE": "In force",
+    "CANCELLED": "Cancelled"
   },
   "one": {
     "title": "Lease"
@@ -24,7 +28,12 @@
     "share": "The share of the rent must be a percentage, for example 50 or 33.33.",
     "amount": "The maximum amount must be in dollars, for example 1500 or 1500.50.",
     "terms": "Accept the terms and the privacy policy to continue.",
-    "token": "This invitation link is not valid."
+    "token": "This invitation link is not valid.",
+    "dates": "Enter valid dates (start, first payment and, if fixed, end).",
+    "rent": "Rent and first payment must be in dollars, and the due day 1 to 28 or LAST.",
+    "payment": "Choose at least one payment method.",
+    "clauseG": "Check the situation, amount and dates of clause G.",
+    "clauseF": "The clause F maximum rent must be in dollars."
   },
   "refusals": {
     "shares": "The shares of the rent must add up to 100%.",
@@ -43,7 +52,12 @@
     "invitationExpired": "This invitation has expired. Ask for a new link.",
     "invitationUsed": "This invitation was already used. Sign in.",
     "invitationAddress": "This invitation was sent to another email address. Sign in with that one.",
-    "emailRequired": "An email address is needed to invite this person."
+    "emailRequired": "An email address is needed to invite this person.",
+    "overlap": "This unit already has a signed or active lease for these dates.",
+    "termsInvalid": "The terms have a blocking problem. See the findings below.",
+    "noTerms": "Fill in the lease terms first.",
+    "outForSignature": "The lease is out for signature: the terms no longer change here.",
+    "cannotCancel": "This lease can no longer be cancelled here."
   },
   "roles": {
     "TENANT": "Tenant",
@@ -134,5 +148,65 @@
     "share": "Your share of the rent",
     "summary": "Who answers for the rent",
     "unit": "Unit"
+  },
+  "terms": {
+    "title": "Lease terms",
+    "description": "Term, rent, payment, and clauses G and F. The rules check every change.",
+    "reference": "Payment reference",
+    "locked": "The lease is no longer a draft: the terms are fixed.",
+    "saved": "Terms saved.",
+    "choose": "Choose",
+    "yes": "Yes",
+    "no": "No",
+    "findings": "Findings from the rules",
+    "acknowledge": "I have read and accept this warning",
+    "termKind": "Term",
+    "termKinds": {
+      "FIXED": "Fixed term",
+      "INDETERMINATE": "Indeterminate term"
+    },
+    "startDate": "Start",
+    "endDate": "End",
+    "rent": "Monthly rent ($)",
+    "dueDay": "Due day (1 to 28 or LAST)",
+    "firstPaymentDate": "First payment date",
+    "firstPayment": "First payment ($)",
+    "methods": "Accepted payment methods",
+    "paymentMethods": {
+      "INTERAC": "Interac transfer",
+      "CHEQUE": "Cheque",
+      "CASH": "Cash",
+      "OTHER": "Other"
+    },
+    "postdated": "Post-dated cheques required",
+    "otherConditions": "Other conditions (section E)",
+    "clauseG": {
+      "title": "Clause G: lowest rent in the last 12 months",
+      "help": "The landlord states the lowest rent paid in the 12 months before the lease starts, or why it does not apply.",
+      "kind": "Situation",
+      "kinds": {
+        "LOWEST_RENT": "Lowest rent in the last 12 months",
+        "TAL_DECISION": "Rent fixed by the Tribunal",
+        "NOT_LEASED": "Not leased in the last 12 months",
+        "CLAUSE_F": "Clause F applies"
+      },
+      "amount": "Amount ($)",
+      "start": "Period start",
+      "end": "Period end",
+      "ref": "TAL decision reference",
+      "propose": "Propose from the history",
+      "proposed": "Proposal filled in from the rent history.",
+      "noHistory": "There is not enough history (12 months) to propose an amount."
+    },
+    "clauseF": {
+      "title": "Clause F: fixed maximum rent",
+      "help": "Asked when the building is under 5 years old.",
+      "applies": "Applies",
+      "max": "Maximum rent ($)"
+    },
+    "save": "Save the terms",
+    "preview": "See the preview (PDF)",
+    "previewNote": "The preview is a working draft, not the official TAL form.",
+    "cancel": "Cancel this lease"
   }
 }

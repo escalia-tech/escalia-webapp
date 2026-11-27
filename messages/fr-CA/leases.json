@@ -12,7 +12,11 @@
     "DRAFT": "Brouillon",
     "SIGNED": "Signé",
     "RECORDED": "Enregistré",
-    "ENDED": "Terminé"
+    "ENDED": "Terminé",
+    "READY": "Prêt",
+    "OUT_FOR_SIGNATURE": "En signature",
+    "ACTIVE": "En vigueur",
+    "CANCELLED": "Annulé"
   },
   "one": {
     "title": "Bail"
@@ -24,7 +28,12 @@
     "share": "La part du loyer doit être un pourcentage, par exemple 50 ou 33,33.",
     "amount": "Le montant maximal doit être en dollars, par exemple 1500 ou 1500,50.",
     "terms": "Acceptez les conditions et la politique de confidentialité pour continuer.",
-    "token": "Ce lien d'invitation n'est pas valide."
+    "token": "Ce lien d'invitation n'est pas valide.",
+    "dates": "Indiquez des dates valides (début, premier paiement et, si fixe, fin).",
+    "rent": "Le loyer et le premier paiement doivent être en dollars, et le jour d'échéance de 1 à 28 ou LAST.",
+    "payment": "Choisissez au moins un mode de paiement.",
+    "clauseG": "Vérifiez la situation, le montant et les dates de la clause G.",
+    "clauseF": "Le loyer maximal de la clause F doit être en dollars."
   },
   "refusals": {
     "shares": "Les parts du loyer doivent totaliser 100 %.",
@@ -43,7 +52,12 @@
     "invitationExpired": "Cette invitation a expiré. Demandez un nouveau lien.",
     "invitationUsed": "Cette invitation a déjà été utilisée. Connectez-vous.",
     "invitationAddress": "Cette invitation a été envoyée à une autre adresse courriel. Connectez-vous avec celle-ci.",
-    "emailRequired": "Un courriel est nécessaire pour inviter cette personne."
+    "emailRequired": "Un courriel est nécessaire pour inviter cette personne.",
+    "overlap": "Ce logement a déjà un bail signé ou en vigueur pour ces dates.",
+    "termsInvalid": "Les conditions ont un problème bloquant. Voir les constats ci-dessous.",
+    "noTerms": "Remplissez d'abord les conditions du bail.",
+    "outForSignature": "Le bail est en signature : les conditions ne changent plus ici.",
+    "cannotCancel": "Ce bail ne peut plus être annulé ici."
   },
   "roles": {
     "TENANT": "Locataire",
@@ -134,5 +148,65 @@
     "share": "Votre part du loyer",
     "summary": "Qui répond du loyer",
     "unit": "Logement"
+  },
+  "terms": {
+    "title": "Conditions du bail",
+    "description": "Durée, loyer, paiement et clauses G et F. Les règles vérifient chaque changement.",
+    "reference": "Référence de paiement",
+    "locked": "Le bail n'est plus un brouillon : les conditions sont figées.",
+    "saved": "Conditions enregistrées.",
+    "choose": "Choisir",
+    "yes": "Oui",
+    "no": "Non",
+    "findings": "Constats des règles",
+    "acknowledge": "J'ai lu et j'accepte cet avertissement",
+    "termKind": "Durée",
+    "termKinds": {
+      "FIXED": "Durée fixe",
+      "INDETERMINATE": "Durée indéterminée"
+    },
+    "startDate": "Début",
+    "endDate": "Fin",
+    "rent": "Loyer mensuel ($)",
+    "dueDay": "Jour d'échéance (1 à 28 ou LAST)",
+    "firstPaymentDate": "Date du premier paiement",
+    "firstPayment": "Premier paiement ($)",
+    "methods": "Modes de paiement acceptés",
+    "paymentMethods": {
+      "INTERAC": "Virement Interac",
+      "CHEQUE": "Chèque",
+      "CASH": "Comptant",
+      "OTHER": "Autre"
+    },
+    "postdated": "Chèques postdatés exigés",
+    "otherConditions": "Autres conditions (section E)",
+    "clauseG": {
+      "title": "Clause G : loyer le plus bas des 12 derniers mois",
+      "help": "Le locateur indique le loyer le plus bas payé dans les 12 mois avant le début du bail, ou la raison de ne pas le faire.",
+      "kind": "Situation",
+      "kinds": {
+        "LOWEST_RENT": "Loyer le plus bas des 12 derniers mois",
+        "TAL_DECISION": "Loyer fixé par le Tribunal",
+        "NOT_LEASED": "Non loué dans les 12 derniers mois",
+        "CLAUSE_F": "La clause F s'applique"
+      },
+      "amount": "Montant ($)",
+      "start": "Début de la période",
+      "end": "Fin de la période",
+      "ref": "Référence de la décision du TAL",
+      "propose": "Proposer selon l'historique",
+      "proposed": "Proposition remplie à partir de l'historique de loyer.",
+      "noHistory": "Il n'y a pas assez d'historique (12 mois) pour proposer un montant."
+    },
+    "clauseF": {
+      "title": "Clause F : loyer maximal fixé",
+      "help": "Demandée quand l'immeuble a moins de 5 ans.",
+      "applies": "S'applique",
+      "max": "Loyer maximal ($)"
+    },
+    "save": "Enregistrer les conditions",
+    "preview": "Voir l'aperçu (PDF)",
+    "previewNote": "L'aperçu est un brouillon de travail, pas le formulaire officiel du TAL.",
+    "cancel": "Annuler ce bail"
   }
 }
