@@ -218,3 +218,74 @@ describe("lease terms service, actions and preview (FR-LEASE-01)", () => {
     expect(response.status).toBe(200);
   });
 });
+
+describe("lease language (FR-LEASE-02)", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    revalidatePath.mockClear();
+    vi.stubEnv("ESCALIA_BFF_URL", "http://bff.test");
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  const language = {
+    requested: true,
+    bindingLanguage: "fr",
+    translationProvided: true,
+    statementVersion: "2026-11",
+    choices: [{ personId: ID, legalName: "Alex", role: "TENANT", choice: "en", chosenAt: "2027-01-01T00:00:00Z" }],
+  };
+  const mine = { requested: true, open: true, bindingLanguage: "fr", statementVersion: "2026-11", myChoice: "en" };
+
+  it("reads the language of a lease for the landlord and for the party", async () => {
+    const service = await import("@/features/leases/server/leases.service");
+    vi.stubGlobal("fetch", answer(200, language));
+    expect((await service.fetchLeaseLanguage(ID, "fr-CA")).choices).toHaveLength(1);
+    vi.stubGlobal("fetch", answer(200, mine));
+    expect((await service.fetchTenantLanguage(ID, "fr-CA")).myChoice).toBe("en");
+  });
+
+  it("asks for English, and explains a refusal", async () => {
+    const service = await import("@/features/leases/server/leases.service");
+    vi.stubGlobal("fetch", answer(200, language));
+    expect(await service.requestEnglish(ID, "fr-CA")).toEqual({ status: "done", leaseId: ID });
+    expect(await service.requestEnglish("x", "fr-CA")).toEqual({ status: "invalid", reason: "id" });
+    vi.stubGlobal("fetch", answer(422, { code: "lease.language.closed" }));
+    expect(await service.requestEnglish(ID, "fr-CA")).toMatchObject({ status: "refused", reason: "languageClosed" });
+  });
+
+  it("sends only fr or en as the party's choice", async () => {
+    const service = await import("@/features/leases/server/leases.service");
+    const fetcher = answer(200, mine);
+    vi.stubGlobal("fetch", fetcher);
+    expect(await service.chooseLanguage(ID, "en", "fr-CA")).toMatchObject({
+      status: "chosen",
+      state: { myChoice: "en" },
+    });
+    expect(JSON.parse(String((fetcher.mock.calls[0] as unknown as [string, RequestInit])[1].body))).toEqual({
+      choice: "en",
+    });
+    expect(await service.chooseLanguage(ID, "de", "fr-CA")).toEqual({ status: "invalid" });
+    expect(await service.chooseLanguage("x", "fr", "fr-CA")).toEqual({ status: "invalid" });
+    vi.stubGlobal("fetch", answer(200, { odd: true }));
+    expect(await service.chooseLanguage(ID, "fr", "fr-CA")).toEqual({ status: "chosen", state: undefined });
+    vi.stubGlobal("fetch", answer(403, { code: "lease.language.own_choice_only" }));
+    expect(await service.chooseLanguage(ID, "en", "fr-CA")).toMatchObject({
+      status: "refused",
+      reason: "ownChoiceOnly",
+    });
+  });
+
+  it("the actions revalidate only when something changed", async () => {
+    const actions = await import("@/features/leases/server/leases.actions");
+    vi.stubGlobal("fetch", answer(200, language));
+    await actions.requestEnglishAction(ID);
+    expect(revalidatePath).toHaveBeenCalledTimes(1);
+    vi.stubGlobal("fetch", answer(200, mine));
+    await actions.chooseLanguageAction(ID, "en");
+    expect(revalidatePath).toHaveBeenCalledTimes(2);
+    vi.stubGlobal("fetch", answer(422, { code: "lease.language.closed" }));
+    await actions.requestEnglishAction(ID);
+    await actions.chooseLanguageAction(ID, "en");
+    expect(revalidatePath).toHaveBeenCalledTimes(2);
+  });
+});

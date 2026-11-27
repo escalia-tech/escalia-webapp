@@ -10,7 +10,9 @@ import {
   type AcceptOutcome,
   acceptInvitation,
   addOccupant,
+  type ChoiceOutcome,
   cancelLease,
+  chooseLanguage,
   createLease,
   fetchClauseGProposal,
   type InviteOutcome,
@@ -19,6 +21,7 @@ import {
   type ProposalOutcome,
   type RequestOutcome,
   removeOccupant,
+  requestEnglish,
   requestNewInvitation,
   saveParties,
   saveTerms,
@@ -105,4 +108,16 @@ export async function cancelLeaseAction(leaseId: string): Promise<LeaseOutcome> 
 
 export async function clauseGProposalAction(leaseId: string): Promise<ProposalOutcome> {
   return fetchClauseGProposal(leaseId, await getLocale());
+}
+
+export async function requestEnglishAction(leaseId: string): Promise<LeaseOutcome> {
+  const outcome = await requestEnglish(leaseId, await getLocale());
+  if (outcome.status === "done") revalidatePath("/leases/[leaseId]", "page");
+  return outcome;
+}
+
+export async function chooseLanguageAction(leaseId: string, choice: string): Promise<ChoiceOutcome> {
+  const outcome = await chooseLanguage(leaseId, choice, await getLocale());
+  if (outcome.status === "chosen") revalidatePath("/tenant/[leaseId]", "page");
+  return outcome;
 }
