@@ -7,9 +7,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Link } from "@/i18n/navigation";
 import { failureState } from "@/server/bff-pages/failure";
 
-import { fetchLease, fetchLeases } from "../server/leases.service";
+import { fetchLease, fetchLeaseLanguage, fetchLeases } from "../server/leases.service";
 import { CreateLeaseButton } from "./create-lease-button";
 import { InvitationsPanel } from "./invitations-panel";
+import { LanguagePanel } from "./language-panel";
 import { PartiesEditor } from "./parties-editor";
 import { TermsEditor } from "./terms-editor";
 
@@ -77,7 +78,7 @@ export async function LeaseRoute({ id }: { id: string }) {
     getLocale(),
   ]);
   try {
-    const lease = await fetchLease(id, locale);
+    const [lease, language] = await Promise.all([fetchLease(id, locale), fetchLeaseLanguage(id, locale)]);
     const title = t("one.title");
     return (
       <>
@@ -93,6 +94,7 @@ export async function LeaseRoute({ id }: { id: string }) {
         <PartiesEditor lease={lease} />
         <TermsEditor lease={lease} />
         <InvitationsPanel lease={lease} />
+        <LanguagePanel leaseId={lease.id} language={language} />
       </>
     );
   } catch (error) {

@@ -7,7 +7,10 @@ import {
   INVITATION_TOKEN,
   invitationAcceptedSchema,
   invitationsSentSchema,
+  type LanguageCode,
   type Lease,
+  type LeaseLanguage,
+  leaseLanguageSchema,
   leasePageSchema,
   leaseSchemaOnly,
   leasesPageSchema,
@@ -18,8 +21,10 @@ import {
   type RefusalKey,
   refusalKey,
   TERMS_VERSION,
+  type TenantLanguage,
   type TenantLease,
   type TermsReason,
+  tenantLanguageSchema,
   tenantLeasePageSchema,
   tenantLeasesPageSchema,
 } from "../schemas/leases.schema";
@@ -186,4 +191,48 @@ export async function fetchClauseGProposal(leaseId: string, language: string): P
         periodStart: page.periodStart ?? undefined,
         periodEnd: page.periodEnd ?? undefined,
       };
+}
+
+export async function fetchLeaseLanguage(id: string, language: string): Promise<LeaseLanguage> {
+  return fetchBffPage("leases.language", `/pages/leases/${encodeURIComponent(id)}/language`, leaseLanguageSchema, {
+    language,
+  });
+}
+
+export async function fetchTenantLanguage(id: string, language: string): Promise<TenantLanguage> {
+  return fetchBffPage(
+    "tenant.language",
+    `/pages/tenant/leases/${encodeURIComponent(id)}/language`,
+    tenantLanguageSchema,
+    { language },
+  );
+}
+
+/** The landlord records that a tenant asked for the English version (FR-LEASE-02 BR-3). */
+export async function requestEnglish(leaseId: string, language: string): Promise<LeaseOutcome> {
+  if (!ID.test(leaseId)) return { status: "invalid", reason: "id" };
+  const result = await postBffAction("leases.english", `/actions/request-english-lease/${leaseId}`, {}, language);
+  return result.ok
+    ? { status: "done", leaseId }
+    : { status: "refused", reason: refusalKey(result.code), message: result.message };
+}
+
+export type ChoiceOutcome =
+  | { status: "chosen"; state: TenantLanguage | undefined }
+  | { status: "invalid" }
+  | { status: "refused"; reason: RefusalKey | undefined; message: string | undefined };
+
+/** A party chooses, for themselves, the language that binds them (BR-2, BR-6). */
+export async function chooseLanguage(leaseId: string, choice: string, language: string): Promise<ChoiceOutcome> {
+  const picked = (["fr", "en"] as const).find((one): one is LanguageCode => one === choice);
+  if (!ID.test(leaseId) || !picked) return { status: "invalid" };
+  const result = await postBffAction(
+    "leases.language-choice",
+    `/actions/choose-lease-language/${leaseId}`,
+    { choice: picked },
+    language,
+  );
+  if (!result.ok) return { status: "refused", reason: refusalKey(result.code), message: result.message };
+  const state = tenantLanguageSchema.safeParse(result.body);
+  return { status: "chosen", state: state.success ? state.data : undefined };
 }

@@ -142,8 +142,11 @@ export const REFUSAL_KEYS = {
   "lease.guarantee.unknown_tenant": "unknownTenant",
   "lease.not_found": "notFound",
   "lease.overlap": "overlap",
+  "lease.language.not_requested": "languageNotRequested",
+  "lease.language.closed": "languageClosed",
+  "lease.language.own_choice_only": "ownChoiceOnly",
   "lease.terms.invalid": "termsInvalid",
-  "lease.terms.required": "noTerms",
+  "lease.terms.missing": "noTerms",
   "lease.out_for_signature": "outForSignature",
   "lease.cannot_cancel": "cannotCancel",
   "lease.unit_not_found": "unitNotFound",
@@ -400,3 +403,35 @@ export function parseTermsForm(form: FormData): { ok: true; body: TermsBody } | 
   }
   return { ok: true, body };
 }
+
+export const LANGUAGE_CODES = ["fr", "en"] as const;
+export type LanguageCode = (typeof LANGUAGE_CODES)[number];
+
+/** What the landlord sees of the language of a lease (`LeaseLanguage` of the core). */
+export const leaseLanguageSchema = z.object({
+  requested: z.boolean(),
+  requestedAt: z.string().nullish(),
+  bindingLanguage: z.enum(LANGUAGE_CODES),
+  translationProvided: z.boolean(),
+  statementVersion: z.string(),
+  choices: z.array(
+    z.object({
+      personId: z.string(),
+      legalName: z.string(),
+      role: z.enum(ROLES),
+      choice: z.enum(LANGUAGE_CODES).nullish(),
+      chosenAt: z.string().nullish(),
+    }),
+  ),
+});
+export type LeaseLanguage = z.infer<typeof leaseLanguageSchema>;
+
+/** What a party sees of it (`TenantLanguage` of the core). */
+export const tenantLanguageSchema = z.object({
+  requested: z.boolean(),
+  open: z.boolean(),
+  bindingLanguage: z.enum(LANGUAGE_CODES),
+  statementVersion: z.string(),
+  myChoice: z.enum(LANGUAGE_CODES).nullish(),
+});
+export type TenantLanguage = z.infer<typeof tenantLanguageSchema>;

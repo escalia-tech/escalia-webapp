@@ -57,7 +57,10 @@
     "termsInvalid": "Les conditions ont un problème bloquant. Voir les constats ci-dessous.",
     "noTerms": "Remplissez d'abord les conditions du bail.",
     "outForSignature": "Le bail est en signature : les conditions ne changent plus ici.",
-    "cannotCancel": "Ce bail ne peut plus être annulé ici."
+    "cannotCancel": "Ce bail ne peut plus être annulé ici.",
+    "languageNotRequested": "Aucune version anglaise n'a été demandée pour ce bail.",
+    "languageClosed": "Le bail est en signature ou signé : la langue ne change plus.",
+    "ownChoiceOnly": "Seul un locataire ou une caution du bail choisit la langue, pour lui-même."
   },
   "roles": {
     "TENANT": "Locataire",
@@ -208,5 +211,31 @@
     "preview": "Voir l'aperçu (PDF)",
     "previewNote": "L'aperçu est un brouillon de travail, pas le formulaire officiel du TAL.",
     "cancel": "Annuler ce bail"
+  },
+  "language": {
+    "title": "Langue du bail",
+    "description": "Le bail est rédigé en français. Si un locataire le demande, il peut choisir d'être lié par la version anglaise après avoir reçu la version française.",
+    "binding": "Langue qui lie les parties",
+    "codes": {
+      "fr": "Français",
+      "en": "Anglais"
+    },
+    "request": "Un locataire demande la version anglaise",
+    "requested": "La version anglaise a été demandée. Chaque locataire et chaque caution choisit pour soi-même.",
+    "chose": "{choice}, le {date}",
+    "waiting": "N'a pas encore choisi",
+    "translationNote": "Tant que tous n'ont pas choisi l'anglais, le français lie les parties et la version anglaise est une traduction pour information seulement."
+  },
+  "choice": {
+    "title": "Langue du bail / Lease language",
+    "question": "Vous avez reçu le bail en français. Voulez-vous être lié(e) par la version anglaise ? / You received the lease in French. Do you want to be bound by the English version?",
+    "keepFrench": "Je garde la version française / I keep the French version",
+    "wantEnglish": "Je veux être lié(e) par la version anglaise / I want to be bound by the English version",
+    "done": {
+      "fr": "Vous gardez la version française. / You keep the French version.",
+      "en": "Vous avez choisi la version anglaise. / You chose the English version."
+    },
+    "closed": "Le bail est en signature ou signé : la langue ne change plus. / The lease is out for signature or signed: the language no longer changes.",
+    "note": "L'anglais ne lie les parties que si tous les locataires et toutes les cautions le choisissent. / English binds only if every tenant and guarantor chooses it."
   }
 }
