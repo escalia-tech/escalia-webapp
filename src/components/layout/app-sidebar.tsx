@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { useNavAudience } from "@/components/layout/nav-audience";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +14,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { CONFIG_NAV, isNavItemActive, MAIN_NAV, type NavItem } from "@/config/navigation";
+import { CONFIG_NAV, isNavItemActive, MAIN_NAV, type NavItem, navFor } from "@/config/navigation";
 import { Link, usePathname } from "@/i18n/navigation";
 
 function NavGroup({ items, label }: { items: readonly NavItem[]; label: string }) {
@@ -70,6 +71,7 @@ function NavGroup({ items, label }: { items: readonly NavItem[]; label: string }
  */
 export function AppSidebar() {
   const t = useTranslations("shell.nav");
+  const audience = useNavAudience();
 
   return (
     <Sidebar
@@ -80,8 +82,8 @@ export function AppSidebar() {
     >
       <SidebarContent className="gap-0 pt-2">
         <nav aria-label={t("label")} className="flex flex-col">
-          <NavGroup items={MAIN_NAV} label={t("groupMain")} />
-          <NavGroup items={CONFIG_NAV} label={t("groupConfig")} />
+          <NavGroup items={navFor(MAIN_NAV, audience)} label={t("groupMain")} />
+          <NavGroup items={navFor(CONFIG_NAV, audience)} label={t("groupConfig")} />
         </nav>
       </SidebarContent>
     </Sidebar>
