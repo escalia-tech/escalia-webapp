@@ -111,5 +111,6 @@
       "never": "Never leased",
       "lastRent": "Last rent"
     }
-  }
+  },
+  "descriptionReal": "Overview of your building portfolio."
 }

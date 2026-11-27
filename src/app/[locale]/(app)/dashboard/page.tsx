@@ -38,7 +38,11 @@ export default async function DashboardPage() {
     // FR-PORT-01 BR-1: a person without an organization starts by creating one.
     return (
       <>
-        <PageHeader title={t("title")} description={t("description")} breadcrumbs={[{ label: t("title") }]} />
+        <PageHeader
+          title={t("title")}
+          description={view.demo ? t("description") : t("descriptionReal")}
+          breadcrumbs={[{ label: t("title") }]}
+        />
         <CreateOrganizationCard />
       </>
     );
