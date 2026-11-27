@@ -78,8 +78,8 @@ export async function parseUpload(form: FormData): Promise<ParsedUpload> {
   if (file.size > MAX_FILE_BYTES) return { ok: false, reason: "size" };
   const fileName = file.name.slice(0, 200);
   const bytes = await file.arrayBuffer();
-  if (fileName.toLowerCase().endsWith(".xlsx")) {
-    // An Excel file travels as base64, which is a third larger than the file itself.
+  if (/\.(xlsx|pdf)$/i.test(fileName)) {
+    // An Excel file or a TAL lease PDF travels as base64, which is a third larger than the file itself.
     const content = Buffer.from(bytes).toString("base64");
     if (content.length > MAX_FILE_BYTES) return { ok: false, reason: "size" };
     return { ok: true, body: { fileName, content, base64: true } };
