@@ -1,0 +1,113 @@
+{
+  "title": "Import my portfolio",
+  "description": "Bring in your buildings, units, signed leases and tenants from a CSV file. Nothing is saved before you confirm.",
+  "history": "Previous imports",
+  "empty": "No imports yet.",
+  "refused": "The import was refused.",
+  "upload": {
+    "title": "1. File",
+    "description": "A CSV file (UTF-8 or Windows-1252), at most 2 MB and 1,000 rows. One row per unit, with its lease and up to 4 tenants.",
+    "label": "CSV file",
+    "hint": "The columns of the TAL form (address, term, rent, services, rooms, pets) are recognised. What is missing stays to complete on the lease.",
+    "submit": "Read the file"
+  },
+  "invalid": {
+    "file": "Choose a CSV file.",
+    "size": "The file is larger than 2 MB.",
+    "id": "This import was not found."
+  },
+  "refusals": {
+    "fileEmpty": "We cannot read this file. Use the Escalia template.",
+    "tooManyRows": "The file has more than 1,000 rows. Split it into several files.",
+    "tooBig": "The file is larger than 2 MB.",
+    "purged": "The file was deleted 7 days after the import.",
+    "notChecked": "Check the columns before importing.",
+    "mapping": "Map at least the address, the unit, the start of the lease and the rent, each field once.",
+    "finished": "This import is finished.",
+    "notFound": "This import does not exist, or it does not belong to your organization."
+  },
+  "status": {
+    "UPLOADED": "File read",
+    "VALIDATED": "Checked",
+    "DONE": "Done",
+    "FAILED": "Failed"
+  },
+  "counts": {
+    "summary": "{imported} of {total} rows imported"
+  },
+  "mapping": {
+    "title": "2. Columns",
+    "intro": "Choose the field each column fills. Columns you ignore are not read.",
+    "ignore": "Ignore this column",
+    "missing": "Still missing: {fields}.",
+    "check": "Check the rows"
+  },
+  "preview": {
+    "title": "3. Check",
+    "summary": "{valid} ready, {invalid} to fix, {duplicate} already there."
+  },
+  "report": {
+    "title": "4. Report",
+    "summary": "{imported} rows imported, {failed} failed.",
+    "invite": "Your tenants have not been invited yet. Check their contact details, then invite them from the lease.",
+    "errors": "Download the rows to fix (CSV)"
+  },
+  "run": "Import {count, plural, one {# ready row} other {# ready rows}}",
+  "rows": {
+    "number": "#",
+    "address": "Address",
+    "unit": "Unit",
+    "status": "State",
+    "errors": "To fix",
+    "lease": "View the lease"
+  },
+  "rowStatus": {
+    "VALID": "Ready",
+    "INVALID": "Error",
+    "DUPLICATE": "Already there",
+    "IMPORTED": "Imported",
+    "FAILED": "Failed"
+  },
+  "rowErrors": {
+    "required": "Required value missing.",
+    "date": "Invalid date (YYYY-MM-DD or DD/MM/YYYY).",
+    "amount": "Invalid amount.",
+    "due_day": "The due day is from 1 to 28.",
+    "rooms": "The number of rooms is from 1 to 30.",
+    "choice": "Value not recognised.",
+    "email": "Invalid email.",
+    "reach": "Give an email or a phone for this tenant.",
+    "end_before_start": "The lease ends before it starts.",
+    "other": "This row is refused (address outside Quebec, a lease that overlaps another, or a portfolio rule)."
+  },
+  "fields": {
+    "address": "Building address",
+    "civic_number": "Civic number",
+    "city": "City",
+    "province": "Province",
+    "postal_code": "Postal code",
+    "unit": "Unit",
+    "start_date": "Lease start",
+    "end_date": "Lease end",
+    "rent": "Monthly rent",
+    "services": "Services cost",
+    "due_day": "Due day",
+    "rooms": "Number of rooms",
+    "use": "Use (residential or mixed)",
+    "heating": "Heating paid by",
+    "hot_water": "Hot water paid by",
+    "electricity": "Electricity paid by",
+    "pets": "Pets allowed",
+    "smoke_free": "Smoke-free unit",
+    "opening_balance": "Opening balance",
+    "opening_date": "Opening balance date",
+    "tenant": "Tenant {n}: {part}",
+    "parts": {
+      "name": "name",
+      "email": "email",
+      "phone": "phone",
+      "language": "language",
+      "address": "postal address"
+    }
+  }
+}

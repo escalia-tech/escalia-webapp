@@ -19,7 +19,8 @@
       "rules": "Rules in force",
       "reports": "Reports",
       "settings": "Settings",
-      "tenant": "My leases"
+      "tenant": "My leases",
+      "imports": "Import"
     }
   },
   "header": {
