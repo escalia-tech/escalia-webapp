@@ -111,5 +111,6 @@
       "never": "Jamais louée",
       "lastRent": "Dernier loyer"
     }
-  }
+  },
+  "descriptionReal": "Vue d'ensemble de votre portefeuille d'immeubles."
 }
