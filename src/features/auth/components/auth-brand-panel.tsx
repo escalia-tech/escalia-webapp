@@ -7,7 +7,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import authApprovedConcept from "../../../../docs/branding/references/auth-approved-concept.png";
+import authApprovedConcept from "../assets/auth-concept.webp";
 
 const SIGNATURE_KEY = "escalia_auth_signature";
 const SIGNATURE_IDS = [
@@ -90,6 +90,7 @@ export function AuthBrandPanel() {
             src={authApprovedConcept}
             alt=""
             priority
+            sizes="(min-width: 1280px) 42vw, (min-width: 1024px) 45vw, 0px"
             className="aspect-[16/10] w-full object-cover dark:brightness-[0.58] dark:saturate-[0.72]"
           />
           <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/35 via-transparent to-transparent dark:from-[#101010]/70" />
