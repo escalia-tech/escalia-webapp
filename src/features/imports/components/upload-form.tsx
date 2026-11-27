@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 import { type ImportState, uploadImportAction } from "../server/imports.actions";
 
-/** Picks a CSV file; the core reads it, and the page of the import opens on the columns. */
+/** Picks a CSV or Excel file; the core reads it, and the page of the import opens on the columns. */
 export function UploadForm() {
   const t = useTranslations("imports");
   const [state, action, pending] = useActionState<ImportState, FormData>(uploadImportAction, undefined);
@@ -20,7 +20,7 @@ export function UploadForm() {
         <input
           name="file"
           type="file"
-          accept=".csv,text/csv"
+          accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           required
           className="border-input bg-background rounded-md border p-2 text-sm"
         />
