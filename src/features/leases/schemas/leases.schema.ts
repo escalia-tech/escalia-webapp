@@ -165,6 +165,11 @@ export const REFUSAL_KEYS = {
   "lease.signing.not_open": "signingNotOpen",
   "lease.copy_delivery.not_found": "deliveryNotFound",
   "lease.copy_delivery.date": "deliveryDate",
+  "ledger.blocked": "ledgerBlocked",
+  "ledger.entry.paid": "entryPaid",
+  "ledger.entry.credit_used": "creditUsed",
+  "ledger.entry.exceeds_balance": "exceedsBalance",
+  "ledger.payment.designated_invalid": "designatedInvalid",
 } as const;
 export type RefusalKey = (typeof REFUSAL_KEYS)[keyof typeof REFUSAL_KEYS];
 

@@ -56,6 +56,8 @@ export interface BffAction {
   /** Value of the XSRF-TOKEN cookie; the BFF checks it against the header (double submit). */
   xsrfToken: string | undefined;
   language: string;
+  /** Makes a repeated call do its work once, for the actions that move money (the core keeps the key). */
+  idempotencyKey?: string;
   signal: AbortSignal;
   fetcher?: typeof fetch;
 }
@@ -78,6 +80,7 @@ export async function callBffAction(call: BffAction): Promise<BffActionResult> {
   // A multipart body gets its boundary from fetch itself, so no content type is set for it.
   if (!isForm) headers["content-type"] = "application/json";
   if (call.xsrfToken) headers["x-xsrf-token"] = call.xsrfToken;
+  if (call.idempotencyKey) headers["idempotency-key"] = call.idempotencyKey;
   const response = await (call.fetcher ?? fetch)(new URL(call.path, call.baseUrl), {
     method: "POST",
     headers,

@@ -69,7 +69,12 @@
     "signingContact": "Every signer needs an email address to receive the signing request.",
     "signingNotOpen": "No signing request is open for this lease.",
     "deliveryNotFound": "This person has no copy due on this lease.",
-    "deliveryDate": "The date the copy was handed over cannot be in the future."
+    "deliveryDate": "The date the copy was handed over cannot be in the future.",
+    "ledgerBlocked": "Manual entries are paused on this lease while it is checked.",
+    "entryPaid": "A payment or credit pays this charge: correct it first.",
+    "creditUsed": "The credit from this payment has already paid a charge.",
+    "exceedsBalance": "The amount is more than is owed on the lease.",
+    "designatedInvalid": "The chosen charge does not exist or is already paid."
   },
   "roles": {
     "TENANT": "Tenant",
@@ -326,5 +331,94 @@
     "signHint": "Read and confirm the annexes above first: signing is refused until that is done.",
     "signed": "You signed this lease.",
     "waiting": "The lease is not open for signature yet."
+  },
+  "ledger": {
+    "title": "Tenant account",
+    "description": "What is owed, what was paid and the balance. An entry is never changed: a mistake is corrected with an opposite entry.",
+    "balance": "Balance owed",
+    "credit": "Credit in the tenant's favour",
+    "ageing": {
+      "title": "Age of what is owed",
+      "current": "Not yet due",
+      "d1": "1 to 7 days",
+      "d8": "8 to 21 days",
+      "d22": "22 days and over"
+    },
+    "blocked": "Manual entries are paused on this lease while its books are checked. Payments already received stay recorded.",
+    "csv": "Export as CSV",
+    "empty": "No entries yet.",
+    "columns": {
+      "date": "Date",
+      "description": "Description",
+      "charge": "Charge",
+      "payment": "Payment",
+      "balance": "Balance",
+      "actions": "Actions"
+    },
+    "backdated": "Entered on {date}",
+    "corrected": "Corrected",
+    "correction": "Correction",
+    "correct": "Correct",
+    "correctReason": "Reason for the correction",
+    "correctConfirm": "Confirm the correction",
+    "payment": {
+      "title": "Record a payment received",
+      "date": "Date received",
+      "amount": "Amount ($)",
+      "method": "Payment method",
+      "note": "Note (optional)",
+      "designated": "Charge to pay first (optional)",
+      "oldest": "Oldest first",
+      "submit": "Record the payment",
+      "done": "Payment recorded.",
+      "hint": "Unless you pick one, the payment goes to the oldest charge. Anything beyond that becomes a credit."
+    },
+    "methods": {
+      "INTERAC": "Interac transfer",
+      "CHEQUE": "Cheque",
+      "CASH": "Cash",
+      "BANK_TRANSFER": "Bank transfer",
+      "OTHER": "Other"
+    },
+    "entry": {
+      "title": "Add an entry",
+      "type": "Type",
+      "date": "Effective date",
+      "amount": "Amount ($)",
+      "reason": "Reason",
+      "submit": "Add the entry",
+      "done": "Entry added.",
+      "hint": "Late fees, penalties and deposits are refused in Quebec. Actual bank charges need proof; interest is allowed only under the rules in force.",
+      "corrected": "Entry corrected."
+    },
+    "types": {
+      "RENT_CHARGE": "Rent",
+      "PARKING_CHARGE": "Parking",
+      "SERVICE_CHARGE": "Services",
+      "OTHER_CHARGE": "Other charge",
+      "PAYMENT": "Payment",
+      "CREDIT": "Credit or rebate",
+      "NSF_BANK_CHARGE": "Bank charges (returned payment)",
+      "ARREARS_INTEREST": "Interest on arrears",
+      "OPENING_BALANCE": "Opening balance",
+      "WRITE_OFF": "Write-off",
+      "REVERSAL": "Correction",
+      "CREDIT_APPLICATION": "Credit applied"
+    },
+    "invalid": {
+      "id": "This request is not valid.",
+      "key": "Reload the page and try again.",
+      "date": "Enter a valid date.",
+      "amount": "The amount must be in dollars, for example 1500 or 1500.50.",
+      "method": "Choose the payment method.",
+      "type": "Choose the type of entry.",
+      "reason": "Give the reason, in 200 characters or fewer."
+    },
+    "tenant": {
+      "title": "My statement",
+      "description": "Your charges, your payments and your balance for this lease.",
+      "guarantorOnly": "As a guarantor you see the balance of the lease, without the detail of its entries.",
+      "empty": "No entries yet."
+    }
   }
 }

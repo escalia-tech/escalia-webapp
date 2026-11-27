@@ -28,6 +28,7 @@ export async function postBffAction(
   path: `/actions/${string}`,
   body: unknown,
   language: string,
+  idempotencyKey?: string,
 ): Promise<BffActionResult> {
   const store = await cookies();
   const baseUrl = getServerEnv().bffBaseUrl;
@@ -39,6 +40,7 @@ export async function postBffAction(
       cookie: store.toString(),
       xsrfToken: store.get("XSRF-TOKEN")?.value,
       language,
+      idempotencyKey,
       signal,
     }),
   );
