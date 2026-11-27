@@ -64,6 +64,10 @@ describe("reading a CSV file", () => {
       ok: true,
       body: { fileName: "parc.XLSX", content: "YWJj", base64: true },
     });
+    expect(await parseUpload(upload("abc", "bail.pdf"))).toEqual({
+      ok: true,
+      body: { fileName: "bail.pdf", content: "YWJj", base64: true },
+    });
     expect(await parseUpload(upload("x".repeat(1_600_000), "parc.xlsx"))).toEqual({ ok: false, reason: "size" });
   });
 
