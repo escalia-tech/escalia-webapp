@@ -129,6 +129,29 @@ export const INVITATION_TOKEN = /^[A-Za-z0-9_-]{20,100}$/;
 /** An invitation stays valid for 30 days after it was sent (FR-TEN-01 BR-1). */
 export const INVITATION_DAYS = 30;
 
+const INVITATION_MS = INVITATION_DAYS * 24 * 60 * 60 * 1000;
+
+/** Where a party stands with the portal, as the landlord sees it (FR-TEN-01 BR-11). */
+export type InvitationState =
+  | { kind: "joined"; at: Date }
+  | { kind: "invited"; at: Date; until: Date }
+  | { kind: "expired"; at: Date }
+  | { kind: "notInvited" }
+  | { kind: "noEmail" };
+
+export function invitationState(
+  party: Pick<LeaseParty, "joinedAt" | "invitedAt" | "email">,
+  now: Date = new Date(),
+): InvitationState {
+  if (party.joinedAt) return { kind: "joined", at: new Date(party.joinedAt) };
+  if (party.invitedAt) {
+    const at = new Date(party.invitedAt);
+    const until = new Date(at.getTime() + INVITATION_MS);
+    return until.getTime() > now.getTime() ? { kind: "invited", at, until } : { kind: "expired", at };
+  }
+  return party.email ? { kind: "notInvited" } : { kind: "noEmail" };
+}
+
 /** Core refusals the screen explains in its own words; anything else shows the core's message. */
 export const REFUSAL_KEYS = {
   "lease.parties.shares": "shares",

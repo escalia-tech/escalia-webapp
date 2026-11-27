@@ -135,15 +135,26 @@
   },
   "invitations": {
     "title": "Invitations",
-    "description": "Invite the people on this lease to join Escalia. The link is valid for 30 days; sending again replaces the previous one.",
+    "description": "Invite the people on this lease to join Escalia. The link is valid for 30 days; sending again replaces the previous one. Occupants are invited one by one, only when the tenant asks.",
     "send": "Send the invitations",
     "resend": "Send again",
     "sent": "{count, plural, =0 {Nobody to invite: add an email to each person first.} one {# invitation sent.} other {# invitations sent.}}",
+    "invite": "Invite",
+    "resendAll": "Send again to everyone waiting",
+    "inviteOne": "Invite {name}",
+    "resendOne": "Send the invitation to {name} again",
     "status": {
       "notInvited": "Not invited",
       "invited": "Invited on {date}, valid until {until}",
       "joined": "Joined on {date}",
-      "noEmail": "No email"
+      "noEmail": "No email",
+      "expired": "Invitation expired (sent on {date})"
+    },
+    "bulk": {
+      "title": "Invite all tenants without an account",
+      "description": "Sends an invitation to every tenant of a signed or imported lease who has not joined and has no valid link. Occupants and guarantors are not included.",
+      "action": "Invite all tenants without an account",
+      "sent": "{count, plural, =0 {Every tenant has joined or holds a valid link.} one {# invitation sent.} other {# invitations sent.}}"
     }
   },
   "accept": {

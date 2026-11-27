@@ -8,35 +8,42 @@ import { Callout } from "@/components/feedback/callout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { INVITATION_DAYS, type Lease, type LeaseParty } from "../schemas/leases.schema";
+import { type InvitationState, invitationState, type Lease } from "../schemas/leases.schema";
 import { inviteAction } from "../server/leases.actions";
 import type { InviteOutcome } from "../server/leases.service";
 
-const DAY_MS = 24 * 60 * 60 * 1000;
-
-function Status({ party }: { party: LeaseParty }) {
+function Status({ state }: { state: InvitationState }) {
   const t = useTranslations("leases.invitations.status");
   const format = useFormatter();
   const date = (value: Date) => format.dateTime(value, { dateStyle: "medium" });
-  if (party.joinedAt) return <span>{t("joined", { date: date(new Date(party.joinedAt)) })}</span>;
-  if (party.invitedAt) {
-    const sent = new Date(party.invitedAt);
-    return (
-      <span>
-        {t("invited", { date: date(sent), until: date(new Date(sent.getTime() + INVITATION_DAYS * DAY_MS)) })}
-      </span>
-    );
+  switch (state.kind) {
+    case "joined":
+      return <span>{t("joined", { date: date(state.at) })}</span>;
+    case "invited":
+      return <span>{t("invited", { date: date(state.at), until: date(state.until) })}</span>;
+    case "expired":
+      return <span className="text-destructive">{t("expired", { date: date(state.at) })}</span>;
+    default:
+      return <span>{t(state.kind)}</span>;
   }
-  return <span>{party.email ? t("notInvited") : t("noEmail")}</span>;
 }
 
-/** FR-TEN-01: who was invited, who joined, and the way to send the links. */
+/**
+ * FR-TEN-01 BR-11: who was invited, who joined, whose link expired, and the way to send the links. The lease-wide
+ * button invites tenants and guarantors; an occupant is invited only by their own button (FR-LEASE-05 section 6).
+ */
 export function InvitationsPanel({ lease }: { lease: Lease }) {
   const t = useTranslations("leases");
   const [pending, start] = useTransition();
   const [outcome, setOutcome] = useState<InviteOutcome | undefined>();
-  const waiting = lease.parties.some((one) => !one.joinedAt);
-  const again = lease.parties.some((one) => one.invitedAt && !one.joinedAt);
+  const now = new Date();
+  const parties = lease.parties.map((party) => ({ party, state: invitationState(party, now) }));
+  const waiting = parties.some(
+    ({ party, state }) => party.role !== "OCCUPANT" && state.kind !== "joined" && state.kind !== "noEmail",
+  );
+  const again = parties.some(({ state }) => state.kind === "invited" || state.kind === "expired");
+  const send = (personId?: string) => start(async () => setOutcome(await inviteAction(lease.id, personId)));
+
   return (
     <Card>
       <CardHeader>
@@ -56,26 +63,36 @@ export function InvitationsPanel({ lease }: { lease: Lease }) {
           ) : null}
         </div>
         <ul className="grid gap-2 text-sm">
-          {lease.parties.map((party) => (
+          {parties.map(({ party, state }) => (
             <li key={party.personId} className="flex flex-wrap items-center justify-between gap-2">
               <span className="font-medium">
                 {party.legalName}{" "}
-                <span className="text-muted-foreground font-normal">({t(`roles.${party.role}`)})</span>
+                <span className="font-normal text-muted-foreground">({t(`roles.${party.role}`)})</span>
               </span>
-              <span className="text-muted-foreground">
-                <Status party={party} />
+              <span className="flex items-center gap-2 text-muted-foreground">
+                <Status state={state} />
+                {state.kind === "joined" || state.kind === "noEmail" ? null : (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    disabled={pending}
+                    aria-label={t(state.kind === "notInvited" ? "invitations.inviteOne" : "invitations.resendOne", {
+                      name: party.legalName,
+                    })}
+                    onClick={() => send(party.personId)}
+                  >
+                    {state.kind === "notInvited" ? t("invitations.invite") : t("invitations.resend")}
+                  </Button>
+                )}
               </span>
             </li>
           ))}
         </ul>
         {waiting ? (
           <div>
-            <Button
-              type="button"
-              disabled={pending}
-              onClick={() => start(async () => setOutcome(await inviteAction(lease.id)))}
-            >
-              {again ? t("invitations.resend") : t("invitations.send")}
+            <Button type="button" disabled={pending} onClick={() => send()}>
+              {again ? t("invitations.resendAll") : t("invitations.send")}
             </Button>
           </div>
         ) : null}
