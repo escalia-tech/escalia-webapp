@@ -13,7 +13,9 @@ import { TypesDonutChart } from "@/features/dashboard/components/types-donut-cha
 import { UnitsBarChart } from "@/features/dashboard/components/units-bar-chart";
 import { type DashboardView, fromBff, fromDemo } from "@/features/dashboard/lib/dashboard-view";
 import { fetchDashboard } from "@/features/dashboard/server/dashboard.service";
+import { CreateOrganizationCard } from "@/features/organization/components/create-organization-card";
 import { formatMoney, formatMonth, formatNumber } from "@/lib/format";
+import { isMissingOrganization } from "@/server/bff-pages/failure";
 import { getServerEnv } from "@/server/config/env";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -28,7 +30,19 @@ export default async function DashboardPage() {
     getLocale(),
   ]);
   // With a BFF configured the figures are the organization's own; without one the labelled demo stays.
-  const view = await loadView(locale);
+  const view = await loadView(locale).catch((error: unknown) => {
+    if (isMissingOrganization(error)) return null;
+    throw error;
+  });
+  if (view === null) {
+    // FR-PORT-01 BR-1: a person without an organization starts by creating one.
+    return (
+      <>
+        <PageHeader title={t("title")} description={t("description")} breadcrumbs={[{ label: t("title") }]} />
+        <CreateOrganizationCard />
+      </>
+    );
+  }
   const { kpis, monthly, unitsByBuilding, buildingsByType } = view;
   const unavailable = t("charts.table.unavailable");
   const first = monthly[0]?.month;
