@@ -60,7 +60,11 @@
     "cannotCancel": "This lease can no longer be cancelled here.",
     "languageNotRequested": "No English version was requested for this lease.",
     "languageClosed": "The lease is out for signature or signed: the language no longer changes.",
-    "ownChoiceOnly": "Only a tenant or guarantor of the lease chooses the language, for themselves."
+    "ownChoiceOnly": "Only a tenant or guarantor of the lease chooses the language, for themselves.",
+    "buildingNotFound": "This building does not exist, or it does not belong to your organization.",
+    "bylawsNotFound": "This by-laws version does not exist.",
+    "annexNotFound": "This annex is not on this lease.",
+    "cannotAcknowledge": "Your role on this lease does not allow acknowledging this annex."
   },
   "roles": {
     "TENANT": "Tenant",
@@ -237,5 +241,44 @@
     },
     "closed": "Le bail est en signature ou signé : la langue ne change plus. / The lease is out for signature or signed: the language no longer changes.",
     "note": "L'anglais ne lie les parties que si tous les locataires et toutes les cautions le choisissent. / English binds only if every tenant and guarantor chooses it."
+  },
+  "bylaws": {
+    "title": "Building by-laws",
+    "description": "Each save creates a new version. The version in force is attached to leases drafted afterwards; a lease keeps the version it carries.",
+    "edit": "New version",
+    "editHelp": "Headings start with #, list items with - or *. Warnings never block the save.",
+    "text": "Text (French, binding)",
+    "textEn": "English translation (optional)",
+    "textEnHelp": "Shown as a translation: only the French text binds the parties.",
+    "note": "Change note",
+    "save": "Save a new version",
+    "saved": "Version {version} saved.",
+    "findings": "Points to check",
+    "versions": "Versions",
+    "none": "No by-laws have been saved for this building yet.",
+    "version": "Version {version}",
+    "inForce": "in force",
+    "pdf": "PDF",
+    "invalid": {
+      "text": "Enter the by-laws text (20,000 characters at most).",
+      "textEn": "The translation is too long.",
+      "note": "The note is too long.",
+      "id": "Invalid building."
+    }
+  },
+  "annexes": {
+    "title": "Lease annexes",
+    "description": "What the lease carries and who acknowledged receipt.",
+    "none": "No annex is attached to this lease.",
+    "attached": "Version of {date}",
+    "nobody": "Nobody has acknowledged receipt yet.",
+    "by": "Receipt confirmed by: {names}",
+    "tenantTitle": "Lease annexes",
+    "tenantDescription": "Read these documents, then confirm you received them.",
+    "translation": "Translation: the French text binds.",
+    "done": "Receipt confirmed on {date}.",
+    "doneNoDate": "Receipt confirmed.",
+    "acknowledge": "I received and read this document",
+    "readOnly": "This document is shown to you for information."
   }
 }

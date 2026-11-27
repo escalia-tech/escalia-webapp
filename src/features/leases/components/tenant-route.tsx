@@ -7,9 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { failureState } from "@/server/bff-pages/failure";
 
+import { fetchTenantAnnexes } from "../server/bylaws.service";
 import { fetchTenantLanguage, fetchTenantLease, fetchTenantLeases } from "../server/leases.service";
 import { AcceptInvitationForm } from "./accept-invitation-form";
 import { LanguageChoice } from "./language-choice";
+import { TenantAnnexes } from "./tenant-annexes";
 
 async function crumbs(title: string) {
   const tNav = await getTranslations("shell.nav.items");
@@ -76,7 +78,10 @@ export async function TenantLeaseRoute({ id }: { id: string }) {
   ]);
   try {
     const lease = await fetchTenantLease(id, locale);
-    const language = lease.role === "OCCUPANT" ? undefined : await fetchTenantLanguage(id, locale);
+    const [language, annexes] = await Promise.all([
+      lease.role === "OCCUPANT" ? undefined : fetchTenantLanguage(id, locale),
+      fetchTenantAnnexes(id, locale),
+    ]);
     const summary = lease.solidaritySummary
       ? locale.startsWith("en")
         ? lease.solidaritySummary.en
@@ -113,6 +118,7 @@ export async function TenantLeaseRoute({ id }: { id: string }) {
             ) : null}
           </CardContent>
         </Card>
+        <TenantAnnexes leaseId={id} annexes={annexes} />
         {language ? <LanguageChoice leaseId={id} state={language} /> : null}
       </>
     );

@@ -33,7 +33,9 @@
     "noUnits": "Aucun logement.",
     "commonAreas": "Aires communes",
     "noCommonAreas": "Aucune aire commune.",
-    "archived": "Archivé"
+    "archived": "Archivé",
+    "bylaws": "Règlement de l'immeuble",
+    "bylawsLink": "Voir et modifier le règlement"
   },
   "new": {
     "title": "Ajouter un immeuble",

@@ -71,7 +71,7 @@ const termsSchema = z.object({
 });
 export type LeaseTerms = z.infer<typeof termsSchema>;
 
-const findingSchema = z.object({
+export const findingSchema = z.object({
   outcome: z.enum(["INFO", "WARN", "BLOCK"]),
   ruleKey: z.string(),
   title: localized,
@@ -145,6 +145,10 @@ export const REFUSAL_KEYS = {
   "lease.language.not_requested": "languageNotRequested",
   "lease.language.closed": "languageClosed",
   "lease.language.own_choice_only": "ownChoiceOnly",
+  "lease.building_not_found": "buildingNotFound",
+  "lease.bylaws_not_found": "bylawsNotFound",
+  "lease.annex_not_found": "annexNotFound",
+  "lease.annex.cannot_acknowledge": "cannotAcknowledge",
   "lease.terms.invalid": "termsInvalid",
   "lease.terms.missing": "noTerms",
   "lease.out_for_signature": "outForSignature",

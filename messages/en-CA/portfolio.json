@@ -33,7 +33,9 @@
     "noUnits": "No unit.",
     "commonAreas": "Common areas",
     "noCommonAreas": "No common area.",
-    "archived": "Archived"
+    "archived": "Archived",
+    "bylaws": "Building by-laws",
+    "bylawsLink": "View and edit the by-laws"
   },
   "new": {
     "title": "Add a building",

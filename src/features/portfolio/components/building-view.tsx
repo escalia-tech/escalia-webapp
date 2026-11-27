@@ -81,6 +81,16 @@ export function BuildingView({ building }: { building: BuildingPage }) {
           )}
         </CardContent>
       </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("bylaws")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Link href={`/buildings/${building.id}/bylaws` as `/${string}`} className="underline">
+            {t("bylawsLink")}
+          </Link>
+        </CardContent>
+      </Card>
     </div>
   );
 }
