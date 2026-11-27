@@ -38,7 +38,8 @@
     "confirmVariation": "Je confirme que ce nom est le mien (compte : {name}).",
     "drawing": "Signature dessinée (facultatif)",
     "clearDrawing": "Effacer",
-    "submit": "Signer le document"
+    "submit": "Signer le document",
+    "read": "J'ai lu le document en entier, y compris ses annexes."
   },
   "decline": {
     "open": "Refuser de signer",

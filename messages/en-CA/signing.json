@@ -38,7 +38,8 @@
     "confirmVariation": "I confirm this name is mine (account: {name}).",
     "drawing": "Drawn signature (optional)",
     "clearDrawing": "Clear",
-    "submit": "Sign the document"
+    "submit": "Sign the document",
+    "read": "I have read the whole document, including its annexes."
   },
   "decline": {
     "open": "Decline to sign",
