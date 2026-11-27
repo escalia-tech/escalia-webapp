@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ALL_NAV, CONFIG_NAV, isNavItemActive, MAIN_NAV, navAudience, navFor } from "@/config/navigation";
+import { ALL_NAV, CONFIG_NAV, homePath, isNavItemActive, MAIN_NAV, navAudience, navFor } from "@/config/navigation";
 
 const keys = (items: { key: string }[]) => items.map((item) => item.key);
 
@@ -76,5 +76,14 @@ describe("fetchShellRoles", () => {
     vi.stubEnv("ESCALIA_BFF_URL", "");
     const { fetchShellRoles } = await import("@/server/auth/shell");
     expect(await fetchShellRoles("fr-CA")).toBeNull();
+  });
+});
+
+describe("homePath", () => {
+  it("sends a lease party to Mes baux and everyone else to the dashboard", () => {
+    expect(homePath(navAudience(["TENANT"]))).toBe("/tenant");
+    expect(homePath(navAudience(["OWNER"]))).toBe("/dashboard");
+    expect(homePath(navAudience(["OWNER", "TENANT"]))).toBe("/dashboard");
+    expect(homePath(navAudience(null))).toBe("/dashboard");
   });
 });

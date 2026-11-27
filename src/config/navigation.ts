@@ -86,6 +86,11 @@ export function navAudience(roles: readonly string[] | null): NavAudience {
   };
 }
 
+/** A person who is only a lease party has no landlord pages: their home is "Mes baux". */
+export function homePath(audience: NavAudience): "/dashboard" | "/tenant" {
+  return audience.party && !audience.landlord ? "/tenant" : "/dashboard";
+}
+
 /** The entries one person sees. Hiding an entry is not access control: every page still checks on the server. */
 export function navFor(items: readonly NavItem[], audience: NavAudience): NavItem[] {
   return items.filter(
