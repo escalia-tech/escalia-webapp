@@ -10,7 +10,10 @@ import { getDashboardSummary } from "@/features/buildings/server/buildings.servi
 import { KpiCard } from "@/features/dashboard/components/kpi-card";
 import { TypesDonutChart } from "@/features/dashboard/components/types-donut-chart";
 import { UnitsBarChart } from "@/features/dashboard/components/units-bar-chart";
+import { type DashboardView, fromBff, fromDemo } from "@/features/dashboard/lib/dashboard-view";
+import { fetchDashboard } from "@/features/dashboard/server/dashboard.service";
 import { formatMoney, formatMonth, formatNumber } from "@/lib/format";
+import { getServerEnv } from "@/server/config/env";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("dashboard");
@@ -18,13 +21,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DashboardPage() {
-  const [t, tTypes, summary, locale] = await Promise.all([
+  const [t, tTypes, locale] = await Promise.all([
     getTranslations("dashboard"),
     getTranslations("buildings.types"),
-    getDashboardSummary(),
     getLocale(),
   ]);
-  const { kpis, monthly, unitsByBuilding, buildingsByType, meta } = summary;
+  // With a BFF configured the figures are the organization's own; without one the labelled demo stays.
+  const view = await loadView(locale);
+  const { kpis, monthly, unitsByBuilding, buildingsByType } = view;
   const unavailable = t("charts.table.unavailable");
   const first = monthly[0]?.month;
   const last = monthly.at(-1)?.month;
@@ -34,11 +38,11 @@ export default async function DashboardPage() {
       <PageHeader
         title={t("title")}
         description={t("description")}
-        demoData
+        demoData={view.demo}
         breadcrumbs={[{ label: t("title") }]}
         actions={
           <p className="text-muted-foreground text-sm">
-            {t("period", { period: formatMonth(meta.period, locale, "long") })}
+            {t("period", { period: formatMonth(view.period, locale, "long") })}
           </p>
         }
       />
@@ -47,28 +51,28 @@ export default async function DashboardPage() {
         <KpiCard
           icon={Building2}
           label={t("kpi.buildings.label")}
-          value={formatNumber(kpis.buildingCount, locale)}
+          value={kpis.buildingCount === null ? unavailable : formatNumber(kpis.buildingCount, locale)}
           info={t("kpi.buildings.info")}
           infoLabel={t("kpi.buildings.label")}
         />
         <KpiCard
           icon={DoorOpen}
           label={t("kpi.units.label")}
-          value={formatNumber(kpis.unitCount, locale)}
+          value={kpis.unitCount === null ? unavailable : formatNumber(kpis.unitCount, locale)}
           info={t("kpi.units.info")}
           infoLabel={t("kpi.units.label")}
         />
         <KpiCard
           icon={CircleDollarSign}
           label={t("kpi.rentDue.label")}
-          value={formatMoney(kpis.rentDueCents, locale) ?? unavailable}
+          value={(kpis.rentDueCents === null ? null : formatMoney(kpis.rentDueCents, locale)) ?? unavailable}
           info={t("kpi.rentDue.info")}
           infoLabel={t("kpi.rentDue.label")}
         />
         <KpiCard
           icon={HandCoins}
           label={t("kpi.rentReceived.label")}
-          value={formatMoney(kpis.rentReceivedCents, locale) ?? unavailable}
+          value={(kpis.rentReceivedCents === null ? null : formatMoney(kpis.rentReceivedCents, locale)) ?? unavailable}
           info={t("kpi.rentReceived.info")}
           infoLabel={t("kpi.rentReceived.label")}
           note={
@@ -147,33 +151,40 @@ export default async function DashboardPage() {
           <UnitsBarChart data={unitsByBuilding} />
         </ChartCard>
 
-        <ChartCard
-          title={t("charts.types.title")}
-          description={t("charts.types.description")}
-          summary={t("charts.types.summary", { count: kpis.buildingCount })}
-          tableToggleLabel={t("charts.table.toggle")}
-          table={
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("charts.table.type")}</TableHead>
-                  <TableHead className="text-right">{t("charts.types.series")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {buildingsByType.map((row) => (
-                  <TableRow key={row.buildingType}>
-                    <TableCell>{tTypes(row.buildingType)}</TableCell>
-                    <TableCell className="text-right tabular-nums">{formatNumber(row.count, locale)}</TableCell>
+        {buildingsByType ? (
+          <ChartCard
+            title={t("charts.types.title")}
+            description={t("charts.types.description")}
+            summary={t("charts.types.summary", { count: kpis.buildingCount ?? 0 })}
+            tableToggleLabel={t("charts.table.toggle")}
+            table={
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>{t("charts.table.type")}</TableHead>
+                    <TableHead className="text-right">{t("charts.types.series")}</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          }
-        >
-          <TypesDonutChart data={buildingsByType} />
-        </ChartCard>
+                </TableHeader>
+                <TableBody>
+                  {buildingsByType.map((row) => (
+                    <TableRow key={row.buildingType}>
+                      <TableCell>{tTypes(row.buildingType)}</TableCell>
+                      <TableCell className="text-right tabular-nums">{formatNumber(row.count, locale)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            }
+          >
+            <TypesDonutChart data={buildingsByType} />
+          </ChartCard>
+        ) : null}
       </div>
     </>
   );
+}
+
+async function loadView(locale: string): Promise<DashboardView> {
+  if (!getServerEnv().bffBaseUrl) return fromDemo(await getDashboardSummary());
+  return fromBff(await fetchDashboard(locale), new Date().toISOString().slice(0, 7));
 }
