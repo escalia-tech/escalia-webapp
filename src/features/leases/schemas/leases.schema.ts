@@ -32,10 +32,70 @@ const partySchema = z.object({
 });
 export type LeaseParty = z.infer<typeof partySchema>;
 
+export const LEASE_STATUSES = [
+  "DRAFT",
+  "READY",
+  "OUT_FOR_SIGNATURE",
+  "SIGNED",
+  "ACTIVE",
+  "RECORDED",
+  "ENDED",
+  "CANCELLED",
+] as const;
+export const TERM_KINDS = ["FIXED", "INDETERMINATE"] as const;
+export const PAYMENT_METHODS = ["INTERAC", "CHEQUE", "CASH", "OTHER"] as const;
+export const CLAUSE_G_KINDS = ["LOWEST_RENT", "TAL_DECISION", "NOT_LEASED", "CLAUSE_F"] as const;
+
+const localized = z.object({ fr: z.string(), en: z.string() });
+const termsSchema = z.object({
+  termKind: z.enum(TERM_KINDS),
+  startDate: z.string(),
+  endDate: z.string().nullish(),
+  rentCents: z.number().int(),
+  dueDay: z.string(),
+  firstPaymentDate: z.string(),
+  firstPaymentCents: z.number().int(),
+  acceptedPaymentMethods: z.array(z.enum(PAYMENT_METHODS)),
+  postdatedChequesRequired: z.boolean(),
+  otherConditions: z.string().nullish(),
+  clauseG: z
+    .object({
+      kind: z.enum(CLAUSE_G_KINDS),
+      amountCents: z.number().int().nullish(),
+      periodStart: z.string().nullish(),
+      periodEnd: z.string().nullish(),
+      talDecisionRef: z.string().nullish(),
+    })
+    .nullish(),
+  clauseF: z.object({ applies: z.boolean(), maxRentCents: z.number().int().nullish() }).nullish(),
+});
+export type LeaseTerms = z.infer<typeof termsSchema>;
+
+const findingSchema = z.object({
+  outcome: z.enum(["INFO", "WARN", "BLOCK"]),
+  ruleKey: z.string(),
+  title: localized,
+  sentence: localized,
+  alternative: localized.nullish(),
+  citation: z.string().nullish(),
+  acknowledged: z.boolean().nullish(),
+});
+export type LeaseFinding = z.infer<typeof findingSchema>;
+
+export const clauseGProposalSchema = z.object({
+  amountCents: z.number().int().nullish(),
+  periodStart: z.string().nullish(),
+  periodEnd: z.string().nullish(),
+  monthsOfHistory: z.number().int(),
+});
+
 const leaseSchema = z.object({
   id: z.string(),
   unitId: z.string(),
-  status: z.enum(["DRAFT", "SIGNED", "RECORDED", "ENDED"]),
+  status: z.enum(LEASE_STATUSES),
+  paymentReference: z.string().nullish(),
+  terms: termsSchema.nullish(),
+  findings: z.array(findingSchema).nullish(),
   solidarity: z.enum(SOLIDARITIES),
   solidaritySummary: z.object({ fr: z.string(), en: z.string() }),
   parties: z.array(partySchema),
@@ -51,7 +111,7 @@ const tenantLeaseSchema = z.object({
   leaseId: z.string(),
   unitId: z.string(),
   role: z.enum(ROLES),
-  status: z.enum(["DRAFT", "SIGNED", "RECORDED", "ENDED"]),
+  status: z.enum(LEASE_STATUSES),
   access: z.enum(["ACTIVE", "PENDING"]),
   solidaritySummary: z.object({ fr: z.string(), en: z.string() }).nullish(),
   shareBasisPoints: z.number().int().nullish(),
@@ -81,6 +141,11 @@ export const REFUSAL_KEYS = {
   "lease.parties.after_signing": "afterSigning",
   "lease.guarantee.unknown_tenant": "unknownTenant",
   "lease.not_found": "notFound",
+  "lease.overlap": "overlap",
+  "lease.terms.invalid": "termsInvalid",
+  "lease.terms.required": "noTerms",
+  "lease.out_for_signature": "outForSignature",
+  "lease.cannot_cancel": "cannotCancel",
   "lease.unit_not_found": "unitNotFound",
   "lease.occupant_not_found": "occupantNotFound",
   "lease.invitation.not_found": "invitationNotFound",
@@ -233,4 +298,105 @@ export function parseOccupantForm(form: FormData): { ok: true; body: OccupantBod
       ...optional("phone", get("phone")),
     },
   };
+}
+
+export type TermsReason = "dates" | "rent" | "payment" | "clauseG" | "clauseF";
+
+const DUE_DAY = /^([1-9]|1[0-9]|2[0-8]|LAST)$/;
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** Dollars as cents, zero allowed (a first payment can be nothing). */
+export function dollarsToCentsOrZero(text: string): number | undefined {
+  return text.trim().replace(/^0+(?=\d)/, "") === "0" ? 0 : dollarsToCents(text);
+}
+
+export interface TermsBody {
+  termKind: (typeof TERM_KINDS)[number];
+  startDate: string;
+  endDate?: string;
+  rentCents: number;
+  dueDay: string;
+  firstPaymentDate: string;
+  firstPaymentCents: number;
+  acceptedPaymentMethods: (typeof PAYMENT_METHODS)[number][];
+  postdatedChequesRequired: boolean;
+  otherConditions?: string;
+  clauseG?: {
+    kind: (typeof CLAUSE_G_KINDS)[number];
+    amountCents?: number;
+    periodStart?: string;
+    periodEnd?: string;
+    talDecisionRef?: string;
+  };
+  clauseF?: { applies: boolean; maxRentCents?: number };
+  acknowledgedWarnings: string[];
+}
+
+function field(form: FormData, name: string): string {
+  return String(form.get(name) ?? "").trim();
+}
+
+function parseClauseG(form: FormData): { ok: true; value: TermsBody["clauseG"] } | { ok: false } {
+  const kind = oneOf(CLAUSE_G_KINDS, field(form, "clauseGKind"));
+  if (field(form, "clauseGKind") === "") return { ok: true, value: undefined };
+  if (!kind) return { ok: false };
+  const amountText = field(form, "clauseGAmount");
+  const amountCents = amountText === "" ? undefined : dollarsToCentsOrZero(amountText);
+  if (amountText !== "" && amountCents === undefined) return { ok: false };
+  const start = field(form, "clauseGStart");
+  const end = field(form, "clauseGEnd");
+  if ((start !== "" && !DATE.test(start)) || (end !== "" && !DATE.test(end))) return { ok: false };
+  return {
+    ok: true,
+    value: {
+      kind,
+      ...(amountCents === undefined ? {} : { amountCents }),
+      ...optional("periodStart", start),
+      ...optional("periodEnd", end),
+      ...optional("talDecisionRef", field(form, "clauseGRef")),
+    },
+  };
+}
+
+/** Reads the terms form; the core applies every rule (limits, clause G and F, warnings), this only types the text. */
+export function parseTermsForm(form: FormData): { ok: true; body: TermsBody } | { ok: false; reason: TermsReason } {
+  const termKind = oneOf(TERM_KINDS, field(form, "termKind")) ?? "FIXED";
+  const startDate = field(form, "startDate");
+  const endDate = field(form, "endDate");
+  const firstPaymentDate = field(form, "firstPaymentDate");
+  if (!DATE.test(startDate) || !DATE.test(firstPaymentDate) || (endDate !== "" && !DATE.test(endDate))) {
+    return { ok: false, reason: "dates" };
+  }
+  const rentCents = dollarsToCents(field(form, "rent"));
+  const firstPaymentCents = dollarsToCentsOrZero(field(form, "firstPayment"));
+  const dueDay = field(form, "dueDay");
+  if (rentCents === undefined || firstPaymentCents === undefined || !DUE_DAY.test(dueDay)) {
+    return { ok: false, reason: "rent" };
+  }
+  const methods = PAYMENT_METHODS.filter((method) => form.getAll("methods").includes(method));
+  if (methods.length === 0) return { ok: false, reason: "payment" };
+  const clauseG = parseClauseG(form);
+  if (!clauseG.ok) return { ok: false, reason: "clauseG" };
+  const body: TermsBody = {
+    termKind,
+    startDate,
+    rentCents,
+    dueDay,
+    firstPaymentDate,
+    firstPaymentCents,
+    acceptedPaymentMethods: methods,
+    postdatedChequesRequired: form.get("postdated") === "on",
+    acknowledgedWarnings: form.getAll("acknowledged").map(String),
+    ...optional("endDate", termKind === "FIXED" ? endDate : ""),
+    ...optional("otherConditions", field(form, "otherConditions")),
+  };
+  if (clauseG.value) body.clauseG = clauseG.value;
+  const applies = field(form, "clauseF");
+  if (applies === "yes" || applies === "no") {
+    const maxText = field(form, "clauseFMax");
+    const maxRentCents = maxText === "" ? undefined : dollarsToCents(maxText);
+    if (maxText !== "" && maxRentCents === undefined) return { ok: false, reason: "clauseF" };
+    body.clauseF = { applies: applies === "yes", ...(maxRentCents === undefined ? {} : { maxRentCents }) };
+  }
+  return { ok: true, body };
 }

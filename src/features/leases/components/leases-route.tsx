@@ -11,6 +11,7 @@ import { fetchLease, fetchLeases } from "../server/leases.service";
 import { CreateLeaseButton } from "./create-lease-button";
 import { InvitationsPanel } from "./invitations-panel";
 import { PartiesEditor } from "./parties-editor";
+import { TermsEditor } from "./terms-editor";
 
 async function crumbs(title: string) {
   const tNav = await getTranslations("shell.nav.items");
@@ -90,6 +91,7 @@ export async function LeaseRoute({ id }: { id: string }) {
           ]}
         />
         <PartiesEditor lease={lease} />
+        <TermsEditor lease={lease} />
         <InvitationsPanel lease={lease} />
       </>
     );
