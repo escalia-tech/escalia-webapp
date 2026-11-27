@@ -43,9 +43,12 @@ export function DevSignIn({ returnTo }: { returnTo: string }) {
         {t("title")}
       </h2>
       <p className="text-muted-foreground text-sm">{t("description")}</p>
-      <label className="block text-sm">
-        <span className="mb-1 block">{t("user")}</span>
+      <div className="text-sm">
+        <label htmlFor="dev-sign-in-user" className="mb-1 block">
+          {t("user")}
+        </label>
         <NativeSelect
+          id="dev-sign-in-user"
           className="w-full"
           value={user}
           onChange={(event) => setUser(event.target.value as (typeof USERS)[number])}
@@ -56,7 +59,7 @@ export function DevSignIn({ returnTo }: { returnTo: string }) {
             </option>
           ))}
         </NativeSelect>
-      </label>
+      </div>
       {failure ? (
         <Callout tone="danger" role="alert" title={t("error")}>
           {failure.message}
