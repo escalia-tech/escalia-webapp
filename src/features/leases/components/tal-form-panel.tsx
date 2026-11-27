@@ -265,7 +265,7 @@ function Outcome({ state }: { state: TalFormState }) {
   );
 }
 
-/** The details the official TAL form asks beyond the terms, and what is still missing before signing (FR-LEASE-06). */
+/** The details the official TAL form asks beyond the terms, and what is still missing before signing (FR-LEASE-01, TAL form). */
 export function TalFormPanel({ lease, view }: { lease: Lease; view: LeaseFormView }) {
   const t = useTranslations("leases.tal");
   const [state, action, pending] = useActionState(saveTalFormAction.bind(null, lease.id), undefined);
