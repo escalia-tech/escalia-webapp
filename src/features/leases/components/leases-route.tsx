@@ -11,6 +11,7 @@ import { fetchLeaseAnnexes } from "../server/bylaws.service";
 import { fetchLease, fetchLeaseLanguage, fetchLeases } from "../server/leases.service";
 import { fetchLeaseLedger } from "../server/ledger.service";
 import { fetchLeaseSigning } from "../server/signing.service";
+import { fetchLeaseForm } from "../server/tal-form.service";
 import { AnnexesPanel } from "./annexes-panel";
 import { CreateLeaseButton } from "./create-lease-button";
 import { InvitationsPanel } from "./invitations-panel";
@@ -18,6 +19,7 @@ import { LanguagePanel } from "./language-panel";
 import { LedgerPanel } from "./ledger-panel";
 import { PartiesEditor } from "./parties-editor";
 import { SigningPanel } from "./signing-panel";
+import { TalFormPanel } from "./tal-form-panel";
 import { TermsEditor } from "./terms-editor";
 
 async function crumbs(title: string) {
@@ -84,12 +86,13 @@ export async function LeaseRoute({ id }: { id: string }) {
     getLocale(),
   ]);
   try {
-    const [lease, language, annexes, signing, ledger] = await Promise.all([
+    const [lease, language, annexes, signing, ledger, talForm] = await Promise.all([
       fetchLease(id, locale),
       fetchLeaseLanguage(id, locale),
       fetchLeaseAnnexes(id, locale),
       fetchLeaseSigning(id, locale),
       fetchLeaseLedger(id, locale),
+      fetchLeaseForm(id, locale),
     ]);
     const title = t("one.title");
     return (
@@ -105,6 +108,7 @@ export async function LeaseRoute({ id }: { id: string }) {
         />
         <PartiesEditor lease={lease} />
         <TermsEditor lease={lease} />
+        <TalFormPanel lease={lease} view={talForm} />
         <InvitationsPanel lease={lease} />
         <AnnexesPanel lease={lease} annexes={annexes} />
         <SigningPanel lease={lease} signing={signing} />

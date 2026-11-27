@@ -141,6 +141,7 @@ export const REFUSAL_KEYS = {
   "lease.parties.after_signing": "afterSigning",
   "lease.guarantee.unknown_tenant": "unknownTenant",
   "lease.not_found": "notFound",
+  "lease.form.incomplete": "formIncomplete",
   "lease.overlap": "overlap",
   "lease.language.not_requested": "languageNotRequested",
   "lease.language.closed": "languageClosed",
