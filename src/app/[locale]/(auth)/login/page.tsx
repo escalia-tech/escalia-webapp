@@ -36,8 +36,8 @@ export default async function LoginPage({
   return (
     <>
       <AuthHeading title={t("title")} subtitle={t("subtitle")} />
-      <LoginForm />
       {devSignInAvailable ? <DevSignIn returnTo={returnTo} /> : null}
+      <LoginForm />
       {demoAvailable && !devSignInAvailable ? <DemoEntry returnTo={returnTo} /> : null}
     </>
   );
