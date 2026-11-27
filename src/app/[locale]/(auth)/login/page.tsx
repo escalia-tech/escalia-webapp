@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 
 import { AuthHeading } from "@/features/auth/components/auth-heading";
 import { DemoEntry } from "@/features/auth/components/demo-entry";
+import { DevSignIn } from "@/features/auth/components/dev-sign-in";
 import { LoginForm } from "@/features/auth/components/login-form";
 import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -30,13 +31,14 @@ export default async function LoginPage({
     redirect({ href: returnTo, locale: hasLocale(routing.locales, locale) ? locale : routing.defaultLocale });
   }
   const t = await getTranslations("auth.login");
-  const { demoAvailable } = getAuthProviderStatus();
+  const { demoAvailable, devSignInAvailable } = getAuthProviderStatus();
 
   return (
     <>
       <AuthHeading title={t("title")} subtitle={t("subtitle")} />
       <LoginForm />
-      {demoAvailable ? <DemoEntry returnTo={returnTo} /> : null}
+      {devSignInAvailable ? <DevSignIn returnTo={returnTo} /> : null}
+      {demoAvailable && !devSignInAvailable ? <DemoEntry returnTo={returnTo} /> : null}
     </>
   );
 }

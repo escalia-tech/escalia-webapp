@@ -5,8 +5,9 @@ import { cookies } from "next/headers";
 import { COOKIE_NAMES } from "@/lib/cookies";
 import { ApplicationError } from "@/lib/observability/errors/application-error";
 
-import { isDemoModeEnabled } from "../config/env";
+import { getServerEnv, isDemoModeEnabled } from "../config/env";
 import { verifyDemoSessionToken } from "../session/demo-session";
+import { devSignInAvailable } from "./dev-sign-in-core";
 
 /**
  * Authentication seam. No identity provider (IdP) has been selected, so the only session that can
@@ -28,10 +29,16 @@ export interface AuthProviderStatus {
   providerConfigured: boolean;
   /** The explicit demo entry is available (non-production + flag). */
   demoAvailable: boolean;
+  /** One-click local sign-in as a fixture user (BFF dev mode, local environments only). */
+  devSignInAvailable: boolean;
 }
 
 export function getAuthProviderStatus(): AuthProviderStatus {
-  return { providerConfigured: false, demoAvailable: isDemoModeEnabled() };
+  return {
+    providerConfigured: false,
+    demoAvailable: isDemoModeEnabled(),
+    devSignInAvailable: devSignInAvailable(getServerEnv()),
+  };
 }
 
 export async function getSession(): Promise<Session | null> {
