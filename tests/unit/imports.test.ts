@@ -59,6 +59,14 @@ describe("reading a CSV file", () => {
     expect(await parseUpload(upload("x".repeat(2_000_001)))).toEqual({ ok: false, reason: "size" });
   });
 
+  it("sends an Excel file as base64, and refuses one whose base64 is too large", async () => {
+    expect(await parseUpload(upload("abc", "parc.XLSX"))).toEqual({
+      ok: true,
+      body: { fileName: "parc.XLSX", content: "YWJj", base64: true },
+    });
+    expect(await parseUpload(upload("x".repeat(1_600_000), "parc.xlsx"))).toEqual({ ok: false, reason: "size" });
+  });
+
   it("keeps the columns that were given a field and ignores the others", () => {
     const form = new FormData();
     form.append("map:Adresse", "address");

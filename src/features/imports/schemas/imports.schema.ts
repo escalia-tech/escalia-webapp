@@ -60,7 +60,7 @@ export type ImportList = z.infer<typeof importListSchema>;
 export type UploadReason = "file" | "size";
 
 export type ParsedUpload =
-  | { ok: true; body: { fileName: string; content: string } }
+  | { ok: true; body: { fileName: string; content: string; base64?: true } }
   | { ok: false; reason: UploadReason };
 
 /** The text of a CSV file: UTF-8, or Windows-1252 when the bytes are not valid UTF-8 (FR-PORT-03 section 6). */
@@ -76,7 +76,15 @@ export async function parseUpload(form: FormData): Promise<ParsedUpload> {
   const file = form.get("file");
   if (!(file instanceof File) || file.size === 0) return { ok: false, reason: "file" };
   if (file.size > MAX_FILE_BYTES) return { ok: false, reason: "size" };
-  return { ok: true, body: { fileName: file.name.slice(0, 200), content: decodeCsv(await file.arrayBuffer()) } };
+  const fileName = file.name.slice(0, 200);
+  const bytes = await file.arrayBuffer();
+  if (fileName.toLowerCase().endsWith(".xlsx")) {
+    // An Excel file travels as base64, which is a third larger than the file itself.
+    const content = Buffer.from(bytes).toString("base64");
+    if (content.length > MAX_FILE_BYTES) return { ok: false, reason: "size" };
+    return { ok: true, body: { fileName, content, base64: true } };
+  }
+  return { ok: true, body: { fileName, content: decodeCsv(bytes) } };
 }
 
 const MAP_PREFIX = "map:";
