@@ -9,6 +9,7 @@ import { LoginForm } from "@/features/auth/components/login-form";
 import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { safeReturnTo } from "@/lib/return-to";
+import { hasBffSession } from "@/server/auth/bff-session";
 import { getAuthProviderStatus, getSession } from "@/server/auth/session";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,8 +27,8 @@ export default async function LoginPage({
   const [{ locale }, query] = await Promise.all([params, searchParams]);
   // User-controlled: only an in-app path is accepted.
   const returnTo = safeReturnTo(query.returnTo, "/dashboard");
-  // Already signed in: skip the form.
-  if (await getSession()) {
+  // Already signed in, here and at the BFF: skip the form. A webapp session whose BFF session is gone shows the form.
+  if ((await getSession()) && (await hasBffSession(locale))) {
     redirect({ href: returnTo, locale: hasLocale(routing.locales, locale) ? locale : routing.defaultLocale });
   }
   const t = await getTranslations("auth.login");

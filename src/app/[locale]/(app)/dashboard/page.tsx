@@ -1,5 +1,6 @@
 import { Building2, CircleDollarSign, DoorOpen, HandCoins } from "lucide-react";
 import type { Metadata } from "next";
+import { hasLocale } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { ChartCard } from "@/components/charts/chart-card";
@@ -14,7 +15,10 @@ import { UnitsBarChart } from "@/features/dashboard/components/units-bar-chart";
 import { type DashboardView, fromBff, fromDemo } from "@/features/dashboard/lib/dashboard-view";
 import { fetchDashboard } from "@/features/dashboard/server/dashboard.service";
 import { CreateOrganizationCard } from "@/features/organization/components/create-organization-card";
+import { redirect } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 import { formatMoney, formatMonth, formatNumber } from "@/lib/format";
+import { isApplicationError } from "@/lib/observability/errors/application-error";
 import { isMissingOrganization } from "@/server/bff-pages/failure";
 import { getServerEnv } from "@/server/config/env";
 
@@ -32,6 +36,13 @@ export default async function DashboardPage() {
   // With a BFF configured the figures are the organization's own; without one the labelled demo stays.
   const view = await loadView(locale).catch((error: unknown) => {
     if (isMissingOrganization(error)) return null;
+    // The BFF session is gone while the webapp's remains: sign in again rather than show a server error.
+    if (isApplicationError(error) && error.code === "auth.unauthenticated") {
+      redirect({
+        href: "/login?returnTo=%2Fdashboard",
+        locale: hasLocale(routing.locales, locale) ? locale : routing.defaultLocale,
+      });
+    }
     throw error;
   });
   if (view === null) {
