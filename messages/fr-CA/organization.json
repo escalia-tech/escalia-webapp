@@ -1,0 +1,34 @@
+{
+  "create": {
+    "title": "Créez votre organisation",
+    "description": "Vos immeubles, baux et locataires appartiennent à une organisation. Créez la vôtre pour commencer; vous pourrez la renommer et inviter un copropriétaire ensuite.",
+    "name": "Nom de l'organisation (facultatif)",
+    "nameHelp": "Laissez vide pour utiliser votre nom complet.",
+    "submit": "Créer l'organisation",
+    "created": "Votre organisation est prête.",
+    "invalid": "Le nom doit compter de 1 à 120 caractères.",
+    "refused": "L'organisation n'a pas pu être créée."
+  },
+  "settings": {
+    "title": "Organisation",
+    "description": "L'organisation qui possède vos immeubles et les personnes qui la gèrent.",
+    "name": "Nom",
+    "rename": "Renommer",
+    "renamed": "L'organisation a été renommée.",
+    "invalid": "Le nom doit compter de 1 à 120 caractères.",
+    "refused": "L'organisation n'a pas pu être renommée.",
+    "members": "Membres",
+    "since": "depuis le {date}",
+    "roles": {
+      "OWNER": "Propriétaire",
+      "CO_OWNER": "Copropriétaire"
+    },
+    "states": {
+      "notConnected": "Le service des organisations n'est pas connecté dans cet environnement.",
+      "unauthenticated": "Connectez-vous pour voir votre organisation.",
+      "forbidden": "Vous n'avez pas accès à cette organisation.",
+      "notFound": "L'organisation est introuvable.",
+      "unavailable": "L'organisation n'a pas pu être chargée. Réessayez dans un instant."
+    }
+  }
+}

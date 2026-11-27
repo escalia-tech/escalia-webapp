@@ -4,6 +4,7 @@
   "nav": {
     "label": "Settings sections",
     "profile": "Profile",
+    "organization": "Organization",
     "preferences": "Preferences",
     "security": "Security",
     "privacy": "Privacy",

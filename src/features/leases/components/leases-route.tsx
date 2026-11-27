@@ -76,7 +76,11 @@ export async function LeasesRoute() {
     return (
       <>
         {header}
-        <Callout tone="warning">{tPortfolio(`states.${failureState(error)}`)}</Callout>
+        {isMissingOrganization(error) ? (
+          <CreateOrganizationCard />
+        ) : (
+          <Callout tone="warning">{tPortfolio(`states.${failureState(error)}`)}</Callout>
+        )}
       </>
     );
   }

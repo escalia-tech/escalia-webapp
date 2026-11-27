@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
-const SECTIONS = ["profile", "preferences", "security", "privacy", "notifications"] as const;
+const SECTIONS = ["profile", "organization", "preferences", "security", "privacy", "notifications"] as const;
 
 /** Section links of the Settings area. Horizontal and scrollable on narrow screens, vertical on desktop. */
 export function SettingsNav() {

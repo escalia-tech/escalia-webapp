@@ -27,6 +27,7 @@ export const MESSAGE_DOMAINS = [
   "imports",
   "signing",
   "settings",
+  "organization",
   "feedback",
   "modules",
   "gallery",

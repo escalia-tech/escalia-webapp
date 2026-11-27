@@ -8,6 +8,20 @@ import { ApplicationError } from "@/lib/observability/errors/application-error";
  * can show a safe state; no body of a failed call is ever logged or shown.
  */
 
+/** The core's answer when the signed-in person belongs to no organization yet (FR-PORT-01 BR-1). */
+const MISSING_ORGANIZATION = "identity.organization.not_found";
+
+/** The `code` of a problem body (RFC 9457), if it has one; the body is never logged. */
+async function problemCode(response: Response): Promise<string | undefined> {
+  try {
+    const body: unknown = await response.json();
+    if (body && typeof body === "object" && "code" in body && typeof body.code === "string") return body.code;
+  } catch {
+    // Not JSON: no code.
+  }
+  return undefined;
+}
+
 export interface BffCall<T> {
   baseUrl: string | undefined;
   path: `/pages/${string}`;
@@ -35,7 +49,12 @@ export async function callBffPage<T>(call: BffCall<T>): Promise<T> {
   });
   if (response.status === 401) throw new ApplicationError("auth.unauthenticated", "Authentication is required");
   if (response.status === 403) throw new ApplicationError("auth.forbidden", "Not allowed");
-  if (response.status === 404) throw new ApplicationError("resource.not_found", "Not found");
+  if (response.status === 404) {
+    if ((await problemCode(response)) === MISSING_ORGANIZATION) {
+      throw new ApplicationError("organization.missing", "The person has no organization yet");
+    }
+    throw new ApplicationError("resource.not_found", "Not found");
+  }
   if (!response.ok) {
     throw new ApplicationError("upstream.unavailable", `The BFF answered ${response.status}`, { retryable: true });
   }
