@@ -3,7 +3,8 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Callout } from "@/components/feedback/callout";
 import { PageHeader } from "@/components/layout/page-header";
 import { UnitLeases } from "@/features/leases/components/leases-route";
-import { failureState } from "@/server/bff-pages/failure";
+import { CreateOrganizationCard } from "@/features/organization/components/create-organization-card";
+import { failureState, isMissingOrganization } from "@/server/bff-pages/failure";
 
 import { parseBuildingsQuery } from "../schemas/portfolio.schema";
 import { fetchDocuments } from "../server/documents.service";
@@ -47,7 +48,11 @@ export async function BuildingsRoute({ rawQuery }: { rawQuery: RawQuery }) {
     return (
       <>
         {header}
-        <Callout tone="warning">{t(`states.${failureState(error)}`)}</Callout>
+        {isMissingOrganization(error) ? (
+          <CreateOrganizationCard />
+        ) : (
+          <Callout tone="warning">{t(`states.${failureState(error)}`)}</Callout>
+        )}
       </>
     );
   }

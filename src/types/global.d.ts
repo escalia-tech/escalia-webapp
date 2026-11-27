@@ -12,6 +12,7 @@ import type imports from "../../messages/fr-CA/imports.json";
 import type leases from "../../messages/fr-CA/leases.json";
 import type legal from "../../messages/fr-CA/legal.json";
 import type modules from "../../messages/fr-CA/modules.json";
+import type organization from "../../messages/fr-CA/organization.json";
 import type portfolio from "../../messages/fr-CA/portfolio.json";
 import type rules from "../../messages/fr-CA/rules.json";
 import type settings from "../../messages/fr-CA/settings.json";
@@ -37,6 +38,7 @@ declare module "next-intl" {
       imports: typeof imports;
       signing: typeof signing;
       settings: typeof settings;
+      organization: typeof organization;
       feedback: typeof feedback;
       modules: typeof modules;
       gallery: typeof gallery;

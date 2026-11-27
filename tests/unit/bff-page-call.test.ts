@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { isApplicationError } from "@/lib/observability/errors/application-error";
 import { callBffAction, callBffPage } from "@/server/bff-pages/call";
+import { failureState, isMissingOrganization } from "@/server/bff-pages/failure";
 
 const schema = z.object({ ok: z.boolean() });
 const base = {
@@ -48,6 +49,27 @@ describe("callBffPage", () => {
     const failure = await callBffPage({ ...base, fetcher: answer(status) }).catch((error: unknown) => error);
 
     expect(isApplicationError(failure) && failure.code).toBe(code);
+  });
+
+  it("tells a person without an organization apart from a missing resource", async () => {
+    const missing = await callBffPage({
+      ...base,
+      fetcher: answer(404, { code: "identity.organization.not_found" }),
+    }).catch((error: unknown) => error);
+    expect(isApplicationError(missing) && missing.code).toBe("organization.missing");
+    expect(isMissingOrganization(missing)).toBe(true);
+    expect(failureState(missing)).toBe("notFound");
+
+    const other = await callBffPage({ ...base, fetcher: answer(404, { code: "portfolio.building.not_found" }) }).catch(
+      (error: unknown) => error,
+    );
+    expect(isMissingOrganization(other)).toBe(false);
+    const notJson = await callBffPage({
+      ...base,
+      fetcher: vi.fn(async () => new Response("<html>", { status: 404 })),
+    }).catch((error: unknown) => error);
+    expect(isApplicationError(notJson) && notJson.code).toBe("resource.not_found");
+    expect(isMissingOrganization(new Error("x"))).toBe(false);
   });
 
   it("refuses an answer that does not match the contract", async () => {

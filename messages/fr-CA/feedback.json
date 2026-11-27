@@ -11,6 +11,7 @@
       "auth_forbidden": "Vous n’avez pas accès à cette ressource.",
       "auth_provider_unavailable": "Le service d’authentification est indisponible.",
       "resource_not_found": "La ressource demandée est introuvable.",
+      "organization_missing": "Créez votre organisation pour commencer.",
       "upstream_timeout": "Le service met trop de temps à répondre. Réessayez dans un instant.",
       "upstream_unavailable": "Le service est momentanément indisponible. Réessayez dans un instant.",
       "demo_disabled": "Cette fonction de démonstration n’est pas disponible dans cet environnement.",
