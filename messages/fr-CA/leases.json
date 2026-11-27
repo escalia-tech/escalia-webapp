@@ -60,7 +60,11 @@
     "cannotCancel": "Ce bail ne peut plus être annulé ici.",
     "languageNotRequested": "Aucune version anglaise n'a été demandée pour ce bail.",
     "languageClosed": "Le bail est en signature ou signé : la langue ne change plus.",
-    "ownChoiceOnly": "Seul un locataire ou une caution du bail choisit la langue, pour lui-même."
+    "ownChoiceOnly": "Seul un locataire ou une caution du bail choisit la langue, pour lui-même.",
+    "buildingNotFound": "Cet immeuble n'existe pas, ou il n'appartient pas à votre organisation.",
+    "bylawsNotFound": "Cette version du règlement n'existe pas.",
+    "annexNotFound": "Cette annexe n'existe pas sur ce bail.",
+    "cannotAcknowledge": "Votre rôle sur ce bail ne permet pas d'accuser réception de cette annexe."
   },
   "roles": {
     "TENANT": "Locataire",
@@ -237,5 +241,44 @@
     },
     "closed": "Le bail est en signature ou signé : la langue ne change plus. / The lease is out for signature or signed: the language no longer changes.",
     "note": "L'anglais ne lie les parties que si tous les locataires et toutes les cautions le choisissent. / English binds only if every tenant and guarantor chooses it."
+  },
+  "bylaws": {
+    "title": "Règlement de l'immeuble",
+    "description": "Chaque enregistrement crée une nouvelle version. La version en vigueur est jointe aux baux créés ensuite; un bail garde la version qu'il porte.",
+    "edit": "Nouvelle version",
+    "editHelp": "Les titres commencent par #, les éléments de liste par - ou *. Les avertissements ne bloquent jamais l'enregistrement.",
+    "text": "Texte (français, fait foi)",
+    "textEn": "Traduction anglaise (facultative)",
+    "textEnHelp": "Présentée comme une traduction : seul le texte français lie les parties.",
+    "note": "Note de modification",
+    "save": "Enregistrer une nouvelle version",
+    "saved": "Version {version} enregistrée.",
+    "findings": "Points à vérifier",
+    "versions": "Versions",
+    "none": "Aucun règlement n'a encore été enregistré pour cet immeuble.",
+    "version": "Version {version}",
+    "inForce": "en vigueur",
+    "pdf": "PDF",
+    "invalid": {
+      "text": "Entrez le texte du règlement (20 000 caractères au plus).",
+      "textEn": "La traduction est trop longue.",
+      "note": "La note est trop longue.",
+      "id": "Immeuble invalide."
+    }
+  },
+  "annexes": {
+    "title": "Annexes du bail",
+    "description": "Ce que le bail porte et qui en a accusé réception.",
+    "none": "Aucune annexe n'est jointe à ce bail.",
+    "attached": "Version du {date}",
+    "nobody": "Personne n'a encore accusé réception.",
+    "by": "Réception confirmée par : {names}",
+    "tenantTitle": "Annexes du bail",
+    "tenantDescription": "Lisez ces documents, puis confirmez-en la réception.",
+    "translation": "Traduction : le texte français fait foi.",
+    "done": "Réception confirmée le {date}.",
+    "doneNoDate": "Réception confirmée.",
+    "acknowledge": "J'ai reçu et lu ce document",
+    "readOnly": "Ce document vous est présenté pour information."
   }
 }
