@@ -17,6 +17,7 @@ import {
   fetchClauseGProposal,
   type InviteOutcome,
   inviteParties,
+  inviteTenantsWithoutAccount,
   type LeaseOutcome,
   type ProposalOutcome,
   type RequestOutcome,
@@ -67,9 +68,16 @@ export async function removeOccupantAction(leaseId: string, personId: string): P
   return finish(await removeOccupant(leaseId, personId, await getLocale()));
 }
 
-export async function inviteAction(leaseId: string): Promise<InviteOutcome> {
-  const outcome = await inviteParties(leaseId, await getLocale());
+/** Invites everyone pending on the lease, or one person when named (occupants are invited only by name). */
+export async function inviteAction(leaseId: string, personId?: string): Promise<InviteOutcome> {
+  const outcome = await inviteParties(leaseId, await getLocale(), personId);
   if (outcome.status === "sent") revalidatePath("/leases/[leaseId]", "page");
+  return outcome;
+}
+
+export async function inviteTenantsWithoutAccountAction(): Promise<InviteOutcome> {
+  const outcome = await inviteTenantsWithoutAccount(await getLocale());
+  if (outcome.status === "sent") revalidatePath("/leases", "page");
   return outcome;
 }
 

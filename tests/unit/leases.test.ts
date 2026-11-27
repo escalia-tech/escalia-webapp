@@ -278,6 +278,37 @@ describe("invitations and the tenant pages (FR-TEN-01)", () => {
     expect(await inviteParties(ID, "fr-CA")).toMatchObject({ status: "refused", reason: "emailRequired" });
   });
 
+  it("invites one named person, and every tenant without an account in one call", async () => {
+    const { inviteParties, inviteTenantsWithoutAccount } = await import("@/features/leases/server/leases.service");
+    const fetcher = answer(200, { sent: 1 });
+    vi.stubGlobal("fetch", fetcher);
+    expect(await inviteParties(ID, "fr-CA", ID)).toEqual({ status: "sent", count: 1 });
+    const [url, init] = fetcher.mock.calls[0] as unknown as [string, RequestInit];
+    expect(String(url)).toContain(`/actions/invite-parties/${ID}`);
+    expect(JSON.parse(String(init.body))).toEqual({ personIds: [ID] });
+    expect(await inviteParties(ID, "fr-CA", "x")).toEqual({ status: "invalid", reason: "id" });
+
+    vi.stubGlobal("fetch", answer(200, { sent: 4 }));
+    expect(await inviteTenantsWithoutAccount("fr-CA")).toEqual({ status: "sent", count: 4 });
+    vi.stubGlobal("fetch", answer(403, { code: "auth.forbidden" }));
+    expect(await inviteTenantsWithoutAccount("fr-CA")).toMatchObject({ status: "refused" });
+  });
+
+  it("tells joined, waiting, expired, not invited and unreachable people apart", async () => {
+    const { invitationState } = await import("@/features/leases/schemas/leases.schema");
+    const now = new Date("2027-02-01T12:00:00Z");
+    const base = { joinedAt: null, invitedAt: null, email: "a@example.test" };
+    expect(invitationState({ ...base, joinedAt: "2027-01-05T00:00:00Z" }, now).kind).toBe("joined");
+    expect(invitationState({ ...base, invitedAt: "2027-01-20T00:00:00Z" }, now)).toMatchObject({
+      kind: "invited",
+      until: new Date("2027-02-19T00:00:00Z"),
+    });
+    expect(invitationState({ ...base, invitedAt: "2026-12-01T00:00:00Z" }, now).kind).toBe("expired");
+    expect(invitationState(base, now).kind).toBe("notInvited");
+    expect(invitationState({ ...base, email: null }, now).kind).toBe("noEmail");
+    expect(invitationState(base).kind).toBe("notInvited");
+  });
+
   it("accepts only with a well-formed link and both boxes ticked, and sends the versions", async () => {
     const { acceptInvitation } = await import("@/features/leases/server/leases.service");
     const fetcher = answer(200, { leaseId: ID, role: "TENANT" });

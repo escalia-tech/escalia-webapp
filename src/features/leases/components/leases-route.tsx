@@ -4,8 +4,9 @@ import { Callout } from "@/components/feedback/callout";
 import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CreateOrganizationCard } from "@/features/organization/components/create-organization-card";
 import { Link } from "@/i18n/navigation";
-import { failureState } from "@/server/bff-pages/failure";
+import { failureState, isMissingOrganization } from "@/server/bff-pages/failure";
 
 import { fetchLeaseAnnexes } from "../server/bylaws.service";
 import { fetchLease, fetchLeaseLanguage, fetchLeases } from "../server/leases.service";
@@ -15,6 +16,7 @@ import { fetchLeaseForm } from "../server/tal-form.service";
 import { AnnexesPanel } from "./annexes-panel";
 import { CreateLeaseButton } from "./create-lease-button";
 import { InvitationsPanel } from "./invitations-panel";
+import { InviteAllTenants } from "./invite-all-tenants";
 import { LanguagePanel } from "./language-panel";
 import { LedgerPanel } from "./ledger-panel";
 import { PartiesEditor } from "./parties-editor";
@@ -45,26 +47,29 @@ export async function LeasesRoute() {
         {leases.length === 0 ? (
           <p className="text-muted-foreground text-sm">{t("empty")}</p>
         ) : (
-          <ul className="grid gap-3">
-            {leases.map((lease) => (
-              <li key={lease.id}>
-                <Link
-                  href={`/leases/${lease.id}` as `/${string}`}
-                  className="hover:bg-muted block rounded-lg border p-4"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-sm font-medium">
-                      {lease.parties
-                        .filter((one) => one.role === "TENANT")
-                        .map((one) => one.legalName)
-                        .join(", ") || t("noTenant")}
-                    </span>
-                    <Badge variant="outline">{t(`status.${lease.status}`)}</Badge>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="grid gap-4">
+            <InviteAllTenants />
+            <ul className="grid gap-3">
+              {leases.map((lease) => (
+                <li key={lease.id}>
+                  <Link
+                    href={`/leases/${lease.id}` as `/${string}`}
+                    className="hover:bg-muted block rounded-lg border p-4"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-sm font-medium">
+                        {lease.parties
+                          .filter((one) => one.role === "TENANT")
+                          .map((one) => one.legalName)
+                          .join(", ") || t("noTenant")}
+                      </span>
+                      <Badge variant="outline">{t(`status.${lease.status}`)}</Badge>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </>
     );

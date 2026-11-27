@@ -135,15 +135,26 @@
   },
   "invitations": {
     "title": "Invitations",
-    "description": "Invitez les personnes de ce bail à joindre Escalia. Le lien est valable 30 jours; un nouvel envoi remplace le précédent.",
+    "description": "Invitez les personnes de ce bail à joindre Escalia. Le lien est valable 30 jours; un nouvel envoi remplace le précédent. Les occupants sont invités un à un, seulement si le locataire le demande.",
     "send": "Envoyer les invitations",
     "resend": "Renvoyer",
     "sent": "{count, plural, =0 {Personne à inviter : ajoutez d'abord un courriel à chaque personne.} one {# invitation envoyée.} other {# invitations envoyées.}}",
+    "invite": "Inviter",
+    "resendAll": "Renvoyer à tous ceux en attente",
+    "inviteOne": "Inviter {name}",
+    "resendOne": "Renvoyer l'invitation à {name}",
     "status": {
       "notInvited": "Non invité",
       "invited": "Invité le {date}, valide jusqu'au {until}",
       "joined": "A rejoint le {date}",
-      "noEmail": "Aucun courriel"
+      "noEmail": "Aucun courriel",
+      "expired": "Invitation expirée (envoyée le {date})"
+    },
+    "bulk": {
+      "title": "Inviter tous les locataires sans compte",
+      "description": "Envoie une invitation à chaque locataire d'un bail signé ou importé qui n'a pas encore rejoint et n'a pas de lien valide. Les occupants et les cautions ne sont pas inclus.",
+      "action": "Inviter tous les locataires sans compte",
+      "sent": "{count, plural, =0 {Tous les locataires ont rejoint ou ont un lien valide.} one {# invitation envoyée.} other {# invitations envoyées.}}"
     }
   },
   "accept": {

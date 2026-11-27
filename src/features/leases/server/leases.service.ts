@@ -100,9 +100,24 @@ export type InviteOutcome =
   | { status: "refused"; reason: RefusalKey | undefined; message: string | undefined };
 
 /** Invites everyone on the lease who has not joined; sending again replaces the earlier link. */
-export async function inviteParties(leaseId: string, language: string): Promise<InviteOutcome> {
-  if (!ID.test(leaseId)) return { status: "invalid", reason: "id" };
-  const result = await postBffAction("leases.invite", `/actions/invite-parties/${leaseId}`, {}, language);
+/**
+ * Invites the named people of a lease, or every tenant and guarantor who has not joined when none is named
+ * (occupants only when named, FR-LEASE-05 section 6). Sending again voids the earlier link.
+ */
+export async function inviteParties(leaseId: string, language: string, personId?: string): Promise<InviteOutcome> {
+  if (!ID.test(leaseId) || (personId !== undefined && !ID.test(personId))) return { status: "invalid", reason: "id" };
+  const body = personId ? { personIds: [personId] } : {};
+  const result = await postBffAction("leases.invite", `/actions/invite-parties/${leaseId}`, body, language);
+  return sentOutcome(result);
+}
+
+/** "Inviter tous les locataires sans compte": every signed lease's tenants without an open link (FR-TEN-01 BR-1). */
+export async function inviteTenantsWithoutAccount(language: string): Promise<InviteOutcome> {
+  const result = await postBffAction("leases.invite_all", "/actions/invite-tenants-without-account", {}, language);
+  return sentOutcome(result);
+}
+
+function sentOutcome(result: Awaited<ReturnType<typeof postBffAction>>): InviteOutcome {
   if (!result.ok) return { status: "refused", reason: refusalKey(result.code), message: result.message };
   const sent = invitationsSentSchema.safeParse(result.body);
   return { status: "sent", count: sent.success ? sent.data.sent : 0 };
