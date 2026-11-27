@@ -9,10 +9,12 @@ import { failureState } from "@/server/bff-pages/failure";
 
 import { fetchTenantAnnexes } from "../server/bylaws.service";
 import { fetchTenantLanguage, fetchTenantLease, fetchTenantLeases } from "../server/leases.service";
+import { fetchTenantLedger } from "../server/ledger.service";
 import { fetchTenantSigning } from "../server/signing.service";
 import { AcceptInvitationForm } from "./accept-invitation-form";
 import { LanguageChoice } from "./language-choice";
 import { TenantAnnexes } from "./tenant-annexes";
+import { TenantLedger } from "./tenant-ledger";
 import { TenantSigning } from "./tenant-signing";
 
 async function crumbs(title: string) {
@@ -80,10 +82,11 @@ export async function TenantLeaseRoute({ id }: { id: string }) {
   ]);
   try {
     const lease = await fetchTenantLease(id, locale);
-    const [language, annexes, signing] = await Promise.all([
+    const [language, annexes, signing, ledger] = await Promise.all([
       lease.role === "OCCUPANT" ? undefined : fetchTenantLanguage(id, locale),
       fetchTenantAnnexes(id, locale),
       lease.role === "OCCUPANT" ? undefined : fetchTenantSigning(id, locale),
+      lease.role === "OCCUPANT" ? undefined : fetchTenantLedger(id, locale),
     ]);
     const summary = lease.solidaritySummary
       ? locale.startsWith("en")
@@ -123,6 +126,7 @@ export async function TenantLeaseRoute({ id }: { id: string }) {
         </Card>
         <TenantAnnexes leaseId={id} annexes={annexes} />
         {signing ? <TenantSigning view={signing} /> : null}
+        {ledger ? <TenantLedger view={ledger} /> : null}
         {language ? <LanguageChoice leaseId={id} state={language} /> : null}
       </>
     );

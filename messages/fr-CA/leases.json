@@ -69,7 +69,12 @@
     "signingContact": "Chaque signataire a besoin d'un courriel pour recevoir la demande de signature.",
     "signingNotOpen": "Aucune demande de signature n'est ouverte pour ce bail.",
     "deliveryNotFound": "Cette personne n'a pas de copie à recevoir sur ce bail.",
-    "deliveryDate": "La date de remise ne peut pas être dans le futur."
+    "deliveryDate": "La date de remise ne peut pas être dans le futur.",
+    "ledgerBlocked": "Les écritures manuelles sont suspendues sur ce bail le temps d'une vérification.",
+    "entryPaid": "Un paiement ou un crédit sert à payer cette charge : corrigez-le d'abord.",
+    "creditUsed": "Le crédit de ce paiement a déjà servi à payer une charge.",
+    "exceedsBalance": "Le montant dépasse ce qui est dû sur le bail.",
+    "designatedInvalid": "La charge choisie n'existe pas ou est déjà payée."
   },
   "roles": {
     "TENANT": "Locataire",
@@ -326,5 +331,94 @@
     "signHint": "Lisez et confirmez d'abord les annexes ci-dessus : la signature est refusée tant que ce n'est pas fait.",
     "signed": "Vous avez signé ce bail.",
     "waiting": "Le bail n'est pas encore ouvert à la signature."
+  },
+  "ledger": {
+    "title": "Compte du locataire",
+    "description": "Ce qui est dû, ce qui a été payé et le solde. Une écriture n'est jamais modifiée : une erreur se corrige par une écriture inverse.",
+    "balance": "Solde dû",
+    "credit": "Crédit en faveur du locataire",
+    "ageing": {
+      "title": "Âge de ce qui est dû",
+      "current": "Pas encore échu",
+      "d1": "1 à 7 jours",
+      "d8": "8 à 21 jours",
+      "d22": "22 jours et plus"
+    },
+    "blocked": "Les écritures manuelles sont suspendues sur ce bail le temps d'une vérification des livres. Les paiements déjà reçus restent inscrits.",
+    "csv": "Exporter en CSV",
+    "empty": "Aucune écriture pour l'instant.",
+    "columns": {
+      "date": "Date",
+      "description": "Description",
+      "charge": "Charge",
+      "payment": "Paiement",
+      "balance": "Solde",
+      "actions": "Actions"
+    },
+    "backdated": "Saisi le {date}",
+    "corrected": "Corrigé",
+    "correction": "Correction",
+    "correct": "Corriger",
+    "correctReason": "Raison de la correction",
+    "correctConfirm": "Confirmer la correction",
+    "payment": {
+      "title": "Enregistrer un paiement reçu",
+      "date": "Date de réception",
+      "amount": "Montant ($)",
+      "method": "Mode de paiement",
+      "note": "Note (facultatif)",
+      "designated": "Charge à payer en premier (facultatif)",
+      "oldest": "La plus ancienne d'abord",
+      "submit": "Enregistrer le paiement",
+      "done": "Paiement enregistré.",
+      "hint": "Sans indication, le paiement sert à la plus ancienne charge. Ce qui dépasse devient un crédit."
+    },
+    "methods": {
+      "INTERAC": "Virement Interac",
+      "CHEQUE": "Chèque",
+      "CASH": "Comptant",
+      "BANK_TRANSFER": "Virement bancaire",
+      "OTHER": "Autre"
+    },
+    "entry": {
+      "title": "Ajouter une écriture",
+      "type": "Type",
+      "date": "Date d'effet",
+      "amount": "Montant ($)",
+      "reason": "Raison",
+      "submit": "Ajouter l'écriture",
+      "done": "Écriture ajoutée.",
+      "hint": "Les frais de retard, les pénalités et les dépôts sont refusés au Québec. Des frais bancaires réels exigent une preuve ; des intérêts sont permis seulement selon les règles en vigueur.",
+      "corrected": "Écriture corrigée."
+    },
+    "types": {
+      "RENT_CHARGE": "Loyer",
+      "PARKING_CHARGE": "Stationnement",
+      "SERVICE_CHARGE": "Services",
+      "OTHER_CHARGE": "Autre charge",
+      "PAYMENT": "Paiement",
+      "CREDIT": "Crédit ou rabais",
+      "NSF_BANK_CHARGE": "Frais bancaires (chèque refusé)",
+      "ARREARS_INTEREST": "Intérêts sur arrérages",
+      "OPENING_BALANCE": "Solde d'ouverture",
+      "WRITE_OFF": "Radiation",
+      "REVERSAL": "Correction",
+      "CREDIT_APPLICATION": "Crédit appliqué"
+    },
+    "invalid": {
+      "id": "Cette demande n'est pas valide.",
+      "key": "Rechargez la page et recommencez.",
+      "date": "Indiquez une date valide.",
+      "amount": "Le montant doit être en dollars, par exemple 1500 ou 1500,50.",
+      "method": "Choisissez le mode de paiement.",
+      "type": "Choisissez le type d'écriture.",
+      "reason": "Indiquez la raison, en 200 caractères ou moins."
+    },
+    "tenant": {
+      "title": "Mon relevé",
+      "description": "Vos charges, vos paiements et votre solde pour ce bail.",
+      "guarantorOnly": "Comme caution, vous voyez le solde du bail, sans le détail des écritures.",
+      "empty": "Aucune écriture pour l'instant."
+    }
   }
 }
