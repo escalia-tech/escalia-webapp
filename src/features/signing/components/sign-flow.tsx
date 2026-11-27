@@ -45,6 +45,7 @@ export function SignFlow({ who, view }: { who: Who; view: SignerView }) {
   const [variation, setVariation] = useState(false);
   const [drawing, setDrawing] = useState("");
   const [declining, setDeclining] = useState(false);
+  const [read, setRead] = useState(false);
 
   const open = view.state === "OPEN" && view.signerState === "INVITED";
   const needsCode = view.authLevel !== "SESSION" && !view.verified;
@@ -187,8 +188,17 @@ export function SignFlow({ who, view }: { who: Who; view: SignerView }) {
                 {t("sign.drawing")}
                 <DrawingPad onChange={setDrawing} />
               </div>
+              <label className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={read}
+                  onChange={(event) => setRead(event.target.checked)}
+                  className="accent-primary size-4"
+                />
+                {t("sign.read")}
+              </label>
               <div>
-                <Button type="submit" disabled={pending}>
+                <Button type="submit" disabled={pending || !read}>
                   {t("sign.submit")}
                 </Button>
               </div>
