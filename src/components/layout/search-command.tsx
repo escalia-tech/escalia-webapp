@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Building2, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { useNavAudience } from "@/components/layout/nav-audience";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -16,7 +17,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { ALL_NAV } from "@/config/navigation";
+import { ALL_NAV, navFor } from "@/config/navigation";
 import type { BuildingListResult } from "@/features/buildings/schemas/building.schema";
 import { useRouter } from "@/i18n/navigation";
 import { bffFetch } from "@/lib/bff-client";
@@ -35,6 +36,7 @@ function useDebounced(value: string, delayMs: number) {
  * Buildings come from fictional fixtures; the group label says so.
  */
 export function SearchCommand() {
+  const audience = useNavAudience();
   const t = useTranslations("shell");
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -95,7 +97,7 @@ export function SearchCommand() {
           <CommandList>
             <CommandEmpty>{buildings.isError ? t("header.search.unavailable") : t("header.search.empty")}</CommandEmpty>
             <CommandGroup heading={t("header.search.groupPages")}>
-              {ALL_NAV.map((item) => {
+              {navFor(ALL_NAV, audience).map((item) => {
                 const Icon = item.icon;
                 const label = t(`nav.items.${item.key}`);
                 return (

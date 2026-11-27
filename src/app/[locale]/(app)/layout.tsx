@@ -5,12 +5,14 @@ import { cookies, headers } from "next/headers";
 import { hasLocale } from "next-intl";
 
 import { AppShell } from "@/components/layout/app-shell";
+import { navAudience } from "@/config/navigation";
 import { getNotifications } from "@/features/notifications/server/notifications.service";
 import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { COOKIE_NAMES } from "@/lib/cookies";
 import { PATH_HEADER, safeReturnTo } from "@/lib/return-to";
 import { getSession } from "@/server/auth/session";
+import { fetchShellRoles } from "@/server/auth/shell";
 
 /**
  * Authenticated application area. Access control happens HERE (server side), not in the proxy and
@@ -35,7 +37,11 @@ export default async function AppLayout({
     return null;
   }
 
-  const [cookieStore, notifications] = await Promise.all([cookies(), getNotifications(resolvedLocale)]);
+  const [cookieStore, notifications, roles] = await Promise.all([
+    cookies(),
+    getNotifications(resolvedLocale),
+    fetchShellRoles(resolvedLocale),
+  ]);
   const defaultSidebarOpen = cookieStore.get(COOKIE_NAMES.sidebar)?.value !== "false";
 
   return (
@@ -43,6 +49,7 @@ export default async function AppLayout({
       defaultSidebarOpen={defaultSidebarOpen}
       user={{ displayName: session.user.displayName, initials: session.user.initials }}
       notifications={notifications}
+      navAudience={navAudience(roles)}
     >
       {children}
     </AppShell>

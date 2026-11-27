@@ -198,9 +198,17 @@ test.describe("demo session and application shell", () => {
 
   test("planned modules state their status and offer no fake action", async ({ page }) => {
     await enterDemo(page);
-    await page.goto("/tenants");
-    await expect(page.getByRole("heading", { level: 1, name: "Locataires" })).toBeVisible();
+    await page.goto("/payments");
+    await expect(page.getByRole("heading", { level: 1, name: "Paiements" })).toBeVisible();
     await expect(page.getByText("Cette section n’est pas encore disponible")).toBeVisible();
+  });
+
+  test("the old units and tenants addresses lead to buildings and leases", async ({ page }) => {
+    await enterDemo(page);
+    await page.goto("/units");
+    await expect(page).toHaveURL(/\/buildings$/);
+    await page.goto("/tenants");
+    await expect(page).toHaveURL(/\/leases$/);
   });
 
   test("unknown routes render the localised 404", async ({ page }) => {
