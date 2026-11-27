@@ -8,6 +8,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getDashboardSummary } from "@/features/buildings/server/buildings.service";
 import { KpiCard } from "@/features/dashboard/components/kpi-card";
+import { RealMetrics } from "@/features/dashboard/components/real-metrics";
 import { TypesDonutChart } from "@/features/dashboard/components/types-donut-chart";
 import { UnitsBarChart } from "@/features/dashboard/components/units-bar-chart";
 import { type DashboardView, fromBff, fromDemo } from "@/features/dashboard/lib/dashboard-view";
@@ -82,6 +83,8 @@ export default async function DashboardPage() {
           }
         />
       </section>
+
+      {view.real ? <RealMetrics real={view.real} /> : null}
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <ChartCard
